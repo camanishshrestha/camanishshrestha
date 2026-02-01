@@ -7,58 +7,40 @@
    CSS VARIABLES
    ======================================== */
 :root {
-    /* Primary Colors */
     --primary: #00f5ff;
     --primary-dark: #00d4e0;
     --secondary: #7b2ff7;
     --accent: #ff006e;
-    
-    /* Background Colors */
     --bg-dark: #0a0e27;
     --bg-darker: #050816;
     --bg-card: #1a1f3a;
     --bg-card-hover: #242a45;
-    
-    /* Text Colors */
     --text-primary: #ffffff;
     --text-secondary: #e0e0e0;
     --text-muted: #a0a0a0;
-    
-    /* Gradients */
     --gradient-primary: linear-gradient(135deg, #00f5ff 0%, #7b2ff7 100%);
     --gradient-secondary: linear-gradient(135deg, #ff006e 0%, #7b2ff7 100%);
     --gradient-bg: linear-gradient(180deg, #050816 0%, #0a0e27 100%);
-    
-    /* Shadows */
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
     --shadow-glow: 0 0 20px rgba(0, 245, 255, 0.3);
-    
-    /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 6rem;
-    
-    /* Typography */
     --font-primary: 'Inter', sans-serif;
     --font-heading: 'Space Grotesk', sans-serif;
-    
-    /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
-    
-    /* Border Radius */
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 20px;
     --radius-full: 50%;
 }
 
-/* Light Mode Variables */
 body.light-mode {
     --bg-dark: #ffffff;
     --bg-darker: #f5f7fa;
@@ -72,9 +54,37 @@ body.light-mode {
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* ========================================
-   RESET & BASE STYLES
-   ======================================== */
+body.blackwhite-mode {
+    --primary: #000000;
+    --primary-dark: #1a1a1a;
+    --secondary: #333333;
+    --accent: #666666;
+    --bg-dark: #ffffff;
+    --bg-darker: #f8f9fa;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0f0f0;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-muted: #666666;
+    --gradient-primary: linear-gradient(135deg, #000000 0%, #333333 100%);
+    --gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+body.blackwhite-mode img {
+    filter: grayscale(100%);
+}
+
+body.blackwhite-mode .gradient-text {
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -92,25 +102,26 @@ body {
     color: var(--text-secondary);
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom Cursor */
 .cursor,
 .cursor-follower {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
     position: fixed;
+    border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.2s ease;
+    mix-blend-mode: difference;
+    transition: opacity 0.3s ease;
 }
 
 .cursor {
+    width: 10px;
+    height: 10px;
     background: var(--primary);
     box-shadow: 0 0 20px var(--primary);
     transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, background 0.15s ease;
 }
 
 .cursor-follower {
@@ -118,24 +129,25 @@ body {
     height: 40px;
     border: 2px solid var(--primary);
     transform: translate(-50%, -50%);
-    transition: transform 0.4s ease;
+    transition: transform 0.3s cubic-bezier(0.75, -0.5, 0, 1.75);
 }
 
-/* Hide custom cursor on mobile */
-@media (max-width: 768px) {
+body.blackwhite-mode .cursor {
+    background: #000000;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+body.blackwhite-mode .cursor-follower {
+    border-color: #000000;
+}
+
+@media (max-width: 1024px) {
     .cursor,
     .cursor-follower {
-        display: none;
-    }
-    
-    body {
-        cursor: auto;
+        display: none !important;
     }
 }
 
-/* ========================================
-   TYPOGRAPHY
-   ======================================== */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     color: var(--text-primary);
@@ -173,9 +185,6 @@ img {
     display: block;
 }
 
-/* ========================================
-   UTILITY CLASSES
-   ======================================== */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -223,7 +232,6 @@ img {
     border-radius: 2px;
 }
 
-/* Buttons */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -280,9 +288,6 @@ img {
     transform: translateY(-2px);
 }
 
-/* ========================================
-   NAVIGATION
-   ======================================== */
 .navbar {
     position: fixed;
     top: 0;
@@ -295,9 +300,22 @@ img {
     transition: var(--transition-base);
 }
 
+body.light-mode .navbar {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+body.blackwhite-mode .navbar {
+    background: rgba(255, 255, 255, 0.95);
+}
+
 .navbar.scrolled {
     background: rgba(5, 8, 22, 0.98);
     box-shadow: var(--shadow-md);
+}
+
+body.light-mode .navbar.scrolled,
+body.blackwhite-mode .navbar.scrolled {
+    background: rgba(255, 255, 255, 0.98);
 }
 
 .nav-container {
@@ -358,24 +376,50 @@ img {
     gap: 1.5rem;
 }
 
-.theme-toggle {
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    width: 40px;
-    height: 40px;
+.theme-switcher {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(0, 245, 255, 0.1);
+    padding: 0.25rem;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+body.light-mode .theme-switcher,
+body.blackwhite-mode .theme-switcher {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.theme-btn {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition-base);
+    font-size: 0.9rem;
 }
 
-.theme-toggle:hover {
+.theme-btn:hover {
+    color: var(--primary);
+    background: rgba(0, 245, 255, 0.1);
+}
+
+.theme-btn.active {
     background: var(--primary);
     color: white;
-    transform: rotate(180deg);
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+}
+
+body.blackwhite-mode .theme-btn.active {
+    background: #000000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .hamburger {
@@ -405,8 +449,15 @@ img {
     transform: rotate(-45deg) translate(7px, -7px);
 }
 
-/* Mobile Navigation */
 @media (max-width: 768px) {
+    .theme-switcher {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+        box-shadow: var(--shadow-lg);
+    }
+    
     .nav-menu {
         position: fixed;
         top: 70px;
@@ -420,6 +471,11 @@ img {
         gap: 1.5rem;
     }
     
+    body.light-mode .nav-menu,
+    body.blackwhite-mode .nav-menu {
+        background: rgba(255, 255, 255, 0.98);
+    }
+    
     .nav-menu.active {
         left: 0;
     }
@@ -429,9 +485,6 @@ img {
     }
 }
 
-/* ========================================
-   HERO SECTION
-   ======================================== */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -615,7 +668,6 @@ img {
     box-shadow: var(--shadow-glow);
 }
 
-/* Hero Image */
 .hero-image {
     position: relative;
     animation: fadeInRight 1s ease;
@@ -708,15 +760,10 @@ img {
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
-/* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
     bottom: 2rem;
@@ -727,6 +774,11 @@ img {
     align-items: center;
     gap: 0.5rem;
     animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .mouse {
@@ -767,7 +819,6 @@ img {
     letter-spacing: 2px;
 }
 
-/* Responsive Hero */
 @media (max-width: 968px) {
     .hero-container {
         grid-template-columns: 1fr;
@@ -802,9 +853,6 @@ img {
     }
 }
 
-/* ========================================
-   ABOUT SECTION
-   ======================================== */
 .about {
     padding: var(--spacing-xl) 0;
     background: var(--bg-dark);
@@ -817,7 +865,6 @@ img {
     align-items: start;
 }
 
-/* Terminal Window */
 .terminal-window {
     background: var(--bg-darker);
     border: 1px solid rgba(0, 245, 255, 0.2);
@@ -879,7 +926,6 @@ img {
     animation: blink 1s infinite;
 }
 
-/* About Info Cards */
 .about-info {
     display: grid;
     gap: 1rem;
@@ -926,9 +972,6 @@ img {
     }
 }
 
-/* ========================================
-   QUALIFICATIONS SECTION
-   ======================================== */
 .qualifications {
     padding: var(--spacing-xl) 0;
     background: var(--bg-darker);
@@ -951,7 +994,6 @@ img {
     font-size: 1.5rem;
 }
 
-/* Qualification Cards */
 .qual-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -1041,7 +1083,6 @@ img {
     font-weight: 600;
 }
 
-/* Certification Cards */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1107,18 +1148,12 @@ img {
 }
 
 @media (max-width: 768px) {
-    .qual-grid {
-        grid-template-columns: 1fr;
-    }
-    
+    .qual-grid,
     .cert-grid {
         grid-template-columns: 1fr;
     }
 }
 
-/* ========================================
-   EXPERIENCE TIMELINE
-   ======================================== */
 .experience {
     padding: var(--spacing-xl) 0;
     background: var(--bg-dark);
@@ -1315,9 +1350,6 @@ img {
     }
 }
 
-/* ========================================
-   SKILLS SECTION
-   ======================================== */
 .skills {
     padding: var(--spacing-xl) 0;
     background: var(--bg-darker);
@@ -1417,7 +1449,6 @@ img {
     100% { transform: translateX(100%); }
 }
 
-/* Tech Stack */
 .tech-stack {
     margin-top: var(--spacing-lg);
     text-align: center;
@@ -1499,9 +1530,6 @@ img {
     }
 }
 
-/* ========================================
-   PROJECTS SECTION
-   ======================================== */
 .projects {
     padding: var(--spacing-xl) 0;
     background: var(--bg-dark);
@@ -1697,7 +1725,6 @@ img {
     font-weight: 700;
 }
 
-/* Filter Animation */
 .project-card.hide {
     display: none;
 }
@@ -1708,9 +1735,6 @@ img {
     }
 }
 
-/* ========================================
-   CONTACT SECTION
-   ======================================== */
 .contact {
     padding: var(--spacing-xl) 0;
     background: var(--bg-darker);
@@ -1801,7 +1825,6 @@ img {
     box-shadow: var(--shadow-glow);
 }
 
-/* Contact Form */
 .contact-form {
     background: var(--bg-card);
     padding: var(--spacing-md);
@@ -1861,9 +1884,6 @@ img {
     }
 }
 
-/* ========================================
-   FOOTER
-   ======================================== */
 .footer {
     background: var(--bg-darker);
     padding: var(--spacing-lg) 0 var(--spacing-md);
@@ -1928,9 +1948,6 @@ img {
     50% { transform: scale(1.2); }
 }
 
-/* ========================================
-   SCROLL TO TOP BUTTON
-   ======================================== */
 .scroll-top {
     position: fixed;
     bottom: 2rem;
@@ -1959,21 +1976,6 @@ img {
     transform: translateY(-5px);
 }
 
-/* ========================================
-   ANIMATIONS
-   ======================================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
 @media (max-width: 1200px) {
     :root {
         --spacing-xl: 4rem;
@@ -1999,9 +2001,6 @@ img {
     }
 }
 
-/* ========================================
-   PRINT STYLES
-   ======================================== */
 @media print {
     .navbar,
     .scroll-top,
