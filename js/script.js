@@ -100,42 +100,55 @@ function initNavigation() {
 }
 
 // ========================================
-// THEME TOGGLE (DARK/LIGHT MODE)
+// MULTI-THEME TOGGLE (DARK/LIGHT/B&W)
 // ========================================
 function initThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeButtons = document.querySelectorAll('.theme-btn');
     
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            
-            // Update icon
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('light-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'light');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'dark');
-            }
+    themeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const theme = button.getAttribute('data-theme');
+            setTheme(theme);
         });
+    });
+}
+
+function setTheme(theme) {
+    // Remove all theme classes
+    document.body.classList.remove('light-mode', 'blackwhite-mode');
+    
+    // Remove active class from all buttons
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Apply selected theme
+    if (theme === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('theme-light')?.classList.add('active');
+    } else if (theme === 'blackwhite') {
+        document.body.classList.add('blackwhite-mode');
+        document.getElementById('theme-bw')?.classList.add('active');
+    } else {
+        // Dark mode (default)
+        document.getElementById('theme-dark')?.classList.add('active');
     }
+    
+    // Save preference
+    localStorage.setItem('theme', theme);
+    
+    // Show notification
+    const themeNames = {
+        'dark': 'Dark Mode',
+        'light': 'Light Mode',
+        'blackwhite': 'Black & White Mode'
+    };
+    showNotification(`Switched to ${themeNames[theme]}`, 'success');
 }
 
 function loadTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const themeToggle = document.getElementById('theme-toggle');
-    const icon = themeToggle?.querySelector('i');
-    
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        if (icon) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        }
-    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
 }
 
 // ========================================
@@ -475,19 +488,28 @@ function initScrollToTop() {
 }
 
 // ========================================
-// CUSTOM CURSOR
+// CUSTOM CURSOR - FIXED VERSION
 // ========================================
 function initCustomCursor() {
-    const cursor = document.querySelector('.cursor');
-    const cursorFollower = document.querySelector('.cursor-follower');
-    
-    if (!cursor || !cursorFollower) return;
-    
     // Only enable on desktop
-    if (window.innerWidth < 768) {
-        cursor.style.display = 'none';
-        cursorFollower.style.display = 'none';
+    if (window.innerWidth < 1024) {
         return;
+    }
+    
+    // Create cursor elements if they don't exist
+    let cursor = document.querySelector('.cursor');
+    let cursorFollower = document.querySelector('.cursor-follower');
+    
+    if (!cursor) {
+        cursor = document.createElement('div');
+        cursor.className = 'cursor';
+        document.body.appendChild(cursor);
+    }
+    
+    if (!cursorFollower) {
+        cursorFollower = document.createElement('div');
+        cursorFollower.className = 'cursor-follower';
+        document.body.appendChild(cursorFollower);
     }
     
     let mouseX = 0;
@@ -495,10 +517,12 @@ function initCustomCursor() {
     let followerX = 0;
     let followerY = 0;
     
+    // Update cursor position on mouse move
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
+        // Update main cursor immediately
         cursor.style.left = mouseX + 'px';
         cursor.style.top = mouseY + 'px';
     });
@@ -518,19 +542,55 @@ function initCustomCursor() {
     
     animateFollower();
     
-    // Cursor interactions
-    const interactiveElements = document.querySelectorAll('a, button, .btn, .project-card, .cert-card, .qual-card');
+    // Cursor interactions on hover
+    const interactiveElements = document.querySelectorAll(
+        'a, button, .btn, .project-card, .cert-card, .qual-card, ' +
+        '.info-card, .tech-item, .filter-btn, .social-links a, ' +
+        'input, textarea, .nav-link, .theme-btn, .hamburger'
+    );
     
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+            cursor.style.background = 'rgba(0, 245, 255, 0.5)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.8)';
         });
         
         element.addEventListener('mouseleave', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.background = 'var(--primary)';
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
         });
+        
+        // Add click effect
+        element.addEventListener('mousedown', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        });
+        
+        element.addEventListener('mouseup', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+    });
+    
+    // Hide default cursor on body
+    document.body.style.cursor = 'none';
+    
+    // Also hide cursor on all interactive elements
+    interactiveElements.forEach(element => {
+        element.style.cursor = 'none';
+    });
+    
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        cursorFollower.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        cursorFollower.style.opacity = '1';
     });
 }
 
@@ -608,7 +668,7 @@ function initPageVisibility() {
 // ========================================
 function initKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        // Ctrl/Cmd + K: Focus search or contact form
+        // Ctrl/Cmd + K: Focus contact form
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
             document.getElementById('name')?.focus();
