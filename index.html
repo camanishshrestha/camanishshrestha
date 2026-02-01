@@ -64,9 +64,7 @@
     </script>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <!-- Custom Cursor (created via JavaScript) -->
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
@@ -84,9 +82,17 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-right">
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
-                    <i class="fas fa-moon"></i>
-                </button>
+                <div class="theme-switcher">
+                    <button class="theme-btn active" id="theme-dark" data-theme="dark" aria-label="Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="theme-btn" id="theme-light" data-theme="light" aria-label="Light Mode">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button class="theme-btn" id="theme-bw" data-theme="blackwhite" aria-label="Black & White Mode">
+                        <i class="fas fa-adjust"></i>
+                    </button>
+                </div>
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
