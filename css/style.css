@@ -1,16 +1,19 @@
-/* ========================================
-   MODERN PROFESSIONAL PORTFOLIO STYLES
-   Author: Manish Shrestha
-   ======================================== */
+/* =================================================
+   CAMANISH SHRESTHA — 2026 ELITE PORTFOLIO
+   Chartered Accountant × Full-Stack Developer
+   Where Finance Meets Innovation
+   ================================================= */
 
 /* ========================================
-   CSS VARIABLES
+   CSS VARIABLES & THEME SYSTEM
    ======================================== */
 :root {
     --primary: #00f5ff;
     --primary-dark: #00d4e0;
     --secondary: #7b2ff7;
     --accent: #ff006e;
+    --accent-purple: #9333ea;
+    --accent-purple-light: #c084fc;
     --bg-dark: #0a0e27;
     --bg-darker: #050816;
     --bg-card: #1a1f3a;
@@ -20,11 +23,13 @@
     --text-muted: #a0a0a0;
     --gradient-primary: linear-gradient(135deg, #00f5ff 0%, #7b2ff7 100%);
     --gradient-secondary: linear-gradient(135deg, #ff006e 0%, #7b2ff7 100%);
+    --gradient-accent: linear-gradient(135deg, #9333ea 0%, #c084fc 100%);
     --gradient-bg: linear-gradient(180deg, #050816 0%, #0a0e27 100%);
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
     --shadow-glow: 0 0 20px rgba(0, 245, 255, 0.3);
+    --shadow-glow-purple: 0 0 30px rgba(147, 51, 234, 0.4);
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
@@ -35,6 +40,7 @@
     --transition-fast: 0.2s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 20px;
@@ -52,6 +58,7 @@ body.light-mode {
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+    --shadow-glow-purple: 0 0 30px rgba(124, 58, 237, 0.25);
 }
 
 body.blackwhite-mode {
@@ -59,6 +66,8 @@ body.blackwhite-mode {
     --primary-dark: #1a1a1a;
     --secondary: #333333;
     --accent: #666666;
+    --accent-purple: #000000;
+    --accent-purple-light: #333333;
     --bg-dark: #ffffff;
     --bg-darker: #f8f9fa;
     --bg-card: #ffffff;
@@ -68,10 +77,12 @@ body.blackwhite-mode {
     --text-muted: #666666;
     --gradient-primary: linear-gradient(135deg, #000000 0%, #333333 100%);
     --gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+    --gradient-accent: linear-gradient(135deg, #000000 0%, #333333 100%);
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
     --shadow-glow: 0 0 20px rgba(0, 0, 0, 0.3);
+    --shadow-glow-purple: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 body.blackwhite-mode img {
@@ -85,10 +96,14 @@ body.blackwhite-mode .gradient-text {
     background-clip: text;
 }
 
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: none; /* Custom cursor enabled */
 }
 
 html {
@@ -105,6 +120,9 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ========================================
+   CUSTOM CURSOR (BUTTER SMOOTH)
+   ======================================== */
 .cursor,
 .cursor-follower {
     position: fixed;
@@ -118,8 +136,8 @@ body {
 .cursor {
     width: 10px;
     height: 10px;
-    background: var(--primary);
-    box-shadow: 0 0 20px var(--primary);
+    background: var(--accent-purple);
+    box-shadow: 0 0 20px var(--accent-purple);
     transform: translate(-50%, -50%);
     transition: transform 0.15s ease, background 0.15s ease;
 }
@@ -127,7 +145,7 @@ body {
 .cursor-follower {
     width: 40px;
     height: 40px;
-    border: 2px solid var(--primary);
+    border: 2px solid var(--accent-purple);
     transform: translate(-50%, -50%);
     transition: transform 0.3s cubic-bezier(0.75, -0.5, 0, 1.75);
 }
@@ -141,13 +159,28 @@ body.blackwhite-mode .cursor-follower {
     border-color: #000000;
 }
 
+a:hover ~ .cursor-follower,
+button:hover ~ .cursor-follower,
+.btn:hover ~ .cursor-follower {
+    width: 60px;
+    height: 60px;
+    border-color: var(--accent-purple-light);
+}
+
 @media (max-width: 1024px) {
     .cursor,
     .cursor-follower {
         display: none !important;
     }
+    
+    * {
+        cursor: auto !important;
+    }
 }
 
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     color: var(--text-primary);
@@ -185,6 +218,9 @@ img {
     display: block;
 }
 
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -232,6 +268,9 @@ img {
     border-radius: 2px;
 }
 
+/* ========================================
+   BUTTONS
+   ======================================== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -288,6 +327,9 @@ img {
     transform: translateY(-2px);
 }
 
+/* ========================================
+   NAVIGATION
+   ======================================== */
 .navbar {
     position: fixed;
     top: 0;
@@ -485,6 +527,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   HERO SECTION (SMALLER PROFILE PIC)
+   ======================================== */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -686,8 +731,8 @@ body.blackwhite-mode .theme-btn.active {
 
 .image-wrapper {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 320px;
     margin: 0 auto;
 }
 
@@ -838,8 +883,8 @@ body.blackwhite-mode .theme-btn.active {
     }
     
     .image-wrapper {
-        width: 300px;
-        height: 300px;
+        width: 280px;
+        height: 280px;
     }
     
     .floating-card {
@@ -851,8 +896,262 @@ body.blackwhite-mode .theme-btn.active {
     .hero-stats {
         grid-template-columns: 1fr;
     }
+    
+    .image-wrapper {
+        width: 240px;
+        height: 240px;
+    }
 }
 
+/* ========================================
+   CA CREDENTIALS SECTION (ELITE TIER)
+   ======================================== */
+.credentials {
+    padding: var(--spacing-xl) var(--spacing-md);
+    background: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+}
+
+.credential-card {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.15), rgba(124, 58, 237, 0.08));
+    border: 2px solid rgba(147, 51, 234, 0.3);
+    border-radius: 24px;
+    padding: 3.5rem 2.5rem;
+    max-width: 680px;
+    width: 100%;
+    text-align: center;
+    transition: var(--transition-smooth);
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+}
+
+.credential-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(147, 51, 234, 0.15), transparent);
+    transform: rotate(45deg);
+    transition: var(--transition-smooth);
+}
+
+.credential-card:hover {
+    transform: translateY(-15px);
+    border-color: var(--accent-purple);
+    box-shadow: var(--shadow-glow-purple);
+}
+
+.credential-card:hover::before {
+    animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.credential-icon {
+    font-size: 5.5rem;
+    margin-bottom: 1.5rem;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 25px rgba(147, 51, 234, 0.6));
+    position: relative;
+    z-index: 1;
+}
+
+.credential-card h3 {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.institution {
+    color: var(--text-color);
+    opacity: 0.95;
+    margin: 0.8rem 0;
+    font-size: 1.15rem;
+    position: relative;
+    z-index: 1;
+}
+
+.year {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--accent-purple);
+    margin: 1.5rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.badge {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(147, 51, 234, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(147, 51, 234, 0.25);
+    position: relative;
+    z-index: 1;
+}
+
+.badge-text {
+    display: block;
+    font-size: 0.98rem;
+    margin-bottom: 1rem;
+    opacity: 0.92;
+    line-height: 1.6;
+}
+
+.caw-badge {
+    display: inline-block;
+    background: var(--gradient-accent);
+    color: white;
+    padding: 0.8rem 2.2rem;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    box-shadow: 0 10px 30px rgba(147, 51, 234, 0.5);
+    transition: var(--transition-smooth);
+}
+
+.caw-badge:hover {
+    transform: scale(1.08);
+    box-shadow: 0 15px 45px rgba(147, 51, 234, 0.7);
+}
+
+@media (max-width: 768px) {
+    .credential-card {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .credential-icon {
+        font-size: 4rem;
+    }
+}
+
+/* ========================================
+   VIEWER COUNTER (CYBERPUNK ANONYMOUS)
+   ======================================== */
+.viewer-stats {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+    background: var(--bg-darker);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: rgba(147, 51, 234, 0.08);
+    border: 2px solid rgba(147, 51, 234, 0.3);
+    border-radius: 20px;
+    padding: 2rem 3.5rem;
+    backdrop-filter: blur(10px);
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card:hover {
+    border-color: var(--accent-purple);
+    box-shadow: var(--shadow-glow-purple);
+    transform: translateY(-8px);
+}
+
+.stat-icon {
+    font-size: 4rem;
+    animation: pulse-eye 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-eye {
+    0%, 100% { 
+        opacity: 1; 
+        transform: scale(1); 
+        filter: drop-shadow(0 0 15px rgba(147, 51, 234, 0.6));
+    }
+    50% { 
+        opacity: 0.7; 
+        transform: scale(1.2); 
+        filter: drop-shadow(0 0 25px rgba(147, 51, 234, 0.9));
+    }
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light), var(--accent-purple));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 4s linear infinite;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+.loading-text {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    animation: blink-loading 1.5s infinite;
+}
+
+@keyframes blink-loading {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.stat-label {
+    font-size: 1.05rem;
+    opacity: 0.85;
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.privacy-badge {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: #10b981;
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 2.2rem;
+    }
+}
+
+/* ========================================
+   ABOUT SECTION
+   ======================================== */
 .about {
     padding: var(--spacing-xl) 0;
     background: var(--bg-dark);
@@ -972,6 +1271,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   QUALIFICATIONS
+   ======================================== */
 .qualifications {
     padding: var(--spacing-xl) 0;
     background: var(--bg-darker);
@@ -1154,6 +1456,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   EXPERIENCE TIMELINE
+   ======================================== */
 .experience {
     padding: var(--spacing-xl) 0;
     background: var(--bg-dark);
@@ -1350,6 +1655,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   SKILLS SECTION
+   ======================================== */
 .skills {
     padding: var(--spacing-xl) 0;
     background: var(--bg-darker);
@@ -1441,10 +1749,10 @@ body.blackwhite-mode .theme-btn.active {
     right: 0;
     bottom: 0;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 2s infinite;
+    animation: shimmer-skill 2s infinite;
 }
 
-@keyframes shimmer {
+@keyframes shimmer-skill {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
 }
@@ -1530,6 +1838,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   PROJECTS SECTION
+   ======================================== */
 .projects {
     padding: var(--spacing-xl) 0;
     background: var(--bg-dark);
@@ -1735,6 +2046,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   CONTACT SECTION
+   ======================================== */
 .contact {
     padding: var(--spacing-xl) 0;
     background: var(--bg-darker);
@@ -1884,6 +2198,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   FOOTER
+   ======================================== */
 .footer {
     background: var(--bg-darker);
     padding: var(--spacing-lg) 0 var(--spacing-md);
@@ -1936,6 +2253,14 @@ body.blackwhite-mode .theme-btn.active {
 .footer-bottom p {
     color: var(--text-muted);
     margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.footer-bottom strong {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
 }
 
 .footer-bottom i {
@@ -1948,6 +2273,9 @@ body.blackwhite-mode .theme-btn.active {
     50% { transform: scale(1.2); }
 }
 
+/* ========================================
+   SCROLL TO TOP BUTTON
+   ======================================== */
 .scroll-top {
     position: fixed;
     bottom: 2rem;
@@ -1976,6 +2304,39 @@ body.blackwhite-mode .theme-btn.active {
     transform: translateY(-5px);
 }
 
+/* ========================================
+   SELECTION & SCROLLBAR
+   ======================================== */
+::selection {
+    background: var(--accent-purple);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--accent-purple);
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-purple);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-purple-light);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
 @media (max-width: 1200px) {
     :root {
         --spacing-xl: 4rem;
@@ -2001,6 +2362,9 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
+/* ========================================
+   PRINT STYLES
+   ======================================== */
 @media print {
     .navbar,
     .scroll-top,
@@ -2022,3 +2386,9 @@ body.blackwhite-mode .theme-btn.active {
         box-shadow: none !important;
     }
 }
+
+/* ========================================
+   END OF STYLESHEET
+   Professional. Elite. Unforgettable.
+   Chartered Accountant × Developer
+   ======================================== */
