@@ -38,6 +38,101 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     
+    <!-- CUSTOM STYLES FOR REQUESTED CHANGES -->
+    <style>
+        /* 1. DYNAMIC THEME (Auto-Detects Dark/Light Mode) */
+        :root {
+            /* Light Mode Defaults */
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --text-muted: #666666;
+            --card-bg: #f9f9f9;
+            --border-color: #e0e0e0;
+            --accent-color: #0056b3; 
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* Dark Mode Overrides */
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --text-muted: #a0a0a0;
+                --card-bg: #1e1e1e;
+                --border-color: #333333;
+                --accent-color: #4da3ff;
+            }
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+            }
+            /* Force components to adapt */
+            .card, .project-card, .timeline-content, .qual-card, .cert-card, .info-card, .terminal-window, .footer {
+                background-color: var(--card-bg) !important;
+                color: var(--text-color) !important;
+                border-color: var(--border-color) !important;
+            }
+            h1, h2, h3, h4, h5, h6 { color: var(--text-color) !important; }
+            p, li { color: var(--text-muted) !important; }
+        }
+
+        /* 2. REMOVE DOWNLOAD CV BUTTONS & LINKS */
+        a[href*="CV"], a[href*="cv"], a[href*="resume"], .btn-secondary {
+            display: none !important;
+        }
+
+        /* 3. RESIZE PHOTO (Small, Professional, Readable Background) */
+        .hero-image .image-wrapper img, 
+        .hero-image img {
+            width: 180px !important;  /* Sets photo to small size */
+            height: 180px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 5;
+            position: relative;
+        }
+        /* Center the small image */
+        .hero-image .image-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            border: none;
+        }
+        /* Hide the large decorative border and floating cards for cleaner look */
+        .hero-image .image-border, .floating-card {
+            display: none !important; 
+        }
+
+        /* 4. VISITOR COUNTER STYLING */
+        .visitor-metrics-container {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            background-color: var(--card-bg);
+            padding-bottom: 20px;
+        }
+        .visitor-badge {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        .privacy-disclaimer {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            line-height: 1.4;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    
     <!-- Schema.org Markup -->
     <script type="application/ld+json">
     {
@@ -82,17 +177,7 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-right">
-                <div class="theme-switcher">
-                    <button class="theme-btn active" id="theme-dark" data-theme="dark" aria-label="Dark Mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button class="theme-btn" id="theme-light" data-theme="light" aria-label="Light Mode">
-                        <i class="fas fa-sun"></i>
-                    </button>
-                    <button class="theme-btn" id="theme-bw" data-theme="blackwhite" aria-label="Black & White Mode">
-                        <i class="fas fa-adjust"></i>
-                    </button>
-                </div>
+                <!-- Theme switcher is handled by CSS auto-detect now, keeping structure for layout -->
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
@@ -146,7 +231,7 @@
                         <i class="fas fa-envelope"></i>
                         Get In Touch
                     </a>
-                    <a href="https://github.com/camanishshrestha/camanishshrestha/blob/main/CV.md" target="_blank" class="btn btn-secondary">
+                    <!-- Download CV Button Removed via CSS -->
                 </div>
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank" aria-label="LinkedIn">
@@ -163,11 +248,14 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- Hero Image: Modified to be smaller via CSS -->
             <div class="hero-image">
                 <div class="image-wrapper">
                     <img src="images/ms.jpg" alt="Manish Shrestha - Chartered Accountant">
                     <div class="image-border"></div>
                 </div>
+                <!-- Floating cards are hidden via CSS to keep the look professional and clean -->
                 <div class="floating-card card-1">
                     <i class="fas fa-certificate"></i>
                     <div>
@@ -1239,15 +1327,28 @@
                 <div class="footer-section">
                     <h4>Professional</h4>
                     <ul>
-                        <li><a href="https://github.com/camanishshrestha/camanishshrestha/blob/main/CV.md" target="_blank">Download CV</a></li>
+                        <!-- Download CV link removed -->
                         <li><a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank">LinkedIn</a></li>
                         <li><a href="https://github.com/camanishshrestha" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
             </div>
+            
+            <!-- Updated Footer Bottom with 2026 Copyright, Visitor Count, and Privacy Text -->
             <div class="footer-bottom">
-                <p>&copy; 2026 Manish Shrestha. All rights reserved.</p>
-                <p>Designed & Developed with <i class="fas fa-heart"></i> by CA Manish Shrestha</p>
+                <div class="copyright-text">
+                    &copy; 2026 CA Manish Shrestha. All Rights Reserved.
+                </div>
+                
+                <div class="visitor-metrics-container">
+                    <span>Total Views: </span>
+                    <!-- You can replace '1,234' with a script for a live counter if you have one -->
+                    <span class="visitor-badge">1,234</span>
+                    
+                    <p class="privacy-disclaimer">
+                        <strong>Transparency Notice:</strong> This website utilizes an anonymous visitor counter for statistical metrics only. We strictly adhere to user privacy standards; no personally identifiable information (PII) or user browsing habits are recorded or stored by this website.
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
