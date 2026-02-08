@@ -3,42 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Manish Shrestha - Chartered Accountant (ICAN) | CISA | Head of Internal Audit & Compliance at Sanima Group. Specializing in Financial Auditing, IS Auditing, and GRC.">
-    <meta name="keywords" content="Chartered Accountant, CISA, Internal Audit, Compliance, Financial Auditing, IT Audit, Nepal">
-    <title>Manish Shrestha | CA | CISA | Audit & Compliance Expert</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Manish Shrestha | Chartered Accountant (CA) | CISA | Internal Audit & Compliance Head | ISO/IEC 27001:2022 and ISO/IEC 42001:2023 LA</title>
+    <meta name="description" content="Manish Shrestha - Chartered Accountant (ICAN), CISA, and GRC Professional with 8+ years in Financial & IS Auditing. Head of Internal Audit at Sanima Group. ISO 27001 & ISO 42001 Lead Auditor.">
+    <meta name="keywords" content="Chartered Accountant Nepal, CISA, Internal Audit, Compliance, ISO 27001, NFRS, IFRS, Cybersecurity, GRC, Manish Shrestha">
+    <meta name="author" content="Manish Shrestha">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Manish Shrestha | CA | CISA | Audit & Compliance Expert">
+    <meta property="og:description" content="Elite Finance & IT Audit Professional | Head of Internal Audit & Compliance at Sanima Group">
+    <meta property="og:image" content="https://www.camanishshrestha.com.np/images/ms.jpg">
+    <meta property="og:url" content="https://www.camanishshrestha.com.np/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Manish Shrestha | CA | CISA | Audit Professional">
+    <meta name="twitter:description" content="Chartered Accountant & CISA with expertise in Internal Audit, Compliance & Cybersecurity">
+    <meta name="twitter:image" content="https://www.camanishshrestha.com.np/images/ms.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/ms.jpg">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Custom CSS -->
+    <!-- External CSS -->
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- INTERNAL STYLES FOR YOUR REQUESTS -->
+    <style>
+        /* 1. DYNAMIC THEME (Auto-Detect Dark/Light Mode based on System) */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --text-muted: #555555;
+            --card-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --accent-color: #0056b3; /* Professional Blue */
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;       /* Dark Slate */
+                --text-color: #f1f5f9;     /* Off-White */
+                --text-muted: #94a3b8;     /* Light Grey */
+                --card-bg: #1e293b;        /* Darker Card */
+                --border-color: #334155;
+                --accent-color: #38bdf8;   /* Bright Blue */
+                --shadow: 0 4px 6px rgba(0,0,0,0.5);
+            }
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+            }
+            /* Force elements to use variables */
+            .card, .project-card, .timeline-content, .qual-card, .cert-card, .info-card, .terminal-window, .footer {
+                background-color: var(--card-bg) !important;
+                color: var(--text-color) !important;
+                border-color: var(--border-color) !important;
+            }
+            h1, h2, h3, h4, h5, h6 { color: var(--text-color) !important; }
+            p, li, span { color: var(--text-muted); }
+            /* Exception for white text in badges/buttons */
+            .btn, .badge, .visitor-count-badge { color: #ffffff !important; }
+        }
+
+        /* 2. REMOVE ALL CV LINKS */
+        a[href*="CV"], a[href*="cv"], a[href*="resume"], .btn-secondary {
+            display: none !important;
+        }
+
+        /* 3. RESIZE PHOTO (Small & Professional) */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image img, .image-wrapper img {
+            width: 180px !important;  /* Fixed small size */
+            height: 180px !important; /* Fixed small size */
+            border-radius: 50%;       /* Circle */
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        .image-wrapper {
+            border: none !important; /* Remove large square borders */
+            width: auto !important;
+            height: auto !important;
+        }
+        /* Hide floating cards to keep it clean */
+        .floating-card, .image-border { display: none !important; }
+
+        /* 4. VISITOR COUNTER SECTION */
+        .visitor-metrics-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .visitor-count-badge {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Space Grotesk', monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .privacy-disclaimer {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+            line-height: 1.5;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manish Shrestha",
+      "jobTitle": "Head of Internal Audit & Compliance",
+      "description": "Chartered Accountant (ICAN), CISA, and GRC Professional",
+      "url": "https://www.camanishshrestha.com.np/",
+      "sameAs": [
+        "https://www.linkedin.com/in/manish-shrestha-cisa-grc",
+        "https://github.com/camanishshrestha"
+      ],
+      "image": "https://www.camanishshrestha.com.np/images/ms.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lalitpur",
+        "addressCountry": "Nepal"
+      },
+      "email": "ca.manish.shrestha@gmail.com",
+      "telephone": "+977-9843676945",
+      "knowsAbout": ["Internal Audit", "CISA", "ISO 27001", "NFRS", "IFRS", "Cybersecurity", "Risk Management"]
+    }
+    </script>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-dot"></div>
-    
-    <!-- Particle Background -->
-    <canvas id="particles-canvas"></canvas>
-    
-    <!-- Floating Geometric Shapes -->
-    <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-    </div>
+    <!-- Custom Cursor (created via JavaScript) -->
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <span class="gradient-text">MS</span>
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#home">MS<span>.</span></a>
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
@@ -49,70 +176,82 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-right">
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="container">
+        <div class="hero-background">
+            <div class="gradient-overlay"></div>
+        </div>
+        <div class="container hero-container">
             <div class="hero-content">
-                <div class="hero-text" data-aos="fade-right">
-                    <div class="status-badge">
-                        <span class="status-dot"></span>
-                        Available for Opportunities
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>Available for Opportunities</span>
+                </div>
+                <h1 class="hero-title">
+                    Hi, I'm <span class="gradient-text">Manish Shrestha</span>
+                </h1>
+                <h2 class="hero-subtitle">
+                    <span class="typing-text"></span>
+                </h2>
+                <p class="hero-description">
+                    Chartered Accountant (ICAN) | CISA | Head of Internal Audit & Compliance at Sanima Group
+                    <br>Specializing in Financial Auditing, IS Auditing, and Governance, Risk & Compliance (GRC)
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="8">0</h3>
+                        <p>Years Experience</p>
                     </div>
-                    <h1 class="hero-title">
-                        Hi, I'm <span class="gradient-text-animated">Manish Shrestha</span>
-                    </h1>
-                    <div class="hero-subtitle">
-                        <span class="typing-text"></span>
-                        <span class="cursor">|</span>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="20">0</h3>
+                        <p>Certifications</p>
                     </div>
-                    <p class="hero-description">
-                        Chartered Accountant (ICAN) | CISA | Head of Internal Audit & Compliance at Sanima Group
-                        <br>
-                        Specializing in Financial Auditing, IS Auditing, and Governance, Risk & Compliance (GRC)
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary btn-3d">
-                            <span>Get In Touch</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="#projects" class="btn btn-secondary btn-3d">
-                            <span>View Work</span>
-                            <i class="fas fa-briefcase"></i>
-                        </a>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="60">0</h3>
+                        <p>Projects Completed</p>
                     </div>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <div class="stat-number" data-count="8">0</div>
-                            <div class="stat-label">Years Experience</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-count="16">0</div>
-                            <div class="stat-label">Certifications</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-count="50">0</div>
-                            <div class="stat-label">Projects Completed</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-count="60">0</div>
-                            <div class="stat-label">Companies Audited</div>
-                        </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="9">0</h3>
+                        <p>Companies Audited</p>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <div class="image-container">
-                        <div class="image-glow"></div>
-                        <img src="https://sspark.genspark.ai/cfimages?u1=JDIUxM9UebfoPJAlNEpK83FECobGKhvHTTbD2ETC2bE29ClnQ7ArDZxvip7hHvwZcTcLxxWPwRpHG1GLBjiIdCU%3D&u2=BrqfQ%2Ftgdd%2FblmzA&width=1024" alt="Manish Shrestha - Chartered Accountant">
-                        <div class="image-border"></div>
-                    </div>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i>
+                        Get In Touch
+                    </a>
+                    <!-- Download CV removed via CSS -->
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/camanishshrestha" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:ca.manish.shrestha@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="tel:+9779843676945" aria-label="Phone">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Hero Image (Resized by CSS) -->
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <img src="images/ms.jpg" alt="Manish Shrestha - Chartered Accountant">
                 </div>
             </div>
         </div>
@@ -120,101 +259,76 @@
             <div class="mouse">
                 <div class="wheel"></div>
             </div>
-            <div class="arrow">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <p>Scroll Down</p>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about section">
+    <section id="about" class="about">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">$ whoami</span>
-                <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
-                <p class="section-subtitle">Elite Finance & IT Audit Professional</p>
+            <div class="section-header">
+                <span class="section-subtitle">Get To Know</span>
+                <h2 class="section-title">About Me</h2>
             </div>
             <div class="about-content">
-                <div class="terminal-card glass-card" data-aos="zoom-in">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <span class="btn-close"></span>
-                            <span class="btn-minimize"></span>
-                            <span class="btn-maximize"></span>
+                <div class="about-text">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">profile.sh</span>
                         </div>
-                        <div class="terminal-title">manish@shrestha:~$</div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">
-                            <span class="prompt">$</span> cat about_me.txt
-                        </div>
-                        <div class="terminal-output">
-                            Elite Finance & IT Audit Professional with <span class="highlight">8+ years</span> of comprehensive experience spanning Financial Auditing, Information Systems Auditing, and Governance, Risk & Compliance (GRC).
-                            <br><br>
-                            Currently spearheading <span class="highlight">Compliance & Internal Audit</span> operations across <span class="highlight">9 companies</span> within Sanima Group.
-                        </div>
-                        <div class="terminal-line">
-                            <span class="prompt">$</span> ./list_achievements.sh
-                        </div>
-                        <div class="terminal-output">
-                            <div class="achievement-list">
-                                <div class="achievement-item">✓ Chartered Accountant (ICAN) - Dec 2024</div>
-                                <div class="achievement-item">✓ CISA (625/800) - Valid till 2026</div>
-                                <div class="achievement-item">✓ ISO 27001:2022 Lead Auditor - 95%</div>
-                                <div class="achievement-item">✓ ISO 42001:2023 Lead Auditor - 84%</div>
-                                <div class="achievement-item">✓ 20+ NFRS Convergence Projects</div>
-                                <div class="achievement-item">✓ 60+ Bank Branches Audited</div>
-                                <div class="achievement-item">✓ 2x Bronze Award Winner (Best Presented Annual Report)</div>
-                            </div>
-                        </div>
-                        <div class="terminal-line">
-                            <span class="prompt">$</span> echo $INTERESTS
-                        </div>
-                        <div class="terminal-output">
-                            <span class="tag">Cybersecurity</span>
-                            <span class="tag">AI & Machine Learning</span>
-                            <span class="tag">FinTech</span>
-                            <span class="tag">Data Analytics</span>
-                        </div>
-                        <div class="terminal-cursor-line">
-                            <span class="prompt">$</span> <span class="terminal-cursor">_</span>
+                        <div class="terminal-body">
+                            <p><span class="terminal-prompt">$</span> cat about_me.txt</p>
+                            <p class="terminal-output">
+                                Elite Finance & IT Audit Professional with <span class="highlight">8+ years</span> of comprehensive experience spanning Financial Auditing, Information Systems Auditing, and Governance, Risk & Compliance (GRC).
+                            </p>
+                            <p class="terminal-output">
+                                Currently spearheading Compliance & Internal Audit operations across <span class="highlight">9 companies</span> within Sanima Group.
+                            </p>
+                            <p><span class="terminal-prompt">$</span> ./list_achievements.sh</p>
+                            <p class="terminal-output">
+                                ✓ Chartered Accountant (ICAN) - Dec 2024<br>
+                                ✓ CISA (625/800) - Valid till 2026<br>
+                                ✓ ISO 27001:2022 Lead Auditor - 95%<br>
+                                ✓ ISO 42001:2023 Lead Auditor - 84%<br>
+                                ✓ 20+ NFRS Convergence Projects<br>
+                                ✓ 60+ Bank Branches Audited<br>
+                                ✓ 2x Bronze Award Winner (Best Presented Annual Report)
+                            </p>
+                            <p><span class="terminal-prompt">$</span> echo $INTERESTS</p>
+                            <p class="terminal-output">
+                                🔐 Cybersecurity | 🤖 AI & Machine Learning | 💰 FinTech | 📊 Data Analytics
+                            </p>
+                            <p><span class="terminal-cursor">▮</span></p>
                         </div>
                     </div>
                 </div>
-                <div class="info-cards">
-                    <div class="info-card glass-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="info-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
+                <div class="about-info">
+                    <div class="info-card">
+                        <i class="fas fa-briefcase"></i>
                         <h3>Current Role</h3>
                         <p>Head of Internal Audit & Compliance</p>
-                        <span class="info-detail">Sanima Group</span>
+                        <span>Sanima Group</span>
                     </div>
-                    <div class="info-card glass-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="info-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
+                    <div class="info-card">
+                        <i class="fas fa-graduation-cap"></i>
                         <h3>Education</h3>
                         <p>MA Economics (In Progress)</p>
-                        <span class="info-detail">Tribhuvan University</span>
+                        <span>Tribhuvan University</span>
                     </div>
-                    <div class="info-card glass-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="info-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
                         <h3>Location</h3>
                         <p>Satdobato, Lalitpur</p>
-                        <span class="info-detail">Nepal</span>
+                        <span>Nepal</span>
                     </div>
-                    <div class="info-card glass-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="info-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
+                    <div class="info-card">
+                        <i class="fas fa-award"></i>
                         <h3>Specialization</h3>
                         <p>Audit & Compliance</p>
-                        <span class="info-detail">Finance & IT</span>
+                        <span>Finance & IT</span>
                     </div>
                 </div>
             </div>
@@ -222,272 +336,320 @@
     </section>
 
     <!-- Qualifications Section -->
-    <section id="qualifications" class="qualifications section">
+    <section id="qualifications" class="qualifications">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Credentials</span>
-                <h2 class="section-title">Professional <span class="gradient-text">Qualifications</span></h2>
-                <p class="section-subtitle">Certified Excellence in Finance & IT Audit</p>
+            <div class="section-header">
+                <span class="section-subtitle">My Credentials</span>
+                <h2 class="section-title">Qualifications & Certifications</h2>
             </div>
-            <div class="qualifications-grid">
-                <!-- Main Qualifications -->
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="100">
-                    <div class="qual-badge badge-gold">
-                        <i class="fas fa-crown"></i>
+            
+            <!-- Professional Qualifications -->
+            <div class="qual-category">
+                <h3 class="category-title">
+                    <i class="fas fa-certificate"></i>
+                    Professional Qualifications
+                </h3>
+                <div class="qual-grid">
+                    <div class="qual-card featured">
+                        <div class="qual-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="qual-content">
+                            <h4>Chartered Accountant (CA)</h4>
+                            <p class="qual-institution">Institute of Chartered Accountants of Nepal (ICAN)</p>
+                            <p class="qual-date">Qualified - December 2024</p>
+                            <span class="qual-badge">Qualified</span>
+                        </div>
                     </div>
-                    <div class="qual-icon">
-                        <i class="fas fa-certificate"></i>
+                    <div class="qual-card featured">
+                        <div class="qual-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="qual-content">
+                            <h4>Certified Information Systems Auditor (CISA)</h4>
+                            <p class="qual-institution">ISACA - United States</p>
+                            <p class="qual-date">Score: 625/800 | Valid till 2026</p>
+                            <span class="qual-badge">Certified</span>
+                        </div>
                     </div>
-                    <h3>Chartered Accountant (CA)</h3>
-                    <p class="qual-org">Institute of Chartered Accountants of Nepal (ICAN)</p>
-                    <div class="qual-detail">Qualified - December 2024</div>
-                    <div class="qual-status status-qualified">Qualified</div>
                 </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="200">
-                    <div class="qual-badge badge-gold">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="qual-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h3>Certified Information Systems Auditor (CISA)</h3>
-                    <p class="qual-org">ISACA - United States</p>
-                    <div class="qual-detail">Score: 625/800 | Valid till 2026</div>
-                    <div class="qual-status status-certified">Certified</div>
-                </div>
+            </div>
 
-                <!-- ISO Certifications -->
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="300">
-                    <div class="qual-score">95%</div>
-                    <div class="qual-icon">
-                        <i class="fas fa-user-shield"></i>
+            <!-- Core Certifications -->
+            <div class="qual-category">
+                <h3 class="category-title">
+                    <i class="fas fa-lock"></i>
+                    Information Security & Compliance
+                </h3>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-score">95%</div>
+                        <h4>ISO/IEC 27001:2022 Lead Auditor</h4>
+                        <p>Information Security Management Systems (ISMS)</p>
+                        <span class="cert-provider">Mastermind Assurance - US</span>
                     </div>
-                    <h3>ISO/IEC 27001:2022 Lead Auditor</h3>
-                    <p class="qual-org">Information Security Management Systems (ISMS)</p>
-                    <div class="qual-detail">Mastermind Assurance - US</div>
-                </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="400">
-                    <div class="qual-score">84%</div>
-                    <div class="qual-icon">
-                        <i class="fas fa-brain"></i>
+                    <div class="cert-card">
+                        <div class="cert-score">84%</div>
+                        <h4>ISO/IEC 42001:2023 Lead Auditor</h4>
+                        <p>AI Management Systems (AIMS)</p>
+                        <span class="cert-provider">Mastermind Assurance - US</span>
                     </div>
-                    <h3>ISO/IEC 42001:2023 Lead Auditor</h3>
-                    <p class="qual-org">AI Management Systems (AIMS)</p>
-                    <div class="qual-detail">Mastermind Assurance - US</div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                        <h4>ISO 27001:2022 Information Security Associate</h4>
+                        <p>ISMS Foundation</p>
+                        <span class="cert-provider">Skillfront</span>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                        <h4>Certified Phishing Prevention Specialist</h4>
+                        <p>CCPS Certification</p>
+                        <span class="cert-provider">Hack and Fix Academy</span>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                        <h4>PCI DSS Compliance</h4>
+                        <p>Payment Card Industry Standards</p>
+                        <span class="cert-provider">Tayl</span>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                        <h4>GDPR Foundations</h4>
+                        <p>Data Protection & Privacy</p>
+                        <span class="cert-provider">Measured Collective</span>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Additional Certifications -->
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="500">
-                    <div class="qual-icon">
-                        <i class="fas fa-security"></i>
+            <!-- AI & Technology -->
+            <div class="qual-category">
+                <h3 class="category-title">
+                    <i class="fas fa-robot"></i>
+                    Artificial Intelligence & Emerging Tech
+                </h3>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                        <h4>Introduction to AI Concepts</h4>
+                        <span class="cert-provider">Microsoft</span>
                     </div>
-                    <h3>ISO 27001:2022 Information Security Associate</h3>
-                    <p class="qual-org">ISMS Foundation</p>
-                    <div class="qual-detail">Skillfront</div>
-                </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="600">
-                    <div class="qual-icon">
-                        <i class="fas fa-fish"></i>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fab fa-google"></i></div>
+                        <h4>Google Gemini Certified</h4>
+                        <p>Valid: 2025-2028</p>
+                        <span class="cert-provider">Google for Education</span>
                     </div>
-                    <h3>Certified Phishing Prevention Specialist</h3>
-                    <p class="qual-org">CCPS Certification</p>
-                    <div class="qual-detail">Hack and Fix Academy</div>
-                </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="700">
-                    <div class="qual-icon">
-                        <i class="fas fa-credit-card"></i>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-brain"></i></div>
+                        <h4>AI Risks, Rewards & Responsibilities</h4>
+                        <span class="cert-provider">The Alan Turing Institute</span>
                     </div>
-                    <h3>PCI DSS Compliance</h3>
-                    <p class="qual-org">Payment Card Industry Standards</p>
-                    <div class="qual-detail">Tayl</div>
-                </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="800">
-                    <div class="qual-icon">
-                        <i class="fas fa-user-lock"></i>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h4>Demystifying Generative AI for Leaders</h4>
+                        <span class="cert-provider">Infosys</span>
                     </div>
-                    <h3>GDPR Foundations</h3>
-                    <p class="qual-org">Data Protection & Privacy</p>
-                    <div class="qual-detail">Measured Collective</div>
                 </div>
+            </div>
 
-                <!-- AI & Tech Certifications -->
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="900">
-                    <div class="qual-icon">
-                        <i class="fas fa-robot"></i>
+            <!-- Finance & Accounting -->
+            <div class="qual-category">
+                <h3 class="category-title">
+                    <i class="fas fa-chart-line"></i>
+                    Finance & Accounting
+                </h3>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-building"></i></div>
+                        <h4>IFRS 9: Impairment (ECL Model)</h4>
+                        <span class="cert-provider">EY & SAR Associates</span>
                     </div>
-                    <h3>Google Gemini Certified</h3>
-                    <p class="qual-org">Google for Education</p>
-                    <div class="qual-detail">Valid: 2025-2028</div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-file-invoice"></i></div>
+                        <h4>Conceptual Framework for Financial Reporting</h4>
+                        <span class="cert-provider">Deloitte</span>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <h4>Audit Job Simulation</h4>
+                        <span class="cert-provider">PwC</span>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h4>Information Technology Training</h4>
+                        <p>100 Hours</p>
+                        <span class="cert-provider">ICAN</span>
+                    </div>
                 </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="1000">
-                    <div class="qual-icon">
-                        <i class="fas fa-chart-line"></i>
+            </div>
+
+            <!-- Technology & Analytics -->
+            <div class="qual-category">
+                <h3 class="category-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Technology & Analytics
+                </h3>
+                <div class="cert-grid">
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-chart-pie"></i></div>
+                        <h4>Power BI Certification</h4>
+                        <span class="cert-provider">Cursa</span>
                     </div>
-                    <h3>Power BI Certification</h3>
-                    <p class="qual-org">Cursa</p>
-                </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="1100">
-                    <div class="qual-icon">
-                        <i class="fab fa-google"></i>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fab fa-google"></i></div>
+                        <h4>Google Analytics Certification</h4>
+                        <span class="cert-provider">Google</span>
                     </div>
-                    <h3>Google Analytics Certification</h3>
-                    <p class="qual-org">Google</p>
-                </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="1200">
-                    <div class="qual-icon">
-                        <i class="fas fa-link"></i>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fab fa-bitcoin"></i></div>
+                        <h4>Blockchain Basics Course</h4>
+                        <span class="cert-provider">Cyfrin Updraft</span>
                     </div>
-                    <h3>Blockchain Basics Course</h3>
-                    <p class="qual-org">Cyfrin Updraft</p>
-                </div>
-                <div class="qual-card glass-card card-3d" data-aos="flip-left" data-aos-delay="1300">
-                    <div class="qual-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="cert-card">
+                        <div class="cert-icon"><i class="fas fa-bug"></i></div>
+                        <h4>Vulnerability Management</h4>
+                        <span class="cert-provider">Qualys</span>
                     </div>
-                    <h3>AI Security and Governance</h3>
-                    <p class="qual-org">Securiti</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience section">
+    <!-- Experience Timeline -->
+    <section id="experience" class="experience">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Career Journey</span>
-                <h2 class="section-title">Professional <span class="gradient-text">Experience</span></h2>
-                <p class="section-subtitle">8+ Years of Excellence in Audit & Compliance</p>
+            <div class="section-header">
+                <span class="section-subtitle">Career Journey</span>
+                <h2 class="section-title">Professional Experience</h2>
             </div>
             <div class="timeline">
-                <!-- Experience 1 -->
-                <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">May 2025 - Present</div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-badge badge-current">Current</div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">May 2025 - Present</span>
                         <h3>Head of Internal Audit & Compliance</h3>
                         <h4>Sanima Jum Hydropower Ltd (Sanima Group)</h4>
-                        <ul class="timeline-list">
+                        <ul>
                             <li>Leading internal audit operations across <strong>9 companies</strong> within Sanima Group</li>
                             <li>Designed and implemented <strong>Internal Audit Manual 2025</strong></li>
                             <li>Conducted comprehensive <strong>IT GAP Assessment</strong> aligned with ISO 27001 Annex A Controls</li>
                             <li>Mentoring team of aspiring Chartered Accountants</li>
                             <li>Established risk-based audit frameworks across group entities</li>
                         </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">Internal Audit</span>
-                            <span class="tag">ISO 27001</span>
-                            <span class="tag">Compliance</span>
-                            <span class="tag">Risk Management</span>
+                        <div class="tech-tags">
+                            <span>Internal Audit</span>
+                            <span>ISO 27001</span>
+                            <span>Compliance</span>
+                            <span>Risk Management</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Experience 2 -->
-                <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2024 - 2025</div>
-                    <div class="timeline-content glass-card">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2024 - 2025</span>
                         <h3>Junior Officer - Finance & Accounts</h3>
                         <h4>Garima Bikas Bank Ltd</h4>
-                        <ul class="timeline-list">
+                        <ul>
                             <li>Prepared <strong>Annual Book 2023/24</strong> and finalized FY 2024/25 Budget</li>
                             <li>Treasury Management: Bond, T-bills, SDF, SLF, OLF operations</li>
                             <li>MIS Reporting: Daily/Weekly/Monthly to management</li>
                             <li>Hands-on experience with Pumori, Finacle banking software</li>
                         </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">Financial Reporting</span>
-                            <span class="tag">Treasury</span>
-                            <span class="tag">MIS</span>
-                            <span class="tag">Banking Software</span>
+                        <div class="tech-tags">
+                            <span>Financial Reporting</span>
+                            <span>Treasury</span>
+                            <span>MIS</span>
+                            <span>Banking Software</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Experience 3 -->
-                <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-item featured">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2022 - 2024</div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-badge badge-award">2x Bronze Award Winner</div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2022 - 2024</span>
                         <h3>Junior Officer - Finance, Accounts & Treasury</h3>
                         <h4>Lumbini Bikas Bank Ltd</h4>
-                        <ul class="timeline-list">
-                            <li>Won <strong>Best Presented Award (BPA)</strong> for Annual Books FY 2021/22 & 2022/23 by ICAN</li>
+                        <div class="achievement-badge">
+                            <i class="fas fa-trophy"></i>
+                            <span>2x Bronze Award Winner</span>
+                        </div>
+                        <ul>
+                            <li>🏆 Won <strong>Best Presented Award (BPA)</strong> for Annual Books FY 2021/22 & 2022/23 by ICAN</li>
                             <li>Prepared <strong>10-year financial projections</strong> for Debenture Issuance (LBBLD89)</li>
                             <li>Implemented <strong>5-Year Strategic Plan (2080-2085)</strong></li>
                             <li>Successfully implemented <strong>Zero-Based Budgeting</strong> across organization</li>
                             <li>NRB/SEBON/NEPSE regulatory reporting & SIS Portal operations</li>
                             <li>Acting HOD - Second-in-command for department operations</li>
                         </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">Strategic Planning</span>
-                            <span class="tag">NFRS/IFRS</span>
-                            <span class="tag">Debenture</span>
-                            <span class="tag">Zero-Based Budget</span>
+                        <div class="tech-tags">
+                            <span>Strategic Planning</span>
+                            <span>NFRS/IFRS</span>
+                            <span>Debenture</span>
+                            <span>Zero-Based Budget</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Experience 4 -->
-                <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2021 - 2022</div>
-                    <div class="timeline-content glass-card">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2021 - 2022</span>
                         <h3>Internal Audit Team Leader</h3>
                         <h4>MR Associates</h4>
-                        <ul class="timeline-list">
+                        <ul>
                             <li>Led internal audit of <strong>Citizens Bank</strong> - audited <strong>60+ branches</strong> nationwide</li>
                             <li>Implemented comprehensive risk-based internal audit frameworks</li>
                             <li>Managed audit teams for multi-location assignments</li>
                         </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">Internal Audit</span>
-                            <span class="tag">Team Leadership</span>
-                            <span class="tag">Risk Assessment</span>
+                        <div class="tech-tags">
+                            <span>Internal Audit</span>
+                            <span>Team Leadership</span>
+                            <span>Risk Assessment</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Experience 5 -->
-                <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2019 - 2020</div>
-                    <div class="timeline-content glass-card">
-                        <div class="timeline-badge badge-star">Top 4 Employee Star 2019</div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2019 - 2020</span>
                         <h3>Audit Associate</h3>
                         <h4>S.A.R Associates (Former L.D.S.A Associates)</h4>
-                        <ul class="timeline-list">
-                            <li><strong>Top 4 Finalist</strong> - Employee Star 2019 (among 100+ staff)</li>
+                        <div class="achievement-badge">
+                            <i class="fas fa-star"></i>
+                            <span>Top 4 Employee Star 2019</span>
+                        </div>
+                        <ul>
+                            <li>🌟 <strong>Top 4 Finalist</strong> - Employee Star 2019 (among 100+ staff)</li>
                             <li>Provided <strong>NFRS consultancy</strong> to multiple financial institutions</li>
                             <li>Developed <strong>IFRS/NFRS Accounting Manuals</strong> for major banks</li>
                         </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">NFRS Convergence</span>
-                            <span class="tag">Consultancy</span>
-                            <span class="tag">Policy Development</span>
+                        <div class="tech-tags">
+                            <span>NFRS Convergence</span>
+                            <span>Consultancy</span>
+                            <span>Policy Development</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Experience 6 -->
-                <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">2016 - 2019</div>
-                    <div class="timeline-content glass-card">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2016 - 2019</span>
                         <h3>Article Trainee</h3>
                         <h4>L.D.S.A. Associates</h4>
-                        <ul class="timeline-list">
+                        <ul>
                             <li>Foundation training in statutory & internal audit</li>
                             <li>Hands-on experience in NFRS convergence projects</li>
                             <li>Exposure to banking, insurance, and corporate sectors</li>
                         </ul>
-                        <div class="timeline-tags">
-                            <span class="tag">CA Training</span>
-                            <span class="tag">Audit</span>
-                            <span class="tag">Financial Analysis</span>
+                        <div class="tech-tags">
+                            <span>CA Training</span>
+                            <span>Audit</span>
+                            <span>Financial Analysis</span>
                         </div>
                     </div>
                 </div>
@@ -496,219 +658,276 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="skills section">
+    <section id="skills" class="skills">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Expertise</span>
-                <h2 class="section-title">Skills & <span class="gradient-text">Proficiency</span></h2>
-                <p class="section-subtitle">Technical Excellence Across Audit & Finance Domains</p>
+            <div class="section-header">
+                <span class="section-subtitle">What I Do Best</span>
+                <h2 class="section-title">Professional Skills</h2>
             </div>
+            
             <div class="skills-grid">
-                <!-- Skill Card 1 -->
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="skill-icon">
+                <!-- Audit & Assurance -->
+                <div class="skill-category">
+                    <div class="category-header">
                         <i class="fas fa-search-dollar"></i>
+                        <h3>Audit & Assurance</h3>
                     </div>
-                    <h3>Internal Audit</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="100"></div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Internal Audit</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="skill-icon">
-                        <i class="fas fa-server"></i>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>IS Audit (CISA)</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
                     </div>
-                    <h3>IS Audit (CISA)</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="100"></div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Risk-Based Audit</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="skill-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h3>Risk-Based Audit</h3>
-                    <div class="skill-level">Advanced</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="skill-icon">
-                        <i class="fas fa-gavel"></i>
-                    </div>
-                    <h3>Statutory Audit</h3>
-                    <div class="skill-level">Advanced</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="skill-icon">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                    </div>
-                    <h3>IFRS/NFRS Reporting</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="100"></div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Statutory Audit</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="350">
-                    <div class="skill-icon">
-                        <i class="fas fa-chart-pie"></i>
+                <!-- Financial Management -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Financial Management</h3>
                     </div>
-                    <h3>Financial Projections</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="100"></div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>IFRS/NFRS Reporting</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Financial Projections</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Treasury Management</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Budget Preparation</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="skill-icon">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <h3>Treasury Management</h3>
-                    <div class="skill-level">Advanced</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="90"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="450">
-                    <div class="skill-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h3>Budget Preparation</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="100"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="skill-icon">
+                <!-- Compliance & Risk -->
+                <div class="skill-category">
+                    <div class="category-header">
                         <i class="fas fa-shield-alt"></i>
+                        <h3>Compliance & Risk</h3>
                     </div>
-                    <h3>ISO 27001 (ISMS)</h3>
-                    <div class="skill-level">Lead Auditor</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>ISO 27001 (ISMS)</span>
+                            <span class="skill-level">Lead Auditor</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="550">
-                    <div class="skill-icon">
-                        <i class="fas fa-brain"></i>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>ISO 42001 (AI Management)</span>
+                            <span class="skill-level">Lead Auditor</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 84%"></div>
+                        </div>
                     </div>
-                    <h3>ISO 42001 (AI Management)</h3>
-                    <div class="skill-level">Lead Auditor</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="84"></div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>GRC (Governance, Risk, Compliance)</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="skill-icon">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3>GRC (Governance, Risk, Compliance)</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="95"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="650">
-                    <div class="skill-icon">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <h3>NRB/SEBON Compliance</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="100"></div>
-                    </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="700">
-                    <div class="skill-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h3>Banking Software (Pumori, Finacle, T24)</h3>
-                    <div class="skill-level">Expert</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="90"></div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>NRB/SEBON Compliance</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 93%"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="750">
-                    <div class="skill-icon">
+                <!-- Technology & Tools -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Technology & Tools</h3>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Banking Software (Pumori, Finacle, T24)</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Power BI & Analytics</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Cybersecurity Tools</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>AI & Machine Learning Basics</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack Icons -->
+            <div class="tech-stack">
+                <h3>Technologies I Work With</h3>
+                <div class="tech-grid">
+                    <div class="tech-item" data-tooltip="Banking Core System">
+                        <i class="fas fa-database"></i>
+                        <span>CBS</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="Microsoft Power BI">
                         <i class="fas fa-chart-bar"></i>
+                        <span>Power BI</span>
                     </div>
-                    <h3>Power BI & Analytics</h3>
-                    <div class="skill-level">Advanced</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
+                    <div class="tech-item" data-tooltip="Microsoft Excel">
+                        <i class="fas fa-file-excel"></i>
+                        <span>Excel</span>
                     </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="800">
-                    <div class="skill-icon">
-                        <i class="fas fa-lock"></i>
+                    <div class="tech-item" data-tooltip="Google Analytics">
+                        <i class="fab fa-google"></i>
+                        <span>Analytics</span>
                     </div>
-                    <h3>Cybersecurity Tools</h3>
-                    <div class="skill-level">Advanced</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="85"></div>
+                    <div class="tech-item" data-tooltip="ISO 27001">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>ISO 27001</span>
                     </div>
-                </div>
-
-                <div class="skill-card glass-card" data-aos="zoom-in" data-aos-delay="850">
-                    <div class="skill-icon">
-                        <i class="fas fa-robot"></i>
+                    <div class="tech-item" data-tooltip="CISA Framework">
+                        <i class="fas fa-user-shield"></i>
+                        <span>CISA</span>
                     </div>
-                    <h3>AI & Machine Learning Basics</h3>
-                    <div class="skill-level">Intermediate</div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-progress="70"></div>
+                    <div class="tech-item" data-tooltip="Blockchain Basics">
+                        <i class="fab fa-bitcoin"></i>
+                        <span>Blockchain</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="AI & ML">
+                        <i class="fas fa-brain"></i>
+                        <span>AI/ML</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects section">
+    <!-- Projects/Achievements Section -->
+    <section id="projects" class="projects">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Portfolio</span>
-                <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
-                <p class="section-subtitle">Landmark Achievements & Major Assignments</p>
+            <div class="section-header">
+                <span class="section-subtitle">Portfolio</span>
+                <h2 class="section-title">Major Projects & Achievements</h2>
             </div>
+
+            <!-- Project Categories -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="nfrs">NFRS Convergence</button>
+                <button class="filter-btn" data-filter="audit">Internal Audit</button>
+                <button class="filter-btn" data-filter="is-audit">IS Audit</button>
+                <button class="filter-btn" data-filter="policy">Policy Development</button>
+            </div>
+
             <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-badge badge-featured">Featured</div>
+                <!-- NFRS Convergence Projects -->
+                <div class="project-card" data-category="nfrs">
                     <div class="project-icon">
-                        <i class="fas fa-exchange-alt"></i>
+                        <i class="fas fa-university"></i>
                     </div>
-                    <h3>NFRS Convergence Projects</h3>
-                    <p>Led NFRS convergence projects for major commercial banks including NABIL Bank, Citizens Bank, Sanima Bank, and 17 other financial institutions.</p>
-                    <div class="project-stats">
-                        <div class="stat">
-                            <div class="stat-num">14</div>
-                            <div class="stat-text">Commercial Banks</div>
+                    <div class="project-header">
+                        <h3>NFRS Convergence - Banking Sector</h3>
+                        <span class="project-tag">20+ Financial Institutions</span>
+                    </div>
+                    <p class="project-description">
+                        Led NFRS convergence projects for major commercial banks including NABIL Bank, Citizens Bank, Sanima Bank, and 17 other financial institutions.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h4>14</h4>
+                                <p>Commercial Banks</p>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-num">6</div>
-                            <div class="stat-text">Development Banks</div>
+                        <div class="metric">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>6</h4>
+                                <p>Development Banks</p>
+                            </div>
                         </div>
                     </div>
                     <div class="project-details">
@@ -722,21 +941,33 @@
                     </div>
                 </div>
 
-                <!-- Project 2 -->
-                <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                <!-- Citizens Bank Internal Audit -->
+                <div class="project-card featured" data-category="audit">
+                    <div class="project-badge">Featured</div>
                     <div class="project-icon">
-                        <i class="fas fa-building"></i>
+                        <i class="fas fa-search-dollar"></i>
                     </div>
-                    <h3>Citizens Bank Internal Audit</h3>
-                    <p>Led comprehensive internal audit covering 60+ branches nationwide, focusing on credit risk, operational efficiency, and regulatory compliance.</p>
-                    <div class="project-stats">
-                        <div class="stat">
-                            <div class="stat-num">60+</div>
-                            <div class="stat-text">Branches Audited</div>
+                    <div class="project-header">
+                        <h3>Citizens Bank Internal Audit</h3>
+                        <span class="project-tag">Team Leader | 1.5 Years</span>
+                    </div>
+                    <p class="project-description">
+                        Led comprehensive internal audit covering 60+ branches nationwide, focusing on credit risk, operational efficiency, and regulatory compliance.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <div>
+                                <h4>60+</h4>
+                                <p>Branches Audited</p>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-num">Team</div>
-                            <div class="stat-text">Leader Role</div>
+                        <div class="metric">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Team</h4>
+                                <p>Leader Role</p>
+                            </div>
                         </div>
                     </div>
                     <div class="project-details">
@@ -750,21 +981,32 @@
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                <!-- IT GAP Assessment - Sanima Group -->
+                <div class="project-card" data-category="is-audit">
                     <div class="project-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-network-wired"></i>
                     </div>
-                    <h3>Sanima Group IT GAP Assessment</h3>
-                    <p>Comprehensive IS function assessment against ISO 27001 Annex A Controls for entire Sanima Group portfolio.</p>
-                    <div class="project-stats">
-                        <div class="stat">
-                            <div class="stat-num">9</div>
-                            <div class="stat-text">Companies</div>
+                    <div class="project-header">
+                        <h3>IT GAP Assessment - Sanima Group</h3>
+                        <span class="project-tag">9 Companies | 2025</span>
+                    </div>
+                    <p class="project-description">
+                        Comprehensive IS function assessment against ISO 27001 Annex A Controls for entire Sanima Group portfolio.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h4>9</h4>
+                                <p>Companies</p>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-num">ISO 27001</div>
-                            <div class="stat-text">Framework</div>
+                        <div class="metric">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>ISO 27001</h4>
+                                <p>Framework</p>
+                            </div>
                         </div>
                     </div>
                     <div class="project-details">
@@ -778,21 +1020,32 @@
                     </div>
                 </div>
 
-                <!-- Project 4 -->
-                <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="400">
+                <!-- Debenture Issuance - Lumbini Bikas Bank -->
+                <div class="project-card" data-category="nfrs">
                     <div class="project-icon">
-                        <i class="fas fa-money-bill-wave"></i>
+                        <i class="fas fa-file-invoice-dollar"></i>
                     </div>
-                    <h3>Debenture Issuance (LBBLD89)</h3>
-                    <p>Prepared comprehensive 10-year financial projections and managed complete debenture issuance process.</p>
-                    <div class="project-stats">
-                        <div class="stat">
-                            <div class="stat-num">10 Years</div>
-                            <div class="stat-text">Projections</div>
+                    <div class="project-header">
+                        <h3>Debenture Issuance - LBBLD89</h3>
+                        <span class="project-tag">Lumbini Bikas Bank Ltd</span>
+                    </div>
+                    <p class="project-description">
+                        Prepared comprehensive 10-year financial projections and managed complete debenture issuance process.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <h4>10 Years</h4>
+                                <p>Projections</p>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-num">Complete</div>
-                            <div class="stat-text">Success</div>
+                        <div class="metric">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Complete</h4>
+                                <p>Success</p>
+                            </div>
                         </div>
                     </div>
                     <div class="project-details">
@@ -806,22 +1059,33 @@
                     </div>
                 </div>
 
-                <!-- Project 5 -->
-                <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="project-badge badge-award">Award Winner</div>
+                <!-- Award-Winning Annual Reports -->
+                <div class="project-card featured" data-category="nfrs">
+                    <div class="project-badge">🏆 Award Winner</div>
                     <div class="project-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
-                    <h3>Annual Books Best Presented Award</h3>
-                    <p>Prepared award-winning Annual Books for Lumbini Bikas Bank (FY 2021/22 & 2022/23), recognized by ICAN.</p>
-                    <div class="project-stats">
-                        <div class="stat">
-                            <div class="stat-num">2x</div>
-                            <div class="stat-text">Bronze Awards</div>
+                    <div class="project-header">
+                        <h3>Best Presented Annual Reports</h3>
+                        <span class="project-tag">2x Bronze Award Winner</span>
+                    </div>
+                    <p class="project-description">
+                        Prepared award-winning Annual Books for Lumbini Bikas Bank (FY 2021/22 & 2022/23), recognized by ICAN.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h4>2x</h4>
+                                <p>Bronze Awards</p>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-num">ICAN</div>
-                            <div class="stat-text">Recognition</div>
+                        <div class="metric">
+                            <i class="fas fa-star"></i>
+                            <div>
+                                <h4>ICAN</h4>
+                                <p>Recognition</p>
+                            </div>
                         </div>
                     </div>
                     <div class="project-details">
@@ -835,21 +1099,32 @@
                     </div>
                 </div>
 
-                <!-- Project 6 -->
-                <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="600">
+                <!-- Internal Audit Manual 2025 -->
+                <div class="project-card" data-category="policy">
                     <div class="project-icon">
                         <i class="fas fa-book"></i>
                     </div>
-                    <h3>Internal Audit Manual 2025</h3>
-                    <p>Designed comprehensive Internal Audit Manual implementing risk-based audit methodology across group entities.</p>
-                    <div class="project-stats">
-                        <div class="stat">
-                            <div class="stat-num">9</div>
-                            <div class="stat-text">Companies</div>
+                    <div class="project-header">
+                        <h3>Internal Audit Manual 2025</h3>
+                        <span class="project-tag">Sanima Group</span>
+                    </div>
+                    <p class="project-description">
+                        Designed comprehensive Internal Audit Manual implementing risk-based audit methodology across group entities.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h4>9</h4>
+                                <p>Companies</p>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-num">Risk-Based</div>
-                            <div class="stat-text">Methodology</div>
+                        <div class="metric">
+                            <i class="fas fa-tasks"></i>
+                            <div>
+                                <h4>Risk-Based</h4>
+                                <p>Methodology</p>
+                            </div>
                         </div>
                     </div>
                     <div class="project-details">
@@ -862,73 +1137,152 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- Strategic Planning - 5 Year Plan -->
+                <div class="project-card" data-category="policy">
+                    <div class="project-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>5-Year Strategic Plan (2080-2085)</h3>
+                        <span class="project-tag">Lumbini Bikas Bank Ltd</span>
+                    </div>
+                    <p class="project-description">
+                        Implemented comprehensive strategic plan with zero-based budgeting framework.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-calendar-check"></i>
+                            <div>
+                                <h4>5 Years</h4>
+                                <p>Roadmap</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-calculator"></i>
+                            <div>
+                                <h4>Zero-Based</h4>
+                                <p>Budgeting</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Implementation:</h4>
+                        <ul>
+                            <li>Strategic objectives definition</li>
+                            <li>Zero-based budgeting rollout</li>
+                            <li>KPI development & tracking</li>
+                            <li>Performance measurement systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Himalayan Bank Risk-Based Audit -->
+                <div class="project-card" data-category="audit">
+                    <div class="project-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Risk-Based Internal Audit Implementation</h3>
+                        <span class="project-tag">Himalayan Bank Limited</span>
+                    </div>
+                    <p class="project-description">
+                        Implemented comprehensive risk-based internal audit framework for one of Nepal's leading commercial banks.
+                    </p>
+                    <div class="project-details">
+                        <h4>Framework Components:</h4>
+                        <ul>
+                            <li>Risk universe mapping</li>
+                            <li>Audit plan prioritization</li>
+                            <li>Control effectiveness testing</li>
+                            <li>Continuous monitoring system</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact section">
+    <section id="contact" class="contact">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Let's Connect</span>
-                <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
-                <p class="section-subtitle">Available for Consulting & Opportunities</p>
+            <div class="section-header">
+                <span class="section-subtitle">Get In Touch</span>
+                <h2 class="section-title">Contact Me</h2>
             </div>
             <div class="contact-content">
-                <div class="contact-info" data-aos="fade-right">
-                    <div class="contact-card glass-card">
-                        <div class="contact-icon">
+                <div class="contact-info">
+                    <h3>Let's discuss your next project</h3>
+                    <p>I'm available for consulting, auditing projects, and professional collaborations.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:ca.manish.shrestha@gmail.com">ca.manish.shrestha@gmail.com</a>
+                                <a href="mailto:manish.shrestha5396@gmail.com">manish.shrestha5396@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <a href="tel:+9779843676945">+977 9843676945</a>
+                                <a href="tel:+9779803456703">+977 9803456703</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <p>Satdobato, Lalitpur</p>
+                                <p>Nepal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links-contact">
+                        <a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/camanishshrestha" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:ca.manish.shrestha@gmail.com" aria-label="Email">
                             <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Email</h3>
-                        <p>manish.shrestha@example.com</p>
-                    </div>
-                    <div class="contact-card glass-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h3>Phone</h3>
-                        <p>+977 XXX-XXXXXXX</p>
-                    </div>
-                    <div class="contact-card glass-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h3>Location</h3>
-                        <p>Satdobato, Lalitpur, Nepal</p>
+                        </a>
                     </div>
                 </div>
-                <div class="contact-social" data-aos="fade-left">
-                    <div class="social-card glass-card">
-                        <h3>Connect on Social Media</h3>
-                        <div class="social-links">
-                            <a href="#" class="social-link" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Twitter">
-                                <i class="fab fa-twitter"></i>
-                                <span>Twitter</span>
-                            </a>
-                            <a href="#" class="social-link" aria-label="GitHub">
-                                <i class="fab fa-github"></i>
-                                <span>GitHub</span>
-                            </a>
-                            <a href="#" class="social-link" aria-label="Facebook">
-                                <i class="fab fa-facebook-f"></i>
-                                <span>Facebook</span>
-                            </a>
-                        </div>
-                        <div class="cta-box">
-                            <h4>Open to Opportunities</h4>
-                            <p>Available for consulting, audit assignments, and advisory roles in Finance, IT Audit, and Compliance.</p>
-                            <a href="#" class="btn btn-primary btn-3d">
-                                <span>Download CV</span>
-                                <i class="fas fa-download"></i>
-                            </a>
-                        </div>
+
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        <label for="name">Name</label>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        <label for="subject">Subject</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                        <label for="message">Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -937,32 +1291,90 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
+                <div class="footer-section">
                     <h3>Manish Shrestha</h3>
-                    <p>Chartered Accountant | CISA | Audit & Compliance Expert</p>
+                    <p>CA (ICAN) | CISA | GRC Professional</p>
+                    <p>Building excellence in audit, compliance, and governance.</p>
                 </div>
-                <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#qualifications">Qualifications</a>
-                    <a href="#experience">Experience</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#qualifications">Qualifications</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Professional</h4>
+                    <ul>
+                        <!-- Download CV Removed -->
+                        <li><a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://github.com/camanishshrestha" target="_blank">GitHub</a></li>
+                    </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 Manish Shrestha. All rights reserved. | Crafted with <i class="fas fa-heart"></i></p>
+                <div class="copyright-text">
+                    &copy; 2026 CA Manish Shrestha. All Rights Reserved.
+                </div>
+                
+                <!-- VISITOR COUNTER SECTION -->
+                <div class="visitor-metrics-container">
+                    <span>Total Views: </span>
+                    <!-- The specific ID 'view-count' is targeted by the script below -->
+                    <span id="view-count" class="visitor-count-badge">Loading...</span>
+                    
+                    <p class="privacy-disclaimer">
+                        <strong>Transparency Notice:</strong> This website utilizes an anonymous visitor counter for statistical metrics only. We strictly adhere to user privacy standards; no personally identifiable information (PII) or user browsing habits are recorded or stored by this website.
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scroll-top" aria-label="Scroll to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Custom JavaScript -->
-    <script src="js/main.js"></script>
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    
+    <!-- REAL-TIME COUNTER SCRIPT -->
+    <script>
+        // Select the counter element
+        const counterElement = document.getElementById('view-count');
+
+        // Fetch the count from a reliable free API (counterapi.dev)
+        // Using 'camanishshrestha.com.np' as the unique namespace
+        fetch('https://api.counterapi.dev/v1/camanishshrestha.com.np/views/up')
+            .then(response => response.json())
+            .then(data => {
+                // Update the text with the actual count
+                counterElement.innerText = data.count;
+            })
+            .catch(error => {
+                console.error('Counter Error:', error);
+                // Fallback number in case API is down
+                counterElement.innerText = '1,200+';
+            });
+
+        // Ensure smooth scrolling works even without external JS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
