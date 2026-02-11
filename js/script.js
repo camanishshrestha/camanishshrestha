@@ -23,9 +23,47 @@ function initializeApp() {
     initScrollToTop();
     initCustomCursor();
     initSkillBars();
+    initMouseInteractiveBackground(); // NEW: Mouse-interactive background
     
     // Load saved theme
     loadTheme();
+}
+
+// ========================================
+// MOUSE-INTERACTIVE BACKGROUND - NEW!
+// ========================================
+function initMouseInteractiveBackground() {
+    // Only enable on desktop for better performance
+    if (window.innerWidth <= 768) {
+        return;
+    }
+    
+    const shapes = document.querySelectorAll('.shape');
+    
+    if (shapes.length === 0) {
+        console.warn('No .shape elements found. Make sure you have added the floating shapes HTML.');
+        return;
+    }
+    
+    document.addEventListener('mousemove', (e) => {
+        // Get mouse position (0 to 1 range)
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        shapes.forEach((shape, index) => {
+            // Different movement speed for each shape
+            const speed = (index + 1) * 20; // Adjust for more/less movement
+            
+            // Calculate movement (shapes move AWAY from cursor)
+            const moveX = (mouseX - 0.5) * speed;
+            const moveY = (mouseY - 0.5) * speed;
+            
+            // Apply movement while preserving the original float animation
+            shape.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+        });
+    });
+    
+    console.log('✨ Mouse-interactive background initialized!');
 }
 
 // ========================================
