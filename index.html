@@ -38,34 +38,70 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="css/style.css">
     
-    <!-- INTERNAL STYLES FOR YOUR REQUESTS -->
+    <!-- INTERNAL STYLES & PARTICLE CSS -->
     <style>
-        /* 1. DYNAMIC THEME (Auto-Detect Dark/Light Mode based on System) */
+        /* --- 1. PARTICLE BACKGROUND CSS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Behind everything */
+            pointer-events: none; /* Let clicks pass through */
+        }
+
+        /* Ensure content sits ABOVE the canvas */
+        .navbar, .hero, .about, .qualifications, .experience, .skills, .projects, .contact, .footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- 2. TRANSPARENCY FIXES (So particles are visible) --- */
+        /* Overriding solid colors with semi-transparent ones */
+        
+        /* Dark Mode (Default) */
+        .hero { background: transparent !important; }
+        .about, .experience, .projects { background: rgba(10, 14, 39, 0.85) !important; }
+        .qualifications, .skills, .contact { background: rgba(5, 8, 22, 0.85) !important; }
+        .footer { background: rgba(5, 8, 22, 0.95) !important; }
+
+        /* Light Mode */
+        body.light-mode .hero { background: transparent !important; }
+        body.light-mode .about, body.light-mode .experience, body.light-mode .projects { background: rgba(255, 255, 255, 0.85) !important; }
+        body.light-mode .qualifications, body.light-mode .skills, body.light-mode .contact { background: rgba(245, 247, 250, 0.85) !important; }
+        
+        /* B&W Mode */
+        body.blackwhite-mode .hero { background: transparent !important; }
+        body.blackwhite-mode .about, body.blackwhite-mode .experience, body.blackwhite-mode .projects { background: rgba(255, 255, 255, 0.85) !important; }
+        body.blackwhite-mode .qualifications, body.blackwhite-mode .skills, body.blackwhite-mode .contact { background: rgba(248, 249, 250, 0.85) !important; }
+
+
+        /* --- 3. EXISTING UTILITY STYLES --- */
         :root {
             --bg-color: #ffffff;
             --text-color: #333333;
             --text-muted: #555555;
             --card-bg: #f8f9fa;
             --border-color: #e0e0e0;
-            --accent-color: #0056b3; /* Professional Blue */
+            --accent-color: #0056b3;
             --shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-color: #0f172a;       /* Dark Slate */
-                --text-color: #f1f5f9;     /* Off-White */
-                --text-muted: #94a3b8;     /* Light Grey */
-                --card-bg: #1e293b;        /* Darker Card */
+                --bg-color: #0f172a;
+                --text-color: #f1f5f9;
+                --text-muted: #94a3b8;
+                --card-bg: #1e293b;
                 --border-color: #334155;
-                --accent-color: #38bdf8;   /* Bright Blue */
+                --accent-color: #38bdf8;
                 --shadow: 0 4px 6px rgba(0,0,0,0.5);
             }
             body {
                 background-color: var(--bg-color);
                 color: var(--text-color);
             }
-            /* Force elements to use variables */
             .card, .project-card, .timeline-content, .qual-card, .cert-card, .info-card, .terminal-window, .footer {
                 background-color: var(--card-bg) !important;
                 color: var(--text-color) !important;
@@ -73,39 +109,34 @@
             }
             h1, h2, h3, h4, h5, h6 { color: var(--text-color) !important; }
             p, li, span { color: var(--text-muted); }
-            /* Exception for white text in badges/buttons */
             .btn, .badge, .visitor-count-badge { color: #ffffff !important; }
         }
 
-        /* 2. REMOVE ALL CV LINKS */
         a[href*="CV"], a[href*="cv"], a[href*="resume"], .btn-secondary {
             display: none !important;
         }
 
-        /* 3. RESIZE PHOTO (Small & Professional) */
         .hero-image {
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .hero-image img, .image-wrapper img {
-            width: 180px !important;  /* Fixed small size */
-            height: 180px !important; /* Fixed small size */
-            border-radius: 50%;       /* Circle */
+            width: 180px !important;
+            height: 180px !important;
+            border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--accent-color);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             z-index: 10;
         }
         .image-wrapper {
-            border: none !important; /* Remove large square borders */
+            border: none !important;
             width: auto !important;
             height: auto !important;
         }
-        /* Hide floating cards to keep it clean */
         .floating-card, .image-border { display: none !important; }
 
-        /* 4. VISITOR COUNTER SECTION */
         .visitor-metrics-container {
             margin-top: 30px;
             padding: 20px;
@@ -159,7 +190,8 @@
     </script>
 </head>
 <body>
-    <!-- Custom Cursor (created via JavaScript) -->
+    <!-- 1. PARTICLE CANVAS (New) -->
+    <canvas id="particle-canvas"></canvas>
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
@@ -230,7 +262,6 @@
                         <i class="fas fa-envelope"></i>
                         Get In Touch
                     </a>
-                    <!-- Download CV removed via CSS -->
                 </div>
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank" aria-label="LinkedIn">
@@ -248,7 +279,7 @@
                 </div>
             </div>
             
-            <!-- Hero Image (Resized by CSS) -->
+            <!-- Hero Image -->
             <div class="hero-image">
                 <div class="image-wrapper">
                     <img src="images/ms.jpg" alt="Manish Shrestha - Chartered Accountant">
@@ -1340,6 +1371,161 @@
     <button class="scroll-top" id="scroll-top" aria-label="Scroll to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- PARTICLE NETWORK BACKGROUND - SELF CONTAINED -->
+    <script>
+    (function() {
+        var canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        if (window.innerWidth <= 768) return;
+
+        var ctx = canvas.getContext('2d');
+
+        /* ---- CONFIG ---- */
+        var TOTAL       = 90;
+        var MIN_R       = 1.5;
+        var MAX_R       = 3;
+        var SPEED       = 0.4;
+        var LINK_DIST   = 160;
+        var MOUSE_DIST  = 180;
+        var MIN_LINKS   = 3; // 3 connections minimum
+        var MAX_LINKS   = 5; // 5 connections maximum
+        var DOT_ALPHA   = 0.85;
+        var LINE_ALPHA  = 0.35;
+
+        /* ---- MOUSE ---- */
+        var mx = -9999, my = -9999;
+        document.addEventListener('mousemove', function(e) {
+            mx = e.clientX;
+            my = e.clientY;
+        });
+        document.addEventListener('mouseleave', function() {
+            mx = -9999;
+            my = -9999;
+        });
+
+        /* ---- RESIZE ---- */
+        function resize() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', function() {
+            resize();
+            build();
+        });
+
+        /* ---- THEME COLOR ---- */
+        function color() {
+            var b = document.body;
+            if (b.classList.contains('blackwhite-mode')) return '120,120,120';
+            if (b.classList.contains('light-mode'))      return '123,47,247';
+            return '0,245,255';
+        }
+
+        /* ---- PARTICLES ---- */
+        var dots = [];
+
+        function build() {
+            dots = [];
+            for (var i = 0; i < TOTAL; i++) {
+                var vx = (Math.random() - 0.5) * SPEED * 2;
+                var vy = (Math.random() - 0.5) * SPEED * 2;
+                dots.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: vx,
+                    vy: vy,
+                    bvx: vx,
+                    bvy: vy,
+                    r: MIN_R + Math.random() * (MAX_R - MIN_R),
+                    links: MIN_LINKS + Math.floor(Math.random() * (MAX_LINKS - MIN_LINKS + 1))
+                });
+            }
+        }
+
+        function update(p) {
+            var dx = p.x - mx;
+            var dy = p.y - my;
+            var d  = Math.sqrt(dx * dx + dy * dy);
+
+            // Mouse Repulsion
+            if (d < MOUSE_DIST && d > 0) {
+                var f = (MOUSE_DIST - d) / MOUSE_DIST;
+                p.vx += (dx / d) * f * 3;
+                p.vy += (dy / d) * f * 3;
+            }
+
+            p.vx += (p.bvx - p.vx) * 0.03;
+            p.vy += (p.bvy - p.vy) * 0.03;
+
+            var sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+            var ms = SPEED * 4;
+            if (sp > ms) {
+                p.vx = (p.vx / sp) * ms;
+                p.vy = (p.vy / sp) * ms;
+            }
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Wrap edges
+            if (p.x < -10)                p.x = canvas.width  + 10;
+            if (p.x > canvas.width  + 10) p.x = -10;
+            if (p.y < -10)                p.y = canvas.height + 10;
+            if (p.y > canvas.height + 10) p.y = -10;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            var c = color();
+
+            /* lines */
+            for (var i = 0; i < dots.length; i++) {
+                var a  = dots[i];
+                var nb = [];
+
+                for (var j = 0; j < dots.length; j++) {
+                    if (i === j) continue;
+                    var b  = dots[j];
+                    var dx = a.x - b.x;
+                    var dy = a.y - b.y;
+                    var dd = Math.sqrt(dx * dx + dy * dy);
+                    if (dd < LINK_DIST) nb.push({ p: b, d: dd });
+                }
+
+                nb.sort(function(x, y) { return x.d - y.d; });
+                var lim = Math.min(nb.length, a.links);
+
+                for (var k = 0; k < lim; k++) {
+                    var al = LINE_ALPHA * (1 - nb[k].d / LINK_DIST);
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(nb[k].p.x, nb[k].p.y);
+                    ctx.strokeStyle = 'rgba(' + c + ',' + al + ')';
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+
+            /* dots */
+            for (var i = 0; i < dots.length; i++) {
+                update(dots[i]);
+                ctx.beginPath();
+                ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + c + ',' + DOT_ALPHA + ')';
+                ctx.fill();
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        /* ---- START ---- */
+        resize();
+        build();
+        draw();
+        console.log('✅ Particle background running!');
+    })();
+    </script>
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
