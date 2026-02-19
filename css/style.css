@@ -2392,3 +2392,55 @@ body.blackwhite-mode .theme-btn.active {
    Professional. Elite. Unforgettable.
    Chartered Accountant × Developer
    ======================================== */
+/* ========================================
+   PARTICLE NETWORK BACKGROUND
+   ======================================== */
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ensure all main sections sit above canvas */
+.navbar,
+.hero,
+.credentials,
+.viewer-stats,
+.about,
+.qualifications,
+.experience,
+.skills,
+.projects,
+.contact,
+.footer,
+.scroll-top,
+.cursor,
+.cursor-follower {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero background stays layered correctly */
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+                    circle at 20% 50%,
+                    rgba(123, 47, 247, 0.08) 0%,
+                    transparent 50%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(0, 245, 255, 0.08) 0%,
+                    transparent 50%
+                );
+    z-index: -1;
+}
