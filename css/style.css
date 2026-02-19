@@ -546,8 +546,8 @@ body.blackwhite-mode .theme-btn.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(123, 47, 247, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 50%, rgba(123, 47, 247, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 245, 255, 0.06) 0%, transparent 50%);
     z-index: -1;
 }
 
@@ -557,7 +557,7 @@ body.blackwhite-mode .theme-btn.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, transparent 0%, var(--bg-darker) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(5, 8, 22, 0.7) 100%);
 }
 
 .hero-container {
@@ -1154,7 +1154,6 @@ body.blackwhite-mode .theme-btn.active {
    ======================================== */
 .about {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-dark);
 }
 
 .about-content {
@@ -1276,7 +1275,6 @@ body.blackwhite-mode .theme-btn.active {
    ======================================== */
 .qualifications {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-darker);
 }
 
 .qual-category {
@@ -1461,7 +1459,6 @@ body.blackwhite-mode .theme-btn.active {
    ======================================== */
 .experience {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-dark);
 }
 
 .timeline {
@@ -1660,7 +1657,6 @@ body.blackwhite-mode .theme-btn.active {
    ======================================== */
 .skills {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-darker);
 }
 
 .skills-grid {
@@ -1843,7 +1839,6 @@ body.blackwhite-mode .theme-btn.active {
    ======================================== */
 .projects {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-dark);
 }
 
 .project-filters {
@@ -2051,7 +2046,6 @@ body.blackwhite-mode .theme-btn.active {
    ======================================== */
 .contact {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-darker);
 }
 
 .contact-content {
@@ -2202,7 +2196,6 @@ body.blackwhite-mode .theme-btn.active {
    FOOTER
    ======================================== */
 .footer {
-    background: var(--bg-darker);
     padding: var(--spacing-lg) 0 var(--spacing-md);
     border-top: 1px solid rgba(0, 245, 255, 0.1);
 }
@@ -2388,11 +2381,6 @@ body.blackwhite-mode .theme-btn.active {
 }
 
 /* ========================================
-   END OF STYLESHEET
-   Professional. Elite. Unforgettable.
-   Chartered Accountant × Developer
-   ======================================== */
-/* ========================================
    PARTICLE NETWORK BACKGROUND
    ======================================== */
 
@@ -2406,8 +2394,11 @@ body.blackwhite-mode .theme-btn.active {
     pointer-events: none;
 }
 
-/* Ensure all main sections sit above canvas */
-.navbar,
+/* All content sits above canvas */
+.navbar {
+    z-index: 1000; /* Already high, keeping it */
+}
+
 .hero,
 .credentials,
 .viewer-stats,
@@ -2418,92 +2409,32 @@ body.blackwhite-mode .theme-btn.active {
 .projects,
 .contact,
 .footer,
-.scroll-top,
+.scroll-top {
+    position: relative;
+    z-index: 1;
+}
+
 .cursor,
 .cursor-follower {
-    position: relative;
-    z-index: 1;
+    z-index: 9999; /* Already high from cursor section */
 }
 
-/* Hero background stays layered correctly */
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-                    circle at 20% 50%,
-                    rgba(123, 47, 247, 0.08) 0%,
-                    transparent 50%
-                ),
-                radial-gradient(
-                    circle at 80% 80%,
-                    rgba(0, 245, 255, 0.08) 0%,
-                    transparent 50%
-                );
-    z-index: -1;
-}
+/* Semi-transparent section backgrounds
+   so particles show through */
 
-/* ========================================
-   PARTICLE NETWORK BACKGROUND
-   Canvas positioning + semi-transparent
-   section backgrounds so particles
-   are visible behind content
-   ======================================== */
-
-/* Canvas: fixed, full-screen, behind everything */
-#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* All content sections sit ABOVE the canvas */
-.hero,
-.about,
-.qualifications,
-.experience,
-.skills,
-.projects,
-.contact,
-.footer {
-    position: relative;
-    z-index: 1;
-}
-
-/* ---- DARK MODE (default) ----
-   Make section backgrounds semi-transparent
-   so particles show through subtly          */
-
+/* DARK MODE (default) */
 .hero {
     background: transparent !important;
 }
 
-.about {
-    background: rgba(10, 14, 39, 0.85) !important;
-}
-
-.qualifications {
-    background: rgba(5, 8, 22, 0.85) !important;
-}
-
-.experience {
-    background: rgba(10, 14, 39, 0.85) !important;
-}
-
-.skills {
-    background: rgba(5, 8, 22, 0.85) !important;
-}
-
+.about,
+.experience,
 .projects {
     background: rgba(10, 14, 39, 0.85) !important;
 }
 
+.qualifications,
+.skills,
 .contact {
     background: rgba(5, 8, 22, 0.85) !important;
 }
@@ -2512,7 +2443,7 @@ body.blackwhite-mode .theme-btn.active {
     background: rgba(5, 8, 22, 0.92) !important;
 }
 
-/* ---- LIGHT MODE ---- */
+/* LIGHT MODE */
 body.light-mode .hero {
     background: transparent !important;
 }
@@ -2533,7 +2464,7 @@ body.light-mode .footer {
     background: rgba(245, 247, 250, 0.93) !important;
 }
 
-/* ---- BLACK & WHITE MODE ---- */
+/* BLACK & WHITE MODE */
 body.blackwhite-mode .hero {
     background: transparent !important;
 }
@@ -2553,3 +2484,7 @@ body.blackwhite-mode .contact {
 body.blackwhite-mode .footer {
     background: rgba(248, 249, 250, 0.93) !important;
 }
+
+/* ========================================
+   END OF STYLESHEET
+   ======================================== */
