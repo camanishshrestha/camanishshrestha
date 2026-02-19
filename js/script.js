@@ -23,48 +23,219 @@ function initializeApp() {
     initScrollToTop();
     initCustomCursor();
     initSkillBars();
-    initMouseInteractiveBackground(); // NEW: Mouse-interactive background
+    // initMouseInteractiveBackground(); // REMOVED: Replaced by the new particle background
+    initParticleBackground(); // ADDED: Your new particle background
     
     // Load saved theme
     loadTheme();
 }
 
 // ========================================
-// MOUSE-INTERACTIVE BACKGROUND - NEW!
+// PARTICLE NETWORK BACKGROUND - NEW!
 // ========================================
-function initMouseInteractiveBackground() {
-    // Only enable on desktop for better performance
+function initParticleBackground() {
+    // Only enable on desktop for better performance and consistency
     if (window.innerWidth <= 768) {
         return;
     }
-    
-    const shapes = document.querySelectorAll('.shape');
-    
-    if (shapes.length === 0) {
-        console.warn('No .shape elements found. Make sure you have added the floating shapes HTML.');
-        return;
+
+    /* ---------- canvas setup ---------- */
+    const canvas = document.createElement('canvas');
+    canvas.id = 'particle-canvas';
+    document.body.prepend(canvas); // first child of body, ensuring it's behind everything
+    const ctx = canvas.getContext('2d');
+
+    /* ---------- config ---------- */
+    const CONFIG = {
+        particleCount   : 90,          // total dots
+        minRadius       : 1.5,         // dot size min
+        maxRadius       : 3,           // dot size max
+        speed           : 0.4,         // base movement speed
+        connectDistance : 160,         // max px to draw a line
+        mouseRadius     : 180,         // mouse influence radius
+        mouseStrength   : 0.012,       // how hard mouse pushes dots
+        minConnections  : 2,           // minimum lines per dot
+        maxConnections  : 5,           // maximum lines per dot
+        opacityDot      : 0.75,
+        opacityLine     : 0.25,
+    };
+
+    /* ---------- theme-aware colours ---------- */
+    function getThemeColour() {
+        const body = document.body;
+        if (body.classList.contains('blackwhite-mode')) {
+            // Using a slightly lighter grey for BW mode for visibility
+            return { dot: '120,120,120', line: '100,100,100' };
+        }
+        if (body.classList.contains('light-mode')) {
+            // Adjusting light mode to be subtle but visible against light BG
+            // Using a desaturated purple from your theme for light mode
+            return { dot: '123,47,247', line: '123,47,247' }; // using primary var from light theme
+        }
+        /* default dark mode */
+        return { dot: '0,245,255', line: '0,245,255' }; // var(--primary) for dark theme
     }
-    
-    document.addEventListener('mousemove', (e) => {
-        // Get mouse position (0 to 1 range)
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-        
-        shapes.forEach((shape, index) => {
-            // Different movement speed for each shape
-            const speed = (index + 1) * 20; // Adjust for more/less movement
-            
-            // Calculate movement (shapes move AWAY from cursor)
-            const moveX = (mouseX - 0.5) * speed;
-            const moveY = (mouseY - 0.5) * speed;
-            
-            // Apply movement while preserving the original float animation
-            shape.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
-        });
+
+    /* ---------- mouse tracking ---------- */
+    const mouse = { x: -9999, y: -9999 }; // Initialize off-screen
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
     });
-    
-    console.log('✨ Mouse-interactive background initialized!');
+
+    window.addEventListener('mouseleave', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+    });
+
+    /* ---------- resize handler ---------- */
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', () => {
+        resize();
+        initParticles(); // Re-initialize particles on resize for better distribution
+    });
+
+    /* ---------- Particle Class Definition ---------- */
+    class Particle {
+        constructor() {
+            this.reset(true);
+        }
+
+        reset(randomPos = false) {
+            this.x = randomPos
+                ? Math.random() * canvas.width
+                : Math.random() < 0.5 ? 0 : canvas.width; // Start from random edge
+            this.y = randomPos
+                ? Math.random() * canvas.height
+                : Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * CONFIG.speed * 2;
+            this.vy = (Math.random() - 0.5) * CONFIG.speed * 2;
+            this.r = CONFIG.minRadius + Math.random() * (CONFIG.maxRadius - CONFIG.minRadius);
+            this.baseVx = this.vx; // Store base velocity for drift
+            this.baseVy = this.vy;
+        }
+
+        update() {
+            /* mouse repulsion logic */
+            const dx = this.x - mouse.x;
+            const dy = this.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < CONFIG.mouseRadius && dist > 0) {
+                const force = (CONFIG.mouseRadius - dist) / CONFIG.mouseRadius;
+                this.vx += (dx / dist) * force * CONFIG.mouseStrength * 20; // Increased strength
+                this.vy += (dy / dist) * force * CONFIG.mouseStrength * 20;
+            }
+
+            /* gentle drift back to base speed */
+            this.vx += (this.baseVx - this.vx) * 0.03;
+            this.vy += (this.baseVy - this.vy) * 0.03;
+
+            /* clamp velocity to prevent excessive speeds */
+            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            const maxSpeed = CONFIG.speed * 4; // Max speed is 4x base speed
+            if (speed > maxSpeed) {
+                this.vx = (this.vx / speed) * maxSpeed;
+                this.vy = (this.vy / speed) * maxSpeed;
+            }
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            /* wrap around edges */
+            if (this.x < -10) this.x = canvas.width + 10;
+            if (this.x > canvas.width + 10) this.x = -10;
+            if (this.y < -10) this.y = canvas.height + 10;
+            if (this.y > canvas.height + 10) this.y = -10;
+        }
+
+        draw(colour) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${colour.dot},${CONFIG.opacityDot})`;
+            ctx.fill();
+        }
+    }
+
+    /* ---------- particles array and initialization ---------- */
+    let particles = [];
+
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < CONFIG.particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    /* ---------- connect dots (2-5 nearest) ---------- */
+    function connectParticles(colour) {
+        for (let i = 0; i < particles.length; i++) {
+            const a = particles[i];
+
+            /* collect neighbours sorted by distance */
+            const neighbours = [];
+            for (let j = 0; j < particles.length; j++) {
+                if (i === j) continue;
+                const b = particles[j];
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                if (d < CONFIG.connectDistance) {
+                    neighbours.push({ particle: b, dist: d });
+                }
+            }
+
+            /* sort closest first, then pick 2-5 */
+            neighbours.sort((x, y) => x.dist - y.dist);
+
+            const limit = Math.min(
+                neighbours.length,
+                CONFIG.minConnections + Math.floor(Math.random() * (CONFIG.maxConnections - CONFIG.minConnections + 1))
+            );
+
+            for (let k = 0; k < limit; k++) {
+                const { particle: b, dist } = neighbours[k];
+                const alpha = CONFIG.opacityLine * (1 - dist / CONFIG.connectDistance);
+
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = `rgba(${colour.line},${alpha})`;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+            }
+        }
+    }
+
+    /* ---------- main animation loop ---------- */
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+        const colour = getThemeColour(); // Get current theme color for particles
+
+        connectParticles(colour); // Draw lines first (so they are behind dots)
+
+        for (const p of particles) {
+            p.update(); // Update particle position
+            p.draw(colour); // Draw particle
+        }
+
+        requestAnimationFrame(animate); // Loop
+    }
+
+    /* ---------- boot up the background ---------- */
+    resize(); // Set initial canvas size
+    initParticles(); // Create initial particles
+    animate(); // Start the animation loop
+
+    console.log('✨ Particle Network Background initialized!');
 }
+
 
 // ========================================
 // NAVIGATION
