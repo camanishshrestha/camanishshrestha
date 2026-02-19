@@ -2444,3 +2444,112 @@ body.blackwhite-mode .theme-btn.active {
                 );
     z-index: -1;
 }
+
+/* ========================================
+   PARTICLE NETWORK BACKGROUND
+   Canvas positioning + semi-transparent
+   section backgrounds so particles
+   are visible behind content
+   ======================================== */
+
+/* Canvas: fixed, full-screen, behind everything */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* All content sections sit ABOVE the canvas */
+.hero,
+.about,
+.qualifications,
+.experience,
+.skills,
+.projects,
+.contact,
+.footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- DARK MODE (default) ----
+   Make section backgrounds semi-transparent
+   so particles show through subtly          */
+
+.hero {
+    background: transparent !important;
+}
+
+.about {
+    background: rgba(10, 14, 39, 0.85) !important;
+}
+
+.qualifications {
+    background: rgba(5, 8, 22, 0.85) !important;
+}
+
+.experience {
+    background: rgba(10, 14, 39, 0.85) !important;
+}
+
+.skills {
+    background: rgba(5, 8, 22, 0.85) !important;
+}
+
+.projects {
+    background: rgba(10, 14, 39, 0.85) !important;
+}
+
+.contact {
+    background: rgba(5, 8, 22, 0.85) !important;
+}
+
+.footer {
+    background: rgba(5, 8, 22, 0.92) !important;
+}
+
+/* ---- LIGHT MODE ---- */
+body.light-mode .hero {
+    background: transparent !important;
+}
+
+body.light-mode .about,
+body.light-mode .experience,
+body.light-mode .projects {
+    background: rgba(255, 255, 255, 0.88) !important;
+}
+
+body.light-mode .qualifications,
+body.light-mode .skills,
+body.light-mode .contact {
+    background: rgba(245, 247, 250, 0.88) !important;
+}
+
+body.light-mode .footer {
+    background: rgba(245, 247, 250, 0.93) !important;
+}
+
+/* ---- BLACK & WHITE MODE ---- */
+body.blackwhite-mode .hero {
+    background: transparent !important;
+}
+
+body.blackwhite-mode .about,
+body.blackwhite-mode .experience,
+body.blackwhite-mode .projects {
+    background: rgba(255, 255, 255, 0.88) !important;
+}
+
+body.blackwhite-mode .qualifications,
+body.blackwhite-mode .skills,
+body.blackwhite-mode .contact {
+    background: rgba(248, 249, 250, 0.88) !important;
+}
+
+body.blackwhite-mode .footer {
+    background: rgba(248, 249, 250, 0.93) !important;
+}
