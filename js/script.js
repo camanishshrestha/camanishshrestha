@@ -23,19 +23,93 @@ function initializeApp() {
     initScrollToTop();
     initCustomCursor();
     initSkillBars();
-    // initMouseInteractiveBackground(); // REMOVED: Replaced by the new particle background
-    initParticleBackground(); // ADDED: Your new particle background
+    initParticleBackground();
+    initGeometricPhotoEffect(); // NEW: Initialize geometric photo effects
     
     // Load saved theme
     loadTheme();
 }
 
 // ========================================
-// PARTICLE NETWORK BACKGROUND - NEW!
+// GEOMETRIC PHOTO POP-OUT EFFECT - NEW!
+// ========================================
+function initGeometricPhotoEffect() {
+    const photoContainer = document.querySelector('.geometric-photo-container');
+    const photo = document.querySelector('.pop-out-photo');
+    const frame = document.querySelector('.geometric-frame');
+    
+    if (!photoContainer || !photo || !frame) {
+        console.warn('⚠️ Geometric photo elements not found');
+        return;
+    }
+    
+    // Add subtle parallax effect on mouse move
+    photoContainer.addEventListener('mousemove', (e) => {
+        const rect = photoContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const deltaX = (x - centerX) / centerX;
+        const deltaY = (y - centerY) / centerY;
+        
+        // Apply subtle tilt effect
+        photo.style.transform = `
+            translateY(-8px) 
+            scale(1.03) 
+            rotateY(${deltaX * 5}deg) 
+            rotateX(${-deltaY * 5}deg)
+        `;
+        
+        frame.style.transform = `
+            translate(-50%, -50%) 
+            rotateY(${deltaX * 3}deg) 
+            rotateX(${-deltaY * 3}deg)
+        `;
+    });
+    
+    // Reset on mouse leave
+    photoContainer.addEventListener('mouseleave', () => {
+        photo.style.transform = '';
+        frame.style.transform = 'translate(-50%, -50%)';
+    });
+    
+    // Add loading state for photo
+    photo.addEventListener('load', () => {
+        photo.style.opacity = '1';
+        console.log('✨ Geometric photo loaded successfully');
+    });
+    
+    // Fallback if photo fails to load
+    photo.addEventListener('error', () => {
+        console.error('❌ Failed to load profile photo');
+        photo.style.opacity = '0.5';
+    });
+    
+    // Intersection Observer for entrance animation
+    const photoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInRight 1s ease forwards';
+                photoObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    photoObserver.observe(photoContainer);
+    
+    console.log('✨ Geometric photo pop-out effect initialized!');
+}
+
+// ========================================
+// PARTICLE NETWORK BACKGROUND
 // ========================================
 function initParticleBackground() {
     // Only enable on desktop for better performance and consistency
     if (window.innerWidth <= 768) {
+        console.log('📱 Particle background disabled on mobile');
         return;
     }
 
@@ -64,20 +138,17 @@ function initParticleBackground() {
     function getThemeColour() {
         const body = document.body;
         if (body.classList.contains('blackwhite-mode')) {
-            // Using a slightly lighter grey for BW mode for visibility
             return { dot: '120,120,120', line: '100,100,100' };
         }
         if (body.classList.contains('light-mode')) {
-            // Adjusting light mode to be subtle but visible against light BG
-            // Using a desaturated purple from your theme for light mode
-            return { dot: '123,47,247', line: '123,47,247' }; // using primary var from light theme
+            return { dot: '123,47,247', line: '123,47,247' };
         }
         /* default dark mode */
-        return { dot: '0,245,255', line: '0,245,255' }; // var(--primary) for dark theme
+        return { dot: '0,245,255', line: '0,245,255' };
     }
 
     /* ---------- mouse tracking ---------- */
-    const mouse = { x: -9999, y: -9999 }; // Initialize off-screen
+    const mouse = { x: -9999, y: -9999 };
 
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
@@ -97,7 +168,7 @@ function initParticleBackground() {
 
     window.addEventListener('resize', () => {
         resize();
-        initParticles(); // Re-initialize particles on resize for better distribution
+        initParticles();
     });
 
     /* ---------- Particle Class Definition ---------- */
@@ -109,36 +180,33 @@ function initParticleBackground() {
         reset(randomPos = false) {
             this.x = randomPos
                 ? Math.random() * canvas.width
-                : Math.random() < 0.5 ? 0 : canvas.width; // Start from random edge
+                : Math.random() < 0.5 ? 0 : canvas.width;
             this.y = randomPos
                 ? Math.random() * canvas.height
                 : Math.random() * canvas.height;
             this.vx = (Math.random() - 0.5) * CONFIG.speed * 2;
             this.vy = (Math.random() - 0.5) * CONFIG.speed * 2;
             this.r = CONFIG.minRadius + Math.random() * (CONFIG.maxRadius - CONFIG.minRadius);
-            this.baseVx = this.vx; // Store base velocity for drift
+            this.baseVx = this.vx;
             this.baseVy = this.vy;
         }
 
         update() {
-            /* mouse repulsion logic */
             const dx = this.x - mouse.x;
             const dy = this.y - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             if (dist < CONFIG.mouseRadius && dist > 0) {
                 const force = (CONFIG.mouseRadius - dist) / CONFIG.mouseRadius;
-                this.vx += (dx / dist) * force * CONFIG.mouseStrength * 20; // Increased strength
+                this.vx += (dx / dist) * force * CONFIG.mouseStrength * 20;
                 this.vy += (dy / dist) * force * CONFIG.mouseStrength * 20;
             }
 
-            /* gentle drift back to base speed */
             this.vx += (this.baseVx - this.vx) * 0.03;
             this.vy += (this.baseVy - this.vy) * 0.03;
 
-            /* clamp velocity to prevent excessive speeds */
             const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-            const maxSpeed = CONFIG.speed * 4; // Max speed is 4x base speed
+            const maxSpeed = CONFIG.speed * 4;
             if (speed > maxSpeed) {
                 this.vx = (this.vx / speed) * maxSpeed;
                 this.vy = (this.vy / speed) * maxSpeed;
@@ -147,7 +215,6 @@ function initParticleBackground() {
             this.x += this.vx;
             this.y += this.vy;
 
-            /* wrap around edges */
             if (this.x < -10) this.x = canvas.width + 10;
             if (this.x > canvas.width + 10) this.x = -10;
             if (this.y < -10) this.y = canvas.height + 10;
@@ -177,7 +244,6 @@ function initParticleBackground() {
         for (let i = 0; i < particles.length; i++) {
             const a = particles[i];
 
-            /* collect neighbours sorted by distance */
             const neighbours = [];
             for (let j = 0; j < particles.length; j++) {
                 if (i === j) continue;
@@ -190,7 +256,6 @@ function initParticleBackground() {
                 }
             }
 
-            /* sort closest first, then pick 2-5 */
             neighbours.sort((x, y) => x.dist - y.dist);
 
             const limit = Math.min(
@@ -214,28 +279,27 @@ function initParticleBackground() {
 
     /* ---------- main animation loop ---------- */
     function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        const colour = getThemeColour(); // Get current theme color for particles
+        const colour = getThemeColour();
 
-        connectParticles(colour); // Draw lines first (so they are behind dots)
+        connectParticles(colour);
 
         for (const p of particles) {
-            p.update(); // Update particle position
-            p.draw(colour); // Draw particle
+            p.update();
+            p.draw(colour);
         }
 
-        requestAnimationFrame(animate); // Loop
+        requestAnimationFrame(animate);
     }
 
     /* ---------- boot up the background ---------- */
-    resize(); // Set initial canvas size
-    initParticles(); // Create initial particles
-    animate(); // Start the animation loop
+    resize();
+    initParticles();
+    animate();
 
     console.log('✨ Particle Network Background initialized!');
 }
-
 
 // ========================================
 // NAVIGATION
@@ -458,7 +522,7 @@ function initCounters() {
 function initScrollAnimations() {
     const animateElements = document.querySelectorAll(
         '.qual-card, .cert-card, .timeline-item, .skill-category, ' +
-        '.project-card, .info-card, .about-text'
+        '.project-card, .info-card, .about-text, .geometric-photo-container'
     );
     
     const observer = new IntersectionObserver((entries) => {
@@ -751,11 +815,12 @@ function initCustomCursor() {
     
     animateFollower();
     
-    // Cursor interactions on hover
+    // Cursor interactions on hover (INCLUDING NEW GEOMETRIC PHOTO)
     const interactiveElements = document.querySelectorAll(
         'a, button, .btn, .project-card, .cert-card, .qual-card, ' +
         '.info-card, .tech-item, .filter-btn, .social-links a, ' +
-        'input, textarea, .nav-link, .theme-btn, .hamburger'
+        'input, textarea, .nav-link, .theme-btn, .hamburger, ' +
+        '.geometric-photo-container, .pop-out-photo' // NEW: Added geometric photo elements
     );
     
     interactiveElements.forEach(element => {
@@ -984,7 +1049,7 @@ function optimizePerformance() {
         document.head.appendChild(link);
     });
     
-    // Preload critical resources
+    // Preload critical resources (including new photo)
     const preloadResources = [
         { href: 'images/ms.jpg', as: 'image' }
     ];
@@ -1045,6 +1110,8 @@ window.addEventListener('load', () => {
         loader.style.opacity = '0';
         setTimeout(() => loader.remove(), 500);
     }
+    
+    console.log('✅ All features loaded successfully!');
 });
 
 // ========================================
