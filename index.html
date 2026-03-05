@@ -120,50 +120,88 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
-        /* NEW PROFESSIONAL PHOTO POP-OUT EFFECT */
-        .professional-photo-frame {
+        /* ========================================
+           NEW GEOMETRIC FRAME WITH POP-OUT EFFECT
+        ======================================== */
+        
+        /* Container for the geometric frame */
+        .geometric-photo-container {
+            position: relative;
             display: inline-block;
-            padding: 24px;
-            background-color: #ffffff;
-            border: 3px solid #e5e7eb;
-            border-radius: 50%;
+            width: 280px;
+            height: 320px;
+        }
+
+        /* Light sky blue geometric frame - Semi-circle left + notch right */
+        .geometric-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px;
+            height: 260px;
+            background: linear-gradient(135deg, #87CEEB 0%, #b3d9f2 100%);
+            border-radius: 110px 0 20px 110px; /* Semi-circle on left, sharp notch on right */
             box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.12),
-                inset 0 0 0 1px #f1f5f9;
-            perspective: 1500px;
+                0 15px 40px rgba(135, 206, 235, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        /* Photo that pops out from the frame */
+        .pop-out-photo-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2; /* Above the frame */
         }
 
         .pop-out-photo {
-            width: 180px !important;
-            height: 180px !important;
-            border-radius: 50%;
+            width: 240px !important;
+            height: 280px !important;
             object-fit: cover;
-            border: 12px solid #ffffff;
+            object-position: center top; /* Focus on head and shoulders */
+            border-radius: 120px 0 30px 120px; /* Match frame shape but slightly larger */
+            border: 6px solid #ffffff;
             box-shadow: 
-                0 25px 55px -10px rgba(0, 0, 0, 0.35),
-                0 10px 20px -5px rgba(0, 0, 0, 0.15);
-            transform: translateZ(35px);
+                0 25px 60px rgba(0, 0, 0, 0.25),
+                0 10px 25px rgba(0, 0, 0, 0.15),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Photo intentionally oversized to create pop-out effect */
+            clip-path: polygon(
+                0% 15%, 
+                100% 0%, 
+                100% 100%, 
+                0% 100%
+            ); /* Top portion pops out */
         }
 
-        /* Very subtle lift on hover (still clean and professional, no rotation) */
-        .pop-out-photo:hover {
-            transform: translateZ(42px);
+        /* Subtle hover effect */
+        .geometric-photo-container:hover .pop-out-photo {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 30px 70px rgba(0, 0, 0, 0.3),
+                0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
-        /* Override old image styles to prevent conflict */
-        .hero-image img, 
-        .image-wrapper img {
-            border: none !important;
-            box-shadow: none !important;
-        }
+        /* Override old styles to prevent conflicts */
+        .professional-photo-frame,
+        .floating-card, 
+        .image-border,
         .image-wrapper {
-            border: none !important;
-            width: auto !important;
-            height: auto !important;
+            display: none !important;
         }
-        .floating-card, .image-border { display: none !important; }
+
+        .hero-image img:not(.pop-out-photo) {
+            display: none !important;
+        }
+
+        /* ======================================== */
 
         .visitor-metrics-container {
             margin-top: 30px;
@@ -307,12 +345,20 @@
                 </div>
             </div>
             
-            <!-- Hero Image - UPDATED WITH PROFESSIONAL POP-OUT EFFECT -->
+            <!-- ========================================
+                 UPDATED HERO IMAGE - GEOMETRIC POP-OUT EFFECT
+            ======================================== -->
             <div class="hero-image">
-                <div class="professional-photo-frame">
-                    <img src="images/ms.jpg" 
-                         alt="Manish Shrestha - Chartered Accountant" 
-                         class="pop-out-photo">
+                <div class="geometric-photo-container">
+                    <!-- Light Sky Blue Geometric Frame (Background Layer) -->
+                    <div class="geometric-frame"></div>
+                    
+                    <!-- Photo (Foreground Layer - Pops Out) -->
+                    <div class="pop-out-photo-wrapper">
+                        <img src="images/ms.jpg" 
+                             alt="Manish Shrestha - Chartered Accountant" 
+                             class="pop-out-photo">
+                    </div>
                 </div>
             </div>
         </div>
