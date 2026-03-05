@@ -121,14 +121,42 @@
             justify-content: center;
             align-items: center;
         }
-        .hero-image img, .image-wrapper img {
+
+        /* NEW PROFESSIONAL PHOTO POP-OUT EFFECT */
+        .professional-photo-frame {
+            display: inline-block;
+            padding: 24px;
+            background-color: #ffffff;
+            border: 3px solid #e5e7eb;
+            border-radius: 50%;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.12),
+                inset 0 0 0 1px #f1f5f9;
+            perspective: 1500px;
+        }
+
+        .pop-out-photo {
             width: 180px !important;
             height: 180px !important;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent-color);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            z-index: 10;
+            border: 12px solid #ffffff;
+            box-shadow: 
+                0 25px 55px -10px rgba(0, 0, 0, 0.35),
+                0 10px 20px -5px rgba(0, 0, 0, 0.15);
+            transform: translateZ(35px);
+        }
+
+        /* Very subtle lift on hover (still clean and professional, no rotation) */
+        .pop-out-photo:hover {
+            transform: translateZ(42px);
+        }
+
+        /* Override old image styles to prevent conflict */
+        .hero-image img, 
+        .image-wrapper img {
+            border: none !important;
+            box-shadow: none !important;
         }
         .image-wrapper {
             border: none !important;
@@ -279,10 +307,12 @@
                 </div>
             </div>
             
-            <!-- Hero Image -->
+            <!-- Hero Image - UPDATED WITH PROFESSIONAL POP-OUT EFFECT -->
             <div class="hero-image">
-                <div class="image-wrapper">
-                    <img src="images/ms.jpg" alt="Manish Shrestha - Chartered Accountant">
+                <div class="professional-photo-frame">
+                    <img src="images/ms.jpg" 
+                         alt="Manish Shrestha - Chartered Accountant" 
+                         class="pop-out-photo">
                 </div>
             </div>
         </div>
@@ -1341,7 +1371,6 @@
                 <div class="footer-section">
                     <h4>Professional</h4>
                     <ul>
-                        <!-- Download CV Removed -->
                         <li><a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank">LinkedIn</a></li>
                         <li><a href="https://github.com/camanishshrestha" target="_blank">GitHub</a></li>
                     </ul>
@@ -1356,7 +1385,6 @@
                 <!-- VISITOR COUNTER SECTION -->
                 <div class="visitor-metrics-container">
                     <span>Total Views: </span>
-                    <!-- The specific ID 'view-count' is targeted by the script below -->
                     <span id="view-count" class="visitor-count-badge">Loading...</span>
                     
                     <p class="privacy-disclaimer">
@@ -1388,8 +1416,8 @@
         var SPEED       = 0.4;
         var LINK_DIST   = 160;
         var MOUSE_DIST  = 180;
-        var MIN_LINKS   = 3; // 3 connections minimum
-        var MAX_LINKS   = 5; // 5 connections maximum
+        var MIN_LINKS   = 3;
+        var MAX_LINKS   = 5;
         var DOT_ALPHA   = 0.85;
         var LINE_ALPHA  = 0.35;
 
@@ -1448,7 +1476,6 @@
             var dy = p.y - my;
             var d  = Math.sqrt(dx * dx + dy * dy);
 
-            // Mouse Repulsion
             if (d < MOUSE_DIST && d > 0) {
                 var f = (MOUSE_DIST - d) / MOUSE_DIST;
                 p.vx += (dx / d) * f * 3;
@@ -1468,7 +1495,6 @@
             p.x += p.vx;
             p.y += p.vy;
 
-            // Wrap edges
             if (p.x < -10)                p.x = canvas.width  + 10;
             if (p.x > canvas.width  + 10) p.x = -10;
             if (p.y < -10)                p.y = canvas.height + 10;
@@ -1479,7 +1505,6 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             var c = color();
 
-            /* lines */
             for (var i = 0; i < dots.length; i++) {
                 var a  = dots[i];
                 var nb = [];
@@ -1507,7 +1532,6 @@
                 }
             }
 
-            /* dots */
             for (var i = 0; i < dots.length; i++) {
                 update(dots[i]);
                 ctx.beginPath();
@@ -1519,11 +1543,9 @@
             requestAnimationFrame(draw);
         }
 
-        /* ---- START ---- */
         resize();
         build();
         draw();
-        console.log('✅ Particle background running!');
     })();
     </script>
 
@@ -1532,24 +1554,17 @@
     
     <!-- REAL-TIME COUNTER SCRIPT -->
     <script>
-        // Select the counter element
         const counterElement = document.getElementById('view-count');
-
-        // Fetch the count from a reliable free API (counterapi.dev)
-        // Using 'camanishshrestha.com.np' as the unique namespace
         fetch('https://api.counterapi.dev/v1/camanishshrestha.com.np/views/up')
             .then(response => response.json())
             .then(data => {
-                // Update the text with the actual count
                 counterElement.innerText = data.count;
             })
             .catch(error => {
                 console.error('Counter Error:', error);
-                // Fallback number in case API is down
                 counterElement.innerText = '1,200+';
             });
 
-        // Ensure smooth scrolling works even without external JS
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
