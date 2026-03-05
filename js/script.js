@@ -24,14 +24,14 @@ function initializeApp() {
     initCustomCursor();
     initSkillBars();
     initParticleBackground();
-    initGeometricPhotoEffect(); // NEW: Initialize geometric photo effects
+    initGeometricPhotoEffect();
     
-    // Load saved theme
+    // Load saved theme (WITHOUT showing notification)
     loadTheme();
 }
 
 // ========================================
-// GEOMETRIC PHOTO POP-OUT EFFECT - NEW!
+// GEOMETRIC PHOTO POP-OUT EFFECT
 // ========================================
 function initGeometricPhotoEffect() {
     const photoContainer = document.querySelector('.geometric-photo-container');
@@ -107,34 +107,30 @@ function initGeometricPhotoEffect() {
 // PARTICLE NETWORK BACKGROUND
 // ========================================
 function initParticleBackground() {
-    // Only enable on desktop for better performance and consistency
     if (window.innerWidth <= 768) {
         console.log('📱 Particle background disabled on mobile');
         return;
     }
 
-    /* ---------- canvas setup ---------- */
     const canvas = document.createElement('canvas');
     canvas.id = 'particle-canvas';
-    document.body.prepend(canvas); // first child of body, ensuring it's behind everything
+    document.body.prepend(canvas);
     const ctx = canvas.getContext('2d');
 
-    /* ---------- config ---------- */
     const CONFIG = {
-        particleCount   : 90,          // total dots
-        minRadius       : 1.5,         // dot size min
-        maxRadius       : 3,           // dot size max
-        speed           : 0.4,         // base movement speed
-        connectDistance : 160,         // max px to draw a line
-        mouseRadius     : 180,         // mouse influence radius
-        mouseStrength   : 0.012,       // how hard mouse pushes dots
-        minConnections  : 2,           // minimum lines per dot
-        maxConnections  : 5,           // maximum lines per dot
+        particleCount   : 90,
+        minRadius       : 1.5,
+        maxRadius       : 3,
+        speed           : 0.4,
+        connectDistance : 160,
+        mouseRadius     : 180,
+        mouseStrength   : 0.012,
+        minConnections  : 2,
+        maxConnections  : 5,
         opacityDot      : 0.75,
         opacityLine     : 0.25,
     };
 
-    /* ---------- theme-aware colours ---------- */
     function getThemeColour() {
         const body = document.body;
         if (body.classList.contains('blackwhite-mode')) {
@@ -143,11 +139,9 @@ function initParticleBackground() {
         if (body.classList.contains('light-mode')) {
             return { dot: '123,47,247', line: '123,47,247' };
         }
-        /* default dark mode */
         return { dot: '0,245,255', line: '0,245,255' };
     }
 
-    /* ---------- mouse tracking ---------- */
     const mouse = { x: -9999, y: -9999 };
 
     window.addEventListener('mousemove', (e) => {
@@ -160,7 +154,6 @@ function initParticleBackground() {
         mouse.y = -9999;
     });
 
-    /* ---------- resize handler ---------- */
     function resize() {
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -171,7 +164,6 @@ function initParticleBackground() {
         initParticles();
     });
 
-    /* ---------- Particle Class Definition ---------- */
     class Particle {
         constructor() {
             this.reset(true);
@@ -229,7 +221,6 @@ function initParticleBackground() {
         }
     }
 
-    /* ---------- particles array and initialization ---------- */
     let particles = [];
 
     function initParticles() {
@@ -239,7 +230,6 @@ function initParticleBackground() {
         }
     }
 
-    /* ---------- connect dots (2-5 nearest) ---------- */
     function connectParticles(colour) {
         for (let i = 0; i < particles.length; i++) {
             const a = particles[i];
@@ -277,7 +267,6 @@ function initParticleBackground() {
         }
     }
 
-    /* ---------- main animation loop ---------- */
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -293,7 +282,6 @@ function initParticleBackground() {
         requestAnimationFrame(animate);
     }
 
-    /* ---------- boot up the background ---------- */
     resize();
     initParticles();
     animate();
@@ -310,7 +298,6 @@ function initNavigation() {
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     
-    // Sticky navbar on scroll
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
@@ -319,7 +306,6 @@ function initNavigation() {
         }
     });
     
-    // Mobile menu toggle
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
@@ -327,7 +313,6 @@ function initNavigation() {
         });
     }
     
-    // Close mobile menu on link click
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             hamburger?.classList.remove('active');
@@ -335,7 +320,6 @@ function initNavigation() {
         });
     });
     
-    // Active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
     
     window.addEventListener('scroll', () => {
@@ -354,7 +338,6 @@ function initNavigation() {
         });
     });
     
-    // Smooth scroll for anchor links
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -373,7 +356,7 @@ function initNavigation() {
 }
 
 // ========================================
-// MULTI-THEME TOGGLE (DARK/LIGHT/B&W)
+// MULTI-THEME TOGGLE (DARK/LIGHT/B&W) - FIXED!
 // ========================================
 function initThemeToggle() {
     const themeButtons = document.querySelectorAll('.theme-btn');
@@ -381,12 +364,12 @@ function initThemeToggle() {
     themeButtons.forEach(button => {
         button.addEventListener('click', () => {
             const theme = button.getAttribute('data-theme');
-            setTheme(theme);
+            setTheme(theme, true); // Show notification only on manual click
         });
     });
 }
 
-function setTheme(theme) {
+function setTheme(theme, showNotificationFlag = false) {
     // Remove all theme classes
     document.body.classList.remove('light-mode', 'blackwhite-mode');
     
@@ -410,18 +393,20 @@ function setTheme(theme) {
     // Save preference
     localStorage.setItem('theme', theme);
     
-    // Show notification
-    const themeNames = {
-        'dark': 'Dark Mode',
-        'light': 'Light Mode',
-        'blackwhite': 'Black & White Mode'
-    };
-    showNotification(`Switched to ${themeNames[theme]}`, 'success');
+    // Show notification ONLY if user manually switched (not on page load)
+    if (showNotificationFlag) {
+        const themeNames = {
+            'dark': 'Dark Mode',
+            'light': 'Light Mode',
+            'blackwhite': 'Black & White Mode'
+        };
+        showNotification(`Switched to ${themeNames[theme]}`, 'success');
+    }
 }
 
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
+    setTheme(savedTheme, false); // DO NOT show notification on page load
 }
 
 // ========================================
@@ -461,17 +446,16 @@ function initTypingEffect() {
         
         if (!isDeleting && charIndex === currentText.length) {
             isDeleting = true;
-            typingSpeed = 2000; // Pause at end
+            typingSpeed = 2000;
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             textIndex = (textIndex + 1) % texts.length;
-            typingSpeed = 500; // Pause before next text
+            typingSpeed = 500;
         }
         
         setTimeout(type, typingSpeed);
     }
     
-    // Start typing effect
     type();
 }
 
@@ -483,8 +467,8 @@ function initCounters() {
     
     const animateCounter = (counter) => {
         const target = +counter.getAttribute('data-target');
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60 FPS
+        const duration = 2000;
+        const increment = target / (duration / 16);
         let current = 0;
         
         const updateCounter = () => {
@@ -501,7 +485,6 @@ function initCounters() {
         updateCounter();
     };
     
-    // Intersection Observer for counter animation
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -556,10 +539,7 @@ function initProjectFilters() {
     
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all buttons
             filterBtns.forEach(b => b.classList.remove('active'));
-            
-            // Add active class to clicked button
             btn.classList.add('active');
             
             const filterValue = btn.getAttribute('data-filter');
@@ -627,47 +607,38 @@ function initContactForm() {
             message: document.getElementById('message').value
         };
         
-        // Show loading state
         const submitBtn = contactForm.querySelector('.btn-primary');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
         
         try {
-            // Simulate form submission (replace with actual API call)
             await simulateFormSubmission(formData);
-            
-            // Show success message
             showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
             contactForm.reset();
-            
         } catch (error) {
-            // Show error message
             showNotification('Failed to send message. Please try again or email directly.', 'error');
         } finally {
-            // Reset button
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         }
     });
 }
 
-// Simulate form submission (replace with actual API)
 function simulateFormSubmission(data) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             console.log('Form Data:', data);
-            
-            // For now, open email client as fallback
             const mailtoLink = `mailto:ca.manish.shrestha@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(data.message)}%0D%0A%0D%0AFrom: ${encodeURIComponent(data.name)} (${encodeURIComponent(data.email)})`;
             window.location.href = mailtoLink;
-            
             resolve();
         }, 1000);
     });
 }
 
-// Notification system
+// ========================================
+// NOTIFICATION SYSTEM
+// ========================================
 function showNotification(message, type = 'success') {
     // Remove existing notification
     const existingNotification = document.querySelector('.notification');
@@ -681,6 +652,9 @@ function showNotification(message, type = 'success') {
     notification.innerHTML = `
         <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
         <span>${message}</span>
+        <button class="notification-close" onclick="this.parentElement.remove()" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
     `;
     
     // Add styles
@@ -698,18 +672,21 @@ function showNotification(message, type = 'success') {
         gap: 1rem;
         z-index: 10000;
         animation: slideIn 0.3s ease;
+        max-width: 350px;
     `;
     
     document.body.appendChild(notification);
     
-    // Auto remove after 5 seconds
+    // Auto remove after 4 seconds
     setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 5000);
+        if (notification.parentElement) {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }
+    }, 4000);
 }
 
-// Add notification animations to stylesheet dynamically
+// Add notification animations
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -732,6 +709,21 @@ style.textContent = `
             transform: translateX(400px);
             opacity: 0;
         }
+    }
+    
+    .notification-close {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 0.25rem;
+        margin-left: auto;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+    }
+    
+    .notification-close:hover {
+        opacity: 1;
     }
 `;
 document.head.appendChild(style);
@@ -761,15 +753,13 @@ function initScrollToTop() {
 }
 
 // ========================================
-// CUSTOM CURSOR - FIXED VERSION
+// CUSTOM CURSOR
 // ========================================
 function initCustomCursor() {
-    // Only enable on desktop
     if (window.innerWidth < 1024) {
         return;
     }
     
-    // Create cursor elements if they don't exist
     let cursor = document.querySelector('.cursor');
     let cursorFollower = document.querySelector('.cursor-follower');
     
@@ -790,37 +780,29 @@ function initCustomCursor() {
     let followerX = 0;
     let followerY = 0;
     
-    // Update cursor position on mouse move
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        
-        // Update main cursor immediately
         cursor.style.left = mouseX + 'px';
         cursor.style.top = mouseY + 'px';
     });
     
-    // Smooth follower animation
     function animateFollower() {
         const speed = 0.15;
-        
         followerX += (mouseX - followerX) * speed;
         followerY += (mouseY - followerY) * speed;
-        
         cursorFollower.style.left = followerX + 'px';
         cursorFollower.style.top = followerY + 'px';
-        
         requestAnimationFrame(animateFollower);
     }
     
     animateFollower();
     
-    // Cursor interactions on hover (INCLUDING NEW GEOMETRIC PHOTO)
     const interactiveElements = document.querySelectorAll(
         'a, button, .btn, .project-card, .cert-card, .qual-card, ' +
         '.info-card, .tech-item, .filter-btn, .social-links a, ' +
         'input, textarea, .nav-link, .theme-btn, .hamburger, ' +
-        '.geometric-photo-container, .pop-out-photo' // NEW: Added geometric photo elements
+        '.geometric-photo-container, .pop-out-photo'
     );
     
     interactiveElements.forEach(element => {
@@ -836,7 +818,6 @@ function initCustomCursor() {
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
         });
         
-        // Add click effect
         element.addEventListener('mousedown', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.8)';
@@ -848,15 +829,12 @@ function initCustomCursor() {
         });
     });
     
-    // Hide default cursor on body
     document.body.style.cursor = 'none';
     
-    // Also hide cursor on all interactive elements
     interactiveElements.forEach(element => {
         element.style.cursor = 'none';
     });
     
-    // Hide cursor when leaving window
     document.addEventListener('mouseleave', () => {
         cursor.style.opacity = '0';
         cursorFollower.style.opacity = '0';
@@ -923,15 +901,13 @@ function initCopyEmail() {
 }
 
 // ========================================
-// PAGE VISIBILITY API (Performance)
+// PAGE VISIBILITY API
 // ========================================
 function initPageVisibility() {
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
-            // Pause animations when tab is not visible
             document.body.style.animationPlayState = 'paused';
         } else {
-            // Resume animations
             document.body.style.animationPlayState = 'running';
         }
     });
@@ -942,21 +918,22 @@ function initPageVisibility() {
 // ========================================
 function initKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        // Ctrl/Cmd + K: Focus contact form
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
             document.getElementById('name')?.focus();
         }
         
-        // Escape: Close mobile menu
         if (e.key === 'Escape') {
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('nav-menu');
             hamburger?.classList.remove('active');
             navMenu?.classList.remove('active');
+            
+            // Also close any notifications
+            const notification = document.querySelector('.notification');
+            if (notification) notification.remove();
         }
         
-        // Arrow keys: Navigate sections
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
             if (e.ctrlKey || e.metaKey) {
                 e.preventDefault();
@@ -968,7 +945,6 @@ function initKeyboardShortcuts() {
 
 function navigateSections(direction) {
     const sections = Array.from(document.querySelectorAll('section[id]'));
-    const currentScroll = window.pageYOffset;
     
     let currentSection = sections.findIndex(section => {
         const rect = section.getBoundingClientRect();
@@ -992,13 +968,11 @@ function navigateSections(direction) {
 }
 
 // ========================================
-// ANALYTICS TRACKING (Optional)
+// ANALYTICS TRACKING
 // ========================================
 function initAnalytics() {
-    // Track page views
     trackPageView();
     
-    // Track button clicks
     const trackButtons = document.querySelectorAll('[data-track]');
     trackButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -1007,7 +981,6 @@ function initAnalytics() {
         });
     });
     
-    // Track form submissions
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', () => {
@@ -1017,14 +990,12 @@ function initAnalytics() {
 }
 
 function trackPageView() {
-    // Google Analytics or custom tracking
     console.log('Page View Tracked:', window.location.pathname);
 }
 
 function trackEvent(category, action, label = '') {
     console.log('Event Tracked:', { category, action, label });
     
-    // Send to Google Analytics if available
     if (typeof gtag !== 'undefined') {
         gtag('event', action, {
             'event_category': category,
@@ -1037,19 +1008,6 @@ function trackEvent(category, action, label = '') {
 // PERFORMANCE OPTIMIZATION
 // ========================================
 function optimizePerformance() {
-    // Defer non-critical CSS
-    const deferredStyles = [
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-    ];
-    
-    deferredStyles.forEach(href => {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = href;
-        document.head.appendChild(link);
-    });
-    
-    // Preload critical resources (including new photo)
     const preloadResources = [
         { href: 'images/ms.jpg', as: 'image' }
     ];
@@ -1068,7 +1026,6 @@ function optimizePerformance() {
 // ========================================
 window.addEventListener('error', (e) => {
     console.error('Global Error:', e.message);
-    // Optionally send to error tracking service
 });
 
 window.addEventListener('unhandledrejection', (e) => {
@@ -1086,8 +1043,6 @@ function checkBrowserCompatibility() {
     
     if (!isModernBrowser) {
         console.warn('Your browser may not support all features.');
-        // Show notification to upgrade browser
-        showNotification('For the best experience, please use a modern browser.', 'error');
     }
 }
 
@@ -1104,7 +1059,6 @@ window.addEventListener('load', () => {
     optimizePerformance();
     checkBrowserCompatibility();
     
-    // Hide loading screen if exists
     const loader = document.querySelector('.loader');
     if (loader) {
         loader.style.opacity = '0';
@@ -1115,7 +1069,7 @@ window.addEventListener('load', () => {
 });
 
 // ========================================
-// SERVICE WORKER (PWA - Optional)
+// SERVICE WORKER (PWA)
 // ========================================
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
