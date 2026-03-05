@@ -47,35 +47,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Behind everything */
-            pointer-events: none; /* Let clicks pass through */
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Ensure content sits ABOVE the canvas */
         .navbar, .hero, .about, .qualifications, .experience, .skills, .projects, .contact, .footer {
             position: relative;
             z-index: 1;
         }
 
-        /* --- 2. TRANSPARENCY FIXES (So particles are visible) --- */
-        /* Overriding solid colors with semi-transparent ones */
-        
-        /* Dark Mode (Default) */
+        /* --- 2. TRANSPARENCY FIXES --- */
         .hero { background: transparent !important; }
         .about, .experience, .projects { background: rgba(10, 14, 39, 0.85) !important; }
         .qualifications, .skills, .contact { background: rgba(5, 8, 22, 0.85) !important; }
         .footer { background: rgba(5, 8, 22, 0.95) !important; }
 
-        /* Light Mode */
         body.light-mode .hero { background: transparent !important; }
         body.light-mode .about, body.light-mode .experience, body.light-mode .projects { background: rgba(255, 255, 255, 0.85) !important; }
         body.light-mode .qualifications, body.light-mode .skills, body.light-mode .contact { background: rgba(245, 247, 250, 0.85) !important; }
         
-        /* B&W Mode */
         body.blackwhite-mode .hero { background: transparent !important; }
         body.blackwhite-mode .about, body.blackwhite-mode .experience, body.blackwhite-mode .projects { background: rgba(255, 255, 255, 0.85) !important; }
         body.blackwhite-mode .qualifications, body.blackwhite-mode .skills, body.blackwhite-mode .contact { background: rgba(248, 249, 250, 0.85) !important; }
-
 
         /* --- 3. EXISTING UTILITY STYLES --- */
         :root {
@@ -120,76 +113,63 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
 
-        /* ========================================
-           NEW GEOMETRIC FRAME WITH POP-OUT EFFECT
-        ======================================== */
-        
-        /* Container for the geometric frame */
+        /* GEOMETRIC PHOTO POP-OUT EFFECT */
         .geometric-photo-container {
             position: relative;
             display: inline-block;
-            width: 280px;
-            height: 320px;
+            width: 300px;
+            height: 340px;
         }
 
-        /* Light sky blue geometric frame - Semi-circle left + notch right */
         .geometric-frame {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 220px;
-            height: 260px;
+            width: 240px;
+            height: 280px;
             background: linear-gradient(135deg, #87CEEB 0%, #b3d9f2 100%);
-            border-radius: 110px 0 20px 110px; /* Semi-circle on left, sharp notch on right */
+            border-radius: 120px 0 30px 120px;
             box-shadow: 
-                0 15px 40px rgba(135, 206, 235, 0.3),
-                0 8px 20px rgba(0, 0, 0, 0.1);
+                0 15px 50px rgba(135, 206, 235, 0.35),
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                inset 0 -5px 15px rgba(255, 255, 255, 0.2);
             z-index: 1;
         }
 
-        /* Photo that pops out from the frame */
         .pop-out-photo-wrapper {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2; /* Above the frame */
+            z-index: 2;
         }
 
         .pop-out-photo {
-            width: 240px !important;
-            height: 280px !important;
+            width: 260px !important;
+            height: 300px !important;
             object-fit: cover;
-            object-position: center top; /* Focus on head and shoulders */
-            border-radius: 120px 0 30px 120px; /* Match frame shape but slightly larger */
-            border: 6px solid #ffffff;
-            box-shadow: 
-                0 25px 60px rgba(0, 0, 0, 0.25),
-                0 10px 25px rgba(0, 0, 0, 0.15),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            /* Photo intentionally oversized to create pop-out effect */
-            clip-path: polygon(
-                0% 15%, 
-                100% 0%, 
-                100% 100%, 
-                0% 100%
-            ); /* Top portion pops out */
-        }
-
-        /* Subtle hover effect */
-        .geometric-photo-container:hover .pop-out-photo {
-            transform: translateY(-5px) scale(1.02);
+            object-position: center top;
+            border-radius: 130px 0 35px 130px;
+            border: 7px solid #ffffff;
             box-shadow: 
                 0 30px 70px rgba(0, 0, 0, 0.3),
-                0 15px 30px rgba(0, 0, 0, 0.2);
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%);
         }
 
-        /* Override old styles to prevent conflicts */
+        body.blackwhite-mode .geometric-frame {
+            background: linear-gradient(135deg, #d3d3d3 0%, #e8e8e8 100%);
+        }
+
+        body.blackwhite-mode .pop-out-photo {
+            filter: grayscale(100%);
+        }
+
         .professional-photo-frame,
         .floating-card, 
         .image-border,
@@ -200,8 +180,6 @@
         .hero-image img:not(.pop-out-photo) {
             display: none !important;
         }
-
-        /* ======================================== */
 
         .visitor-metrics-container {
             margin-top: 30px;
@@ -256,7 +234,7 @@
     </script>
 </head>
 <body>
-    <!-- 1. PARTICLE CANVAS (New) -->
+    <!-- 1. PARTICLE CANVAS -->
     <canvas id="particle-canvas"></canvas>
 
     <!-- Navigation -->
@@ -345,15 +323,10 @@
                 </div>
             </div>
             
-            <!-- ========================================
-                 UPDATED HERO IMAGE - GEOMETRIC POP-OUT EFFECT
-            ======================================== -->
+            <!-- Hero Image - GEOMETRIC POP-OUT EFFECT -->
             <div class="hero-image">
                 <div class="geometric-photo-container">
-                    <!-- Light Sky Blue Geometric Frame (Background Layer) -->
                     <div class="geometric-frame"></div>
-                    
-                    <!-- Photo (Foreground Layer - Pops Out) -->
                     <div class="pop-out-photo-wrapper">
                         <img src="images/ms.jpg" 
                              alt="Manish Shrestha - Chartered Accountant" 
@@ -1444,6 +1417,77 @@
     <!-- Scroll to Top Button -->
     <button class="scroll-top" id="scroll-top" aria-label="Scroll to Top">
         <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ========================================
+         AI CHATBOT (NEW!)
+         ======================================== -->
+    
+    <!-- AI Chat Container -->
+    <div id="ai-chat-container" class="chat-container hidden">
+        <div class="chat-header">
+            <div class="chat-header-content">
+                <div class="avatar-container">
+                    <img src="images/ms.jpg" alt="Manish Shrestha" class="chat-avatar">
+                    <span class="online-indicator"></span>
+                </div>
+                <div class="chat-title">
+                    <h3>Ask Manish AI</h3>
+                    <p class="chat-status">Online • Instant Response</p>
+                </div>
+            </div>
+            <button class="chat-minimize" onclick="toggleChat()" aria-label="Minimize Chat">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button class="chat-close" onclick="closeChat()" aria-label="Close Chat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <!-- Welcome message -->
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>👋 Hi! I'm Manish's AI assistant. Ask me anything about his:</p>
+                    <div class="quick-suggestions">
+                        <button class="suggestion-btn" onclick="askQuestion('What are your certifications?')">
+                            📜 Certifications
+                        </button>
+                        <button class="suggestion-btn" onclick="askQuestion('Tell me about your experience')">
+                            💼 Experience
+                        </button>
+                        <button class="suggestion-btn" onclick="askQuestion('What projects have you done?')">
+                            🚀 Projects
+                        </button>
+                        <button class="suggestion-btn" onclick="askQuestion('How can I contact you?')">
+                            📧 Contact
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <input 
+                type="text" 
+                id="chatInput" 
+                class="chat-input" 
+                placeholder="Ask me anything..."
+                onkeypress="if(event.key==='Enter') sendMessage()"
+            >
+            <button class="chat-send-btn" onclick="sendMessage()" aria-label="Send Message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button class="chat-toggle-btn" onclick="toggleChat()" id="chatToggleBtn" aria-label="Open AI Chat">
+        <i class="fas fa-robot"></i>
+        <span class="chat-badge">Ask me!</span>
     </button>
 
     <!-- PARTICLE NETWORK BACKGROUND - SELF CONTAINED -->
