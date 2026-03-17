@@ -26,7 +26,7 @@ function initializeApp() {
     initSkillBars();
     initParticleBackground();
     initGeometricPhotoEffect();
-    initAIChatbot(); // NEW: AI Chatbot
+    initAIChatbot(); // AI Chatbot
     
     // Load saved theme (without notification)
     loadTheme();
@@ -57,7 +57,7 @@ const knowledgeBase = {
 
 I'm his AI assistant and I can help you learn about:
 
-📜 **Certifications** - CA, CISA, ISO Lead Auditor
+📜 **Certifications** - CA, CISA, ISO Lead Auditor (75+ certs)
 💼 **Experience** - 8+ years in audit & finance
 🚀 **Projects** - 60+ completed projects
 🎯 **Skills** - Audit, Compliance, GRC
@@ -69,27 +69,57 @@ What would you like to know?`
     // Certifications
     certifications: {
         keywords: ['certification', 'certified', 'cisa', 'iso', 'qualified', 'credentials', 'certificate', 'ca', 'chartered accountant', 'qualifications'],
-        response: `📜 **Professional Certifications (54+)**
+        response: `📜 **Professional Certifications (75+)**
 
 **Elite Qualifications:**
 🏆 **Chartered Accountant (CA)** - ICAN, Dec 2024
-🛡️ **CISA** - Score 625/800 (Active until 2027-2030)
+🛡️ **CISA** - Score 625/800 (ID: 262979122)
 
 **ISO Lead Auditor:**
 ✅ ISO/IEC 27001:2022 - 95% (ISMS)
 ✅ ISO/IEC 42001:2023 - 84% (AI Management)
+✅ ISO 9001 Quality Management Systems Associate
 
-**Security & Compliance:**
-• Certified Phishing Prevention Specialist
-• PCI DSS Compliance
+**Security & Compliance (14 certs):**
+• Certified Phishing Prevention Specialist (CPPS)
+• Certified Ransomware Protection Officer (R-CRPO)
+• PCI DSS Compliance Training
 • GDPR Foundations
+• HIPAA Compliance Training
+• Vulnerability Management (Qualys)
+• Digital Forensics & Incident Investigation
+• Malware Analysis
+• Ethical Hacker (Cisco)
 
-**Technology:**
+**AI & Technology (12 certs):**
 • Google Gemini Certified (2025-2028)
-• Power BI Certification
-• Google Analytics Certified
+• AI Fluency for Educators (Anthropic)
+• Google Certified Educator Level 1 & 2
+• AI Security and Governance (Securiti AI)
+• Foundations of Generative AI
 
-Would you like details on any specific certification?`
+**Cloud & Database (3 certs):**
+• PingCAP Certified TiDB Practitioner - 95%
+• Graph Data Science (Neo4j)
+• Cloud Computing (CodeRed)
+
+**Cybersecurity (6 certs):**
+• TryHackMe Bronze League - 1st Ranked
+• Ethical Hacking - 19 Hours (TryHackMe)
+• In-house Hacking & Pentesting Labs
+
+**Data Analytics (7 certs):**
+• Power BI (Multiple certifications)
+• Google Analytics Certified
+• AI-Powered Performance Ads
+
+**Finance & Accounting (12 certs):**
+• IFRS 9: Expected Credit Losses
+• QuickBooks Online Certified
+• Xero Advisor Certified
+• Tally ERP 9 Course
+
+Want details on any specific certification?`
     },
 
     // Experience
@@ -172,6 +202,7 @@ Want details on any specific project?`
 • Banking Software (Pumori, Finacle, T24) - 90%
 • Power BI & Analytics - 80%
 • Cybersecurity Tools - 78%
+• AI & Machine Learning - 70%
 
 Any specific skill you'd like to discuss?`
     },
@@ -219,6 +250,7 @@ Would you like me to help you send a message to Manish?`
 
 **Specialized Training:**
 • 100+ hours IT Training (ICAN)
+• GMCS - General Management & Communication Skills
 • Multiple professional development courses
 • Continuous CPE compliance
 
@@ -241,24 +273,32 @@ Manish believes in lifelong learning and continuously updates his skills!`
 ⭐ Top 4 Employee Star 2019
    S.A.R Associates (among 100+ staff)
 
+**Competition Awards:**
+🥇 TryHackMe Bronze League - 1st Ranked
+
 These awards reflect dedication to excellence in financial reporting and professional conduct!`
     },
 
     // ISO Certifications
     iso: {
-        keywords: ['iso 27001', 'iso 42001', 'information security', 'isms', 'ai management', 'lead auditor'],
+        keywords: ['iso 27001', 'iso 42001', 'iso 9001', 'information security', 'isms', 'ai management', 'lead auditor', 'quality management'],
         response: `🔒 **ISO Certifications**
 
 **ISO/IEC 27001:2022 Lead Auditor**
 📊 Score: 95%
 📋 Information Security Management Systems (ISMS)
 🏢 Provider: Mastermind Assurance, USA
+⏱️ Valid: Dec 2025 - Dec 2028
 
 **ISO/IEC 42001:2023 Lead Auditor**
 📊 Score: 84%
 🤖 AI Management Systems (AIMS)
 🏢 Provider: Mastermind Assurance, USA
 ⭐ One of the first in Nepal with this certification!
+
+**ISO 9001 QMS Associate**
+📋 Quality Management Systems Foundation
+🏢 Provider: SkillFront
 
 These certifications enable Manish to lead audits for organizations seeking ISO compliance.`
     },
@@ -300,6 +340,7 @@ Manish can help with:
 **Compliance:**
 • ISO 27001 Implementation/Audit
 • ISO 42001 (AI Management)
+• ISO 9001 Quality Management
 • NRB/SEBON Compliance
 • GRC Frameworks
 
@@ -330,6 +371,7 @@ Elite Finance & IT Audit Professional with 8+ years of experience spanning Finan
 ✅ Chartered Accountant (ICAN) - Dec 2024
 ✅ CISA Certified (625/800)
 ✅ ISO 27001 & 42001 Lead Auditor
+✅ 75+ professional certifications
 ✅ 60+ projects completed
 ✅ 100+ companies audited
 ✅ 2x Award Winner (ICAN)
@@ -343,9 +385,182 @@ Elite Finance & IT Audit Professional with 8+ years of experience spanning Finan
 Passionate about bridging finance and technology!`
     },
 
+    // Google Certifications
+    google: {
+        keywords: ['google', 'gemini', 'educator', 'analytics', 'ads'],
+        response: `🔷 **Google Certifications**
+
+**Google Gemini Certified**
+📅 Valid: 2025-2028
+🆔 Credential: 167374784
+
+**Google Certified Educator:**
+• Level 2 (Advanced) - ID: 176453114
+• Level 1 (Foundation)
+
+**Google Analytics Certification**
+📊 Data-driven decision making
+🆔 Credential: 149829970
+
+**AI-Powered Performance Ads**
+🎯 Digital marketing with AI
+🆔 Credential: 150502706
+
+All certifications demonstrate proficiency in Google's ecosystem!`
+    },
+
+    // Microsoft Certifications
+    microsoft: {
+        keywords: ['microsoft', 'power bi', 'azure', 'ai concepts'],
+        response: `🔷 **Microsoft Certifications**
+
+**Power BI:**
+• Getting Started with Power BI
+• Discover Data Achievements
+
+**Security:**
+• Ransomware and Extortion - Security Threats
+
+**AI:**
+• Introduction to AI Concepts
+
+These certifications validate expertise in Microsoft's data and AI platforms!`
+    },
+
+    // Cybersecurity
+    cybersecurity: {
+        keywords: ['cybersecurity', 'security', 'hacking', 'pentesting', 'ethical hacker', 'tryhackme'],
+        response: `🔐 **Cybersecurity Expertise**
+
+**Offensive Security:**
+🥇 TryHackMe Bronze League - 1st Ranked
+• Ethical Hacking - 19 Hours (THM)
+• Ethical Hacker for Beginners - 21 Hours
+• In-house Hacking & Pentesting Labs
+
+**Defensive Security:**
+• Certified Phishing Prevention Specialist (CPPS)
+• Certified Ransomware Protection Officer (R-CRPO)
+• Digital Forensics & Incident Investigation
+• Malware Analysis
+• Vulnerability Management (Qualys)
+
+**Compliance:**
+• PCI DSS Compliance Training
+• GDPR Foundations
+• HIPAA Compliance Training
+
+Manish combines offensive knowledge with defensive strategy for comprehensive security!`
+    },
+
+    // TiDB/Database
+    database: {
+        keywords: ['tidb', 'database', 'neo4j', 'graph', 'sql', 'distributed'],
+        response: `💾 **Database Certifications**
+
+**PingCAP Certified TiDB Practitioner**
+📊 Score: 95%
+🆔 Credential: 672e-62ec-7a12-107b
+📋 Distributed SQL Database Expert
+
+**Neo4j Graph Data Science**
+🕸️ Graph algorithms & analytics
+🆔 Credential: 4ac51e03-050b-4552-901c-7fe487a607ed
+
+**Capabilities:**
+• TiDB architecture & deployment
+• HTAP workloads
+• Graph data modeling
+• Community detection algorithms
+
+These skills enable work with modern, scalable database systems!`
+    },
+
+    // Accounting Software
+    accounting: {
+        keywords: ['quickbooks', 'xero', 'tally', 'accounting software', 'bookkeeping'],
+        response: `💼 **Accounting Software Expertise**
+
+**QuickBooks Online Certification Level 1**
+🏢 Intuit Certified
+📅 Valid: Jun 2025 - Jul 2026
+
+**Xero Advisor Certified**
+🆔 Credential: 11801003
+☁️ Cloud accounting expert
+
+**Tally ERP 9 Course**
+🏢 Henry Harvin Education
+📊 Comprehensive accounting & GST
+
+**Skills:**
+• Bookkeeping & reconciliation
+• Financial reporting
+• Inventory management
+• Payroll processing
+• GST compliance
+
+Proficient in leading accounting platforms for SMEs!`
+    },
+
+    // AI & Generative AI
+    ai: {
+        keywords: ['artificial intelligence', 'generative ai', 'llm', 'prompt engineering', 'dubai ai'],
+        response: `🤖 **AI & Generative AI Expertise**
+
+**AI Certifications:**
+• AI Fluency for Educators (Anthropic)
+• AI Security and Governance (Securiti AI)
+• Saviynt Identity Security for AI Age
+• Foundations of Generative AI (Analytics Vidhya)
+• 1 Million Promptors - Dubai Center for AI
+
+**AI Learning:**
+• Demystifying Generative AI for Leaders (Infosys)
+• Introduction to AI Concepts (Microsoft)
+• AI Risks, Rewards & Responsibilities (Alan Turing Institute)
+• Digital Skills: AI (Accenture)
+
+**Skills:**
+• Prompt engineering
+• LLM applications
+• AI governance frameworks
+• Responsible AI implementation
+• AI risk management
+
+Passionate about ethical and practical AI adoption!`
+    },
+
+    // Professional Development
+    development: {
+        keywords: ['training', 'course', 'professional development', 'skill development', 'learning'],
+        response: `📚 **Professional Development**
+
+**Management & Communication:**
+• GMCS - General Management & Communication Skills (ICAN)
+• Crisis Communication (Saylor Academy)
+• The Journey to Taming our Biases (UNICEF)
+
+**Business:**
+• Foundations of Business & Entrepreneurship (SkillFront)
+• Sales Forecasting (HP Foundation)
+• Investment Banking Job Simulation (JPMorgan)
+• Climate Change in Financial Services (Oliver Wyman)
+
+**Technical:**
+• IT Training - 100+ Hours (ICAN)
+• Cloud Computing (CodeRed)
+• Blockchain Basics (Cyfrin Updraft)
+
+**Memberships:**
+• ISACA Member
+
+Committed to continuous learning and professional growth!`
+    },
+
     // Location
     location: {
-        keywords: ['location', 'where', 'based', 'live', 'address', 'nepal', 'kathmandu'],
+        keywords: ['location', 'where', 'based', 'live', 'address', 'nepal', 'kathmandu', 'lalitpur'],
         response: `📍 **Location**
 
 **Current Location:**
@@ -369,7 +584,7 @@ Would you like to schedule a meeting?`
 
 Is there anything else you'd like to know about Manish's:
 • Professional background
-• Certifications
+• 75+ Certifications
 • Projects
 • Services
 • Contact information
@@ -448,6 +663,8 @@ I can help you with:
 🎯 **Skills** - "What are your skills?"
 📧 **Contact** - "How can I contact you?"
 🛠️ **Services** - "What services do you offer?"
+🔐 **Cybersecurity** - "Tell me about cybersecurity expertise"
+🤖 **AI** - "What AI certifications do you have?"
 
 Try asking about any of these topics!`
     }
@@ -716,9 +933,9 @@ function getBotResponse(userMessage) {
 // ========================================
 
 function sendEmailNotification(userQuestion, botResponse) {
-    // Method 1: Using Web3Forms (FREE - 250 submissions/month)
+    // Using Web3Forms (FREE - 250 submissions/month)
     const formData = new FormData();
-    formData.append('access_key', '36e8d043-01c0-41d2-99b4-0fda13264c67'); // Get free key at web3forms.com
+    formData.append('access_key', 'YOUR_WEB3FORMS_KEY'); // Get free key at web3forms.com
     formData.append('subject', '🤖 New Chat on Portfolio - ' + new Date().toLocaleString());
     formData.append('from_name', 'Portfolio AI Chatbot');
     formData.append('message', `
@@ -740,7 +957,7 @@ ${chatState.visitorInfo.questionsAsked.join('\n• ')}
     `);
     
     // Check if Web3Forms key is configured
-    if (formData.get('access_key') !== '36e8d043-01c0-41d2-99b4-0fda13264c67') {
+    if (formData.get('access_key') !== 'YOUR_WEB3FORMS_KEY') {
         fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             body: formData
@@ -776,25 +993,6 @@ function storeNotificationLocally(question, response) {
     
     localStorage.setItem('chatNotifications', JSON.stringify(notifications));
     console.log('💾 Notification stored locally');
-}
-
-// Alternative: EmailJS Integration (FREE - 200 emails/month)
-function sendEmailJS(userQuestion) {
-    // If you want to use EmailJS, add this script to your HTML:
-    // <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
-    if (typeof emailjs !== 'undefined') {
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-            question: userQuestion,
-            timestamp: new Date().toLocaleString(),
-            message_count: chatState.messageCount
-        })
-        .then(function(response) {
-            console.log('📧 EmailJS sent:', response);
-        }, function(error) {
-            console.log('📧 EmailJS failed:', error);
-        });
-    }
 }
 
 // Get Session Duration
@@ -1735,4 +1933,8 @@ console.log(
 console.log(
     '%c📧 Contact: ca.manish.shrestha@gmail.com',
     'color: #10b981; font-size: 12px;'
+);
+console.log(
+    '%c📜 75+ Professional Certifications!',
+    'color: #ff006e; font-size: 12px;'
 );
