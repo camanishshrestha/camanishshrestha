@@ -1059,7 +1059,7 @@ body.blackwhite-mode .pop-out-photo {
 }
 
 /* ========================================
-   QUALIFICATIONS
+   QUALIFICATIONS - FULL CERTIFICATE SUPPORT
    ======================================== */
 .qualifications {
     padding: var(--spacing-xl) 0;
@@ -1160,6 +1160,13 @@ body.blackwhite-mode .pop-out-photo {
     margin-bottom: 0.75rem;
 }
 
+.qual-credential {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
 .qual-badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -1185,6 +1192,11 @@ body.blackwhite-mode .pop-out-photo {
     text-align: center;
     transition: var(--transition-base);
     position: relative;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .cert-card:hover {
@@ -1216,16 +1228,18 @@ body.blackwhite-mode .pop-out-photo {
 .cert-card h4 {
     font-size: 1.125rem;
     margin-bottom: 0.75rem;
-    min-height: 60px;
+    min-height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1.4;
 }
 
 .cert-card p {
     color: var(--text-muted);
     font-size: 0.875rem;
     margin-bottom: 0.75rem;
+    flex-grow: 1;
 }
 
 .cert-provider {
@@ -1233,12 +1247,17 @@ body.blackwhite-mode .pop-out-photo {
     color: var(--primary);
     font-size: 0.875rem;
     font-weight: 600;
+    margin-top: auto;
 }
 
 @media (max-width: 768px) {
     .qual-grid,
     .cert-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .cert-card {
+        min-height: 200px;
     }
 }
 
@@ -2037,6 +2056,10 @@ body.blackwhite-mode .pop-out-photo {
     font-size: 0.95rem;
 }
 
+.copyright-text {
+    color: var(--text-muted);
+}
+
 .footer-bottom strong {
     background: var(--gradient-accent);
     -webkit-background-clip: text;
@@ -2635,6 +2658,11 @@ body.blackwhite-mode .suggestion-btn:hover {
         padding: 8px 12px;
         font-size: 0.8rem;
     }
+    
+    /* Adjust scroll-top position when chat is present */
+    .scroll-top {
+        bottom: 110px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2711,11 +2739,6 @@ body.blackwhite-mode .suggestion-btn:hover {
     
     .section-header {
         margin-bottom: var(--spacing-md);
-    }
-    
-    /* Adjust scroll-top position when chat is present */
-    .scroll-top {
-        bottom: 110px;
     }
 }
 
