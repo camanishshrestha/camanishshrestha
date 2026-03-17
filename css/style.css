@@ -2873,5 +2873,46 @@ body.blackwhite-mode .footer {
 }
 
 /* ========================================
+   HERO PHOTO POSITION FIX - PULL UP
+   ======================================== */
+
+/* Reduce hero top padding to show photo without scrolling */
+.hero {
+    padding-top: 80px !important; /* Reduced from 6rem (96px) */
+    padding-bottom: var(--spacing-lg);
+}
+
+/* Pull the entire hero container up slightly */
+.hero-container {
+    margin-top: -20px;
+}
+
+/* Ensure photo is positioned correctly */
+.geometric-photo-container {
+    margin-top: -30px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 968px) {
+    .hero {
+        padding-top: 100px !important;
+    }
+    
+    .hero-container {
+        margin-top: 0;
+    }
+    
+    .geometric-photo-container {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding-top: 90px !important;
+    }
+}
+
+/* ========================================
    END OF STYLESHEET
    ======================================== */
