@@ -26,7 +26,7 @@ function initializeApp() {
     initSkillBars();
     initParticleBackground();
     initGeometricPhotoEffect();
-    initAIChatbot(); // AI Chatbot
+    initAIChatbot();
     
     // Load saved theme (without notification)
     loadTheme();
@@ -929,51 +929,53 @@ function getBotResponse(userMessage) {
 }
 
 // ========================================
-// EMAIL NOTIFICATION SYSTEM (FREE)
+// EMAIL NOTIFICATION SYSTEM (WEB3FORMS)
 // ========================================
 
 function sendEmailNotification(userQuestion, botResponse) {
-    // Using Web3Forms (FREE - 250 submissions/month)
     const formData = new FormData();
-    formData.append('access_key', 36e8d043-01c0-41d2-99b4-0fda13264c67); // Get free key at web3forms.com
-    formData.append('subject', '🤖 New Chat on Portfolio - ' + new Date().toLocaleString());
+    formData.append('access_key', '36e8d043-01c0-41d2-99b4-0fda13264c67');
+    formData.append('subject', '🤖 New Chat - ' + new Date().toLocaleString());
     formData.append('from_name', 'Portfolio AI Chatbot');
+    formData.append('email', 'ca.manish.shrestha@gmail.com');
     formData.append('message', `
-📬 New Chat Notification
+📬 NEW CHAT NOTIFICATION
 
 👤 Visitor Question:
 ${userQuestion}
 
 🤖 Bot Response:
-${botResponse.substring(0, 500)}...
+${botResponse.substring(0, 500)}${botResponse.length > 500 ? '...' : ''}
 
 📊 Session Info:
-• Messages: ${chatState.messageCount + 1}
+• Total Messages: ${chatState.messageCount + 1}
 • Time: ${new Date().toLocaleString()}
-• Duration: ${getSessionDuration()}
+• Session Duration: ${getSessionDuration()}
 
-📝 All Questions Asked:
-${chatState.visitorInfo.questionsAsked.join('\n• ')}
+📝 Questions Asked in Session:
+${chatState.visitorInfo.questionsAsked.map((q, i) => `${i + 1}. ${q}`).join('\n')}
+
+---
+Sent from: ${window.location.href}
     `);
     
-    // Check if Web3Forms key is configured
-    if (formData.get('access_key') !== 36e8d043-01c0-41d2-99b4-0fda13264c67) {
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('📧 Email notification sent:', data);
-        })
-        .catch(error => {
-            console.log('📧 Email notification failed, using fallback');
-            sendEmailFallback(userQuestion);
-        });
-    } else {
-        // Fallback: Store locally for later review
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('✅ Email notification sent!');
+        } else {
+            console.warn('⚠️ Email failed:', data.message);
+            storeNotificationLocally(userQuestion, botResponse);
+        }
+    })
+    .catch(error => {
+        console.error('❌ Email error:', error);
         storeNotificationLocally(userQuestion, botResponse);
-    }
+    });
 }
 
 // Fallback: Store notifications locally
@@ -1337,7 +1339,7 @@ function initNavigation() {
 }
 
 // ========================================
-// MULTI-THEME TOGGLE (FIXED - No notification on load)
+// MULTI-THEME TOGGLE
 // ========================================
 function initThemeToggle() {
     const themeButtons = document.querySelectorAll('.theme-btn');
@@ -1345,7 +1347,7 @@ function initThemeToggle() {
     themeButtons.forEach(button => {
         button.addEventListener('click', () => {
             const theme = button.getAttribute('data-theme');
-            setTheme(theme, true); // Show notification only on click
+            setTheme(theme, true);
         });
     });
 }
@@ -1369,7 +1371,6 @@ function setTheme(theme, showNotificationFlag = false) {
     
     localStorage.setItem('theme', theme);
     
-    // Show notification ONLY if manually switched
     if (showNotificationFlag) {
         const themeNames = {
             'dark': 'Dark Mode',
@@ -1382,7 +1383,7 @@ function setTheme(theme, showNotificationFlag = false) {
 
 function loadTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme, false); // No notification on load
+    setTheme(savedTheme, false);
 }
 
 // ========================================
@@ -1589,7 +1590,7 @@ function initContactForm() {
         submitBtn.disabled = true;
         
         try {
-            await simulateFormSubmission(formData);
+            await sendContactEmail(formData);
             showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
             contactForm.reset();
         } catch (error) {
@@ -1601,14 +1602,50 @@ function initContactForm() {
     });
 }
 
-function simulateFormSubmission(data) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            console.log('Form Data:', data);
+// Send Contact Form via Web3Forms
+function sendContactEmail(data) {
+    return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('access_key', '36e8d043-01c0-41d2-99b4-0fda13264c67');
+        formData.append('subject', '📩 Contact Form: ' + data.subject);
+        formData.append('from_name', data.name);
+        formData.append('email', data.email);
+        formData.append('message', `
+📩 NEW CONTACT FORM SUBMISSION
+
+👤 From: ${data.name}
+📧 Email: ${data.email}
+📋 Subject: ${data.subject}
+
+💬 Message:
+${data.message}
+
+---
+Sent from: ${window.location.href}
+Time: ${new Date().toLocaleString()}
+        `);
+        
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                console.log('✅ Contact form sent!');
+                resolve(result);
+            } else {
+                console.error('❌ Contact form failed:', result);
+                reject(new Error(result.message));
+            }
+        })
+        .catch(error => {
+            console.error('❌ Contact form error:', error);
+            // Fallback to mailto
             const mailtoLink = `mailto:ca.manish.shrestha@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(data.message)}%0D%0A%0D%0AFrom: ${encodeURIComponent(data.name)} (${encodeURIComponent(data.email)})`;
             window.location.href = mailtoLink;
             resolve();
-        }, 1000);
+        });
     });
 }
 
