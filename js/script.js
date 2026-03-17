@@ -935,7 +935,7 @@ function getBotResponse(userMessage) {
 function sendEmailNotification(userQuestion, botResponse) {
     // Using Web3Forms (FREE - 250 submissions/month)
     const formData = new FormData();
-    formData.append('access_key', 'YOUR_WEB3FORMS_KEY'); // Get free key at web3forms.com
+    formData.append('access_key', 36e8d043-01c0-41d2-99b4-0fda13264c67); // Get free key at web3forms.com
     formData.append('subject', '🤖 New Chat on Portfolio - ' + new Date().toLocaleString());
     formData.append('from_name', 'Portfolio AI Chatbot');
     formData.append('message', `
@@ -957,7 +957,7 @@ ${chatState.visitorInfo.questionsAsked.join('\n• ')}
     `);
     
     // Check if Web3Forms key is configured
-    if (formData.get('access_key') !== 'YOUR_WEB3FORMS_KEY') {
+    if (formData.get('access_key') !== 36e8d043-01c0-41d2-99b4-0fda13264c67) {
         fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             body: formData
