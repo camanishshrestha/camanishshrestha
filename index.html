@@ -111,8 +111,96 @@
 
         .hero-image {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+
+        /* ===================================
+           HERO QUOTE STYLES
+           =================================== */
+        .hero-quote {
+            max-width: 320px;
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 18px 22px;
+            position: relative;
+            background: rgba(123, 47, 247, 0.08);
+            border-left: 4px solid #7b2ff7;
+            border-radius: 0 12px 12px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-quote p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .hero-quote .quote-icon {
+            font-size: 1.4rem;
+            color: #7b2ff7;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .hero-quote .quote-author {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 600;
+            color: #7b2ff7;
+            letter-spacing: 0.5px;
+        }
+
+        body.light-mode .hero-quote {
+            background: rgba(123, 47, 247, 0.06);
+            border-left-color: #7b2ff7;
+        }
+
+        body.blackwhite-mode .hero-quote {
+            background: rgba(120, 120, 120, 0.08);
+            border-left-color: #666;
+        }
+
+        body.blackwhite-mode .hero-quote .quote-icon,
+        body.blackwhite-mode .hero-quote .quote-author {
+            color: #666;
+        }
+
+        /* ===================================
+           HERO DESCRIPTION DIVIDER
+           =================================== */
+        .hero-description-divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(123, 47, 247, 0.4), transparent);
+            margin: 12px 0;
+            width: 80%;
+        }
+
+        body.blackwhite-mode .hero-description-divider {
+            background: linear-gradient(90deg, transparent, rgba(120, 120, 120, 0.4), transparent);
+        }
+
+        body.light-mode .hero-description-divider {
+            background: linear-gradient(90deg, transparent, rgba(123, 47, 247, 0.3), transparent);
+        }
+
+        @media (max-width: 768px) {
+            .hero-quote {
+                max-width: 280px;
+                padding: 15px 18px;
+                margin-bottom: 20px;
+            }
+
+            .hero-quote p {
+                font-size: 0.8rem;
+            }
         }
 
         /* GEOMETRIC PHOTO POP-OUT EFFECT */
@@ -534,7 +622,8 @@
                 </h2>
                 <p class="hero-description">
                     Chartered Accountant (ICAN) | CISA | Head of Internal Audit & Compliance | IS Auditor | ISO 27001 & 42001 LA | Ethical Hacker | GRC Engineer | Finance specialist with CISO mindset | I build controls that ship and save money | BFSI | CS50P | Finance x Cybersecurity x AI
-                    <br>Specializing in Advanced Accounting, Financial management & Planning, Investment & Treasury management, Cashflow Management & Budgeting, Financial Auditing, IS Auditing, and Governance, Risk & Compliance (GRC)
+                    <hr class="hero-description-divider">
+                    Specializing in Advanced Accounting, Financial management & Planning, Investment & Treasury management, Cashflow Management & Budgeting, Financial Auditing, IS Auditing, and Governance, Risk & Compliance (GRC)
                 </p>
                 <div class="hero-stats">
                     <div class="stat-item">
@@ -576,8 +665,17 @@
                 </div>
             </div>
             
-            <!-- Hero Image - GEOMETRIC POP-OUT EFFECT -->
+            <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT EFFECT -->
             <div class="hero-image">
+                <!-- QUOTE ABOVE PHOTO -->
+                <div class="hero-quote">
+                    <span class="quote-icon"><i class="fas fa-quote-left"></i></span>
+                    <p>
+                        "Most CAs don't deeply understand technology, and most IT professionals don't fully grasp finance and business. I work at their intersection — bridging that gap."
+                    </p>
+                    <span class="quote-author">— Manish Shrestha</span>
+                </div>
+
                 <div class="geometric-photo-container">
                     <div class="geometric-frame"></div>
                     <div class="pop-out-photo-wrapper">
