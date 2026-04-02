@@ -2,7 +2,7 @@
  * MODERN PROFESSIONAL PORTFOLIO - JAVASCRIPT
  * Author: Manish Shrestha
  * Description: Interactive functionality for portfolio website
- * Features: AI Chatbot, Email Notifications, Particle Background, and more
+ * Features: AI Chatbot, Email Notifications, Particle Background, Credly Badges, and more
  */
 
 // ========================================
@@ -27,11 +27,79 @@ function initializeApp() {
     initParticleBackground();
     initGeometricPhotoEffect();
     initAIChatbot();
+    initBadgesSection(); // NEW: Initialize Badges section
     
     // Load saved theme (without notification)
     loadTheme();
     
     console.log('✅ Portfolio initialized successfully!');
+}
+
+// ========================================
+// NEW: CREDLY BADGES SECTION
+// ========================================
+function initBadgesSection() {
+    console.log('🎖️ Initializing Badges section...');
+    
+    const badgeCards = document.querySelectorAll('.badge-card');
+    
+    if (badgeCards.length === 0) {
+        console.warn('⚠️ No badge cards found');
+        return;
+    }
+    
+    // Animate badges on scroll
+    const badgeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100); // Stagger animation
+                
+                badgeObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    badgeCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        badgeObserver.observe(card);
+    });
+    
+    // Track badge clicks
+    const verifyButtons = document.querySelectorAll('.badge-verify-btn');
+    verifyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const badgeName = e.target.closest('.badge-card').querySelector('h4').textContent;
+            trackEvent('Badges', 'Verify Click', badgeName);
+            console.log('🔗 Verifying badge:', badgeName);
+        });
+    });
+    
+    // Badge card hover effects
+    badgeCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const glow = card.querySelector('.badge-glow');
+            if (glow) {
+                glow.style.opacity = '1';
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            const glow = card.querySelector('.badge-glow');
+            if (glow) {
+                glow.style.opacity = '0';
+            }
+        });
+    });
+    
+    console.log(`✅ ${badgeCards.length} badges initialized!`);
 }
 
 // ========================================
@@ -58,6 +126,7 @@ const knowledgeBase = {
 I'm his AI assistant and I can help you learn about:
 
 📜 **Certifications** - CA, CISA, ISO Lead Auditor (75+ certs)
+🎖️ **Credly Badges** - Verified digital credentials
 💼 **Experience** - 8+ years in audit & finance
 🚀 **Projects** - 60+ completed projects
 🎯 **Skills** - Audit, Compliance, GRC
@@ -66,7 +135,36 @@ I'm his AI assistant and I can help you learn about:
 What would you like to know?`
     },
 
-    // Certifications
+    // NEW: Credly Badges
+    badges: {
+        keywords: ['badge', 'credly', 'verified', 'digital credential', 'blockchain', 'verify'],
+        response: `🎖️ **Credly Verified Badges (9 Total)**
+
+**Featured Badge:**
+🏆 **Chartered Accountant (CA)**
+   ICAN - Qualified December 2024
+
+**Professional Certifications:**
+✅ CISA - Score 625/800 (ISACA)
+✅ ISO/IEC 27001:2022 Lead Auditor (95%)
+✅ ISO/IEC 42001:2023 Lead Auditor (84%)
+
+**Security & AI:**
+✅ AI Security Governance
+✅ Ethical Hacker (Cisco)
+✅ ISC2 Candidate
+
+**Technology:**
+✅ Proofpoint AI Agent Security Specialist
+✅ QuickBooks Online Certification Level 1
+
+**Verification:**
+All badges are cryptographically verified through Credly's blockchain-backed platform. Click "Verify Badge" on any badge to see official credentials!
+
+Would you like to see specific badge details?`
+    },
+
+    // Certifications (Updated to mention Credly)
     certifications: {
         keywords: ['certification', 'certified', 'cisa', 'iso', 'qualified', 'credentials', 'certificate', 'ca', 'chartered accountant', 'qualifications'],
         response: `📜 **Professional Certifications (75+)**
@@ -74,6 +172,9 @@ What would you like to know?`
 **Elite Qualifications:**
 🏆 **Chartered Accountant (CA)** - ICAN, Dec 2024
 🛡️ **CISA** - Score 625/800 (ID: 262979122)
+
+**Credly Verified Badges:**
+Check the "Badges" section to see 9 verified digital credentials with blockchain verification!
 
 **ISO Lead Auditor:**
 ✅ ISO/IEC 27001:2022 - 95% (ISMS)
@@ -289,12 +390,14 @@ These awards reflect dedication to excellence in financial reporting and profess
 📋 Information Security Management Systems (ISMS)
 🏢 Provider: Mastermind Assurance, USA
 ⏱️ Valid: Dec 2025 - Dec 2028
+🎖️ **Verified on Credly!**
 
 **ISO/IEC 42001:2023 Lead Auditor**
 📊 Score: 84%
 🤖 AI Management Systems (AIMS)
 🏢 Provider: Mastermind Assurance, USA
 ⭐ One of the first in Nepal with this certification!
+🎖️ **Verified on Credly!**
 
 **ISO 9001 QMS Associate**
 📋 Quality Management Systems Foundation
@@ -372,6 +475,7 @@ Elite Finance & IT Audit Professional with 8+ years of experience spanning Finan
 ✅ CISA Certified (625/800)
 ✅ ISO 27001 & 42001 Lead Auditor
 ✅ 75+ professional certifications
+✅ 9 Credly verified badges
 ✅ 60+ projects completed
 ✅ 100+ companies audited
 ✅ 2x Award Winner (ICAN)
@@ -432,6 +536,10 @@ These certifications validate expertise in Microsoft's data and AI platforms!`
         keywords: ['cybersecurity', 'security', 'hacking', 'pentesting', 'ethical hacker', 'tryhackme'],
         response: `🔐 **Cybersecurity Expertise**
 
+**Credly Verified:**
+🎖️ Ethical Hacker (Cisco)
+🎖️ AI Security Governance
+
 **Offensive Security:**
 🥇 TryHackMe Bronze League - 1st Ranked
 • Ethical Hacking - 19 Hours (THM)
@@ -484,6 +592,7 @@ These skills enable work with modern, scalable database systems!`
 **QuickBooks Online Certification Level 1**
 🏢 Intuit Certified
 📅 Valid: Jun 2025 - Jul 2026
+🎖️ **Verified on Credly!**
 
 **Xero Advisor Certified**
 🆔 Credential: 11801003
@@ -507,6 +616,10 @@ Proficient in leading accounting platforms for SMEs!`
     ai: {
         keywords: ['artificial intelligence', 'generative ai', 'llm', 'prompt engineering', 'dubai ai'],
         response: `🤖 **AI & Generative AI Expertise**
+
+**Credly Verified:**
+🎖️ AI Security Governance
+🎖️ Proofpoint AI Agent Security Specialist
 
 **AI Certifications:**
 • AI Fluency for Educators (Anthropic)
@@ -553,6 +666,7 @@ Passionate about ethical and practical AI adoption!`
 • Blockchain Basics (Cyfrin Updraft)
 
 **Memberships:**
+🎖️ ISC2 Candidate (Credly Verified)
 • ISACA Member
 
 Committed to continuous learning and professional growth!`
@@ -585,6 +699,7 @@ Would you like to schedule a meeting?`
 Is there anything else you'd like to know about Manish's:
 • Professional background
 • 75+ Certifications
+• 9 Credly Verified Badges
 • Projects
 • Services
 • Contact information
@@ -658,6 +773,7 @@ Manish provides competitive rates for quality professional services!`
 I can help you with:
 
 📜 **Certifications** - "What certifications do you have?"
+🎖️ **Badges** - "Tell me about Credly badges"
 💼 **Experience** - "Tell me about your experience"
 🚀 **Projects** - "What projects have you completed?"
 🎯 **Skills** - "What are your skills?"
@@ -1481,7 +1597,7 @@ function initCounters() {
 // ========================================
 function initScrollAnimations() {
     const animateElements = document.querySelectorAll(
-        '.qual-card, .cert-card, .timeline-item, .skill-category, ' +
+        '.qual-card, .cert-card, .badge-card, .timeline-item, .skill-category, ' +
         '.project-card, .info-card, .about-text, .geometric-photo-container'
     );
     
@@ -1786,13 +1902,13 @@ function initCustomCursor() {
     
     animateFollower();
     
-    // Interactive elements including chatbot
+    // Interactive elements including badges
     const interactiveElements = document.querySelectorAll(
-        'a, button, .btn, .project-card, .cert-card, .qual-card, ' +
+        'a, button, .btn, .project-card, .cert-card, .qual-card, .badge-card, ' +
         '.info-card, .tech-item, .filter-btn, .social-links a, ' +
         'input, textarea, .nav-link, .theme-btn, .hamburger, ' +
         '.geometric-photo-container, .pop-out-photo, .chat-toggle-btn, ' +
-        '.suggestion-btn, .chat-send-btn, .chat-input'
+        '.suggestion-btn, .chat-send-btn, .chat-input, .badge-verify-btn'
     );
     
     interactiveElements.forEach(element => {
@@ -1970,6 +2086,10 @@ console.log(
 console.log(
     '%c📧 Contact: ca.manish.shrestha@gmail.com',
     'color: #10b981; font-size: 12px;'
+);
+console.log(
+    '%c🎖️ 9 Credly Verified Badges!',
+    'color: #ffd700; font-size: 12px; font-weight: bold;'
 );
 console.log(
     '%c📜 75+ Professional Certifications!',
