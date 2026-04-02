@@ -114,6 +114,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin-top: -96px; /* 🔥 MOVED UP BY 1 INCH (96px) */
         }
 
         /* ===================================
@@ -190,6 +191,10 @@
             .hero-quote p {
                 font-size: 0.8rem;
             }
+            
+            .hero-image {
+                margin-top: -48px; /* Half the movement on mobile */
+            }
         }
 
         /* GEOMETRIC PHOTO POP-OUT EFFECT */
@@ -259,17 +264,8 @@
         }
 
         /* ===================================
-           🔥 MOVE HERO CONTAINER UP BY 2 INCHES
+           HERO CONTAINER - REMOVED (Not needed anymore)
            =================================== */
-        .hero-container {
-            margin-top: -144px; /* 2 inches = 192px, adjusted to -144px for better visibility */
-        }
-
-        @media (max-width: 768px) {
-            .hero-container {
-                margin-top: -80px; /* Adjusted for mobile */
-            }
-        }
 
         .visitor-metrics-container {
             margin-top: 30px;
