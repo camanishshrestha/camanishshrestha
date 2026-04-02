@@ -51,7 +51,7 @@
             pointer-events: none;
         }
 
-        .navbar, .hero, .about, .qualifications, .experience, .skills, .projects, .contact, .footer {
+        .navbar, .hero, .about, .qualifications, .experience, .skills, .badges, .projects, .contact, .footer {
             position: relative;
             z-index: 1;
         }
@@ -59,16 +59,16 @@
         /* --- 2. TRANSPARENCY FIXES --- */
         .hero { background: transparent !important; }
         .about, .experience, .projects { background: rgba(10, 14, 39, 0.85) !important; }
-        .qualifications, .skills, .contact { background: rgba(5, 8, 22, 0.85) !important; }
+        .qualifications, .skills, .badges, .contact { background: rgba(5, 8, 22, 0.85) !important; }
         .footer { background: rgba(5, 8, 22, 0.95) !important; }
 
         body.light-mode .hero { background: transparent !important; }
         body.light-mode .about, body.light-mode .experience, body.light-mode .projects { background: rgba(255, 255, 255, 0.85) !important; }
-        body.light-mode .qualifications, body.light-mode .skills, body.light-mode .contact { background: rgba(245, 247, 250, 0.85) !important; }
+        body.light-mode .qualifications, body.light-mode .skills, body.light-mode .badges, body.light-mode .contact { background: rgba(245, 247, 250, 0.85) !important; }
         
         body.blackwhite-mode .hero { background: transparent !important; }
         body.blackwhite-mode .about, body.blackwhite-mode .experience, body.blackwhite-mode .projects { background: rgba(255, 255, 255, 0.85) !important; }
-        body.blackwhite-mode .qualifications, body.blackwhite-mode .skills, body.blackwhite-mode .contact { background: rgba(248, 249, 250, 0.85) !important; }
+        body.blackwhite-mode .qualifications, body.blackwhite-mode .skills, body.blackwhite-mode .badges, body.blackwhite-mode .contact { background: rgba(248, 249, 250, 0.85) !important; }
 
         /* --- 3. EXISTING UTILITY STYLES --- */
         :root {
@@ -95,7 +95,7 @@
                 background-color: var(--bg-color);
                 color: var(--text-color);
             }
-            .card, .project-card, .timeline-content, .qual-card, .cert-card, .info-card, .terminal-window, .footer {
+            .card, .project-card, .timeline-content, .qual-card, .cert-card, .badge-card, .info-card, .terminal-window, .footer {
                 background-color: var(--card-bg) !important;
                 color: var(--text-color) !important;
                 border-color: var(--border-color) !important;
@@ -206,6 +206,257 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        /* ===================================
+           NEW: CREDLY BADGES SECTION STYLES
+           =================================== */
+        .badges {
+            padding: 80px 0;
+            min-height: 100vh;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .badge-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #7b2ff7, #00d4ff);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .badge-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .badge-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(123, 47, 247, 0.3);
+            border-color: #7b2ff7;
+        }
+
+        /* Featured Badge (CA) - Special Styling */
+        .badge-card.featured-badge {
+            border: 2px solid #ffd700;
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.1) 100%);
+        }
+
+        .badge-card.featured-badge::before {
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+        }
+
+        .badge-card.featured-badge:hover {
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.4);
+            border-color: #ffd700;
+        }
+
+        .featured-ribbon {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: linear-gradient(90deg, #ffd700, #ffaa00);
+            color: #000;
+            padding: 5px 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .badge-image-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .badge-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+
+        .badge-card:hover .badge-image-container img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .badge-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(123, 47, 247, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .badge-card.featured-badge .badge-glow {
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.4), transparent);
+        }
+
+        .badge-card:hover .badge-glow {
+            opacity: 1;
+        }
+
+        .badge-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .badge-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .badge-verify-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #7b2ff7, #00d4ff);
+            color: #ffffff;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .badge-card.featured-badge .badge-verify-btn {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000;
+        }
+
+        .badge-verify-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(123, 47, 247, 0.4);
+        }
+
+        .badge-card.featured-badge .badge-verify-btn:hover {
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Responsive Badges Grid */
+        @media (max-width: 768px) {
+            .badges-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .badge-image-container {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* ===================================
+           IMPROVED CERTIFICATION ICONS
+           =================================== */
+        .cert-card .cert-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Category-Based Colors */
+        .cert-card[data-category="iso"] .cert-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: #ffffff;
+        }
+
+        .cert-card[data-category="security"] .cert-icon {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #ffffff;
+        }
+
+        .cert-card[data-category="ai"] .cert-icon {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #7b2ff7;
+        }
+
+        .cert-card[data-category="cloud"] .cert-icon {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            color: #ffffff;
+        }
+
+        .cert-card[data-category="hacking"] .cert-icon {
+            background: linear-gradient(135deg, #30cfd0, #330867);
+            color: #ffffff;
+        }
+
+        .cert-card[data-category="finance"] .cert-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #ffffff;
+        }
+
+        .cert-card[data-category="analytics"] .cert-icon {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: #ffffff;
+        }
+
+        .cert-card[data-category="professional"] .cert-icon {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #ffffff;
+        }
+
+        .cert-card:hover .cert-icon {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 10px 30px rgba(123, 47, 247, 0.4);
+        }
+
+        /* Remove old checkmark icons */
+        .cert-card .cert-icon i {
+            font-size: 2rem;
+        }
+
+        /* Score badges keep their style */
+        .cert-card .cert-score {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
     </style>
     
     <!-- Schema.org Markup -->
@@ -247,6 +498,7 @@
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#qualifications" class="nav-link">Qualifications</a></li>
+                <li><a href="#badges" class="nav-link">Badges</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -463,86 +715,86 @@
                     Information Security & Compliance
                 </h3>
                 <div class="cert-grid">
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="iso">
                         <div class="cert-score">95%</div>
                         <h4>ISO/IEC 27001:2022 Lead Auditor</h4>
                         <p>Information Security Management Systems (ISMS)</p>
                         <span class="cert-provider">Mastermind Assurance - US</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="iso">
                         <div class="cert-score">84%</div>
                         <h4>ISO/IEC 42001:2023 Lead Auditor</h4>
                         <p>AI Management Systems (AIMS)</p>
                         <span class="cert-provider">Mastermind Assurance - US</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="iso">
+                        <div class="cert-icon"><i class="fas fa-clipboard-check"></i></div>
                         <h4>ISO 9001 Quality Management Systems Associate</h4>
                         <p>QMS Foundation</p>
                         <span class="cert-provider">SkillFront</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-fish"></i></div>
                         <h4>Certified Phishing Prevention Specialist (CPPS)</h4>
                         <p>Phishing Defense</p>
                         <span class="cert-provider">Hack & Fix Academy</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-virus-slash"></i></div>
                         <h4>Certified Ransomware Protection Officer (R-CRPO)</h4>
                         <p>Cybersecurity Practitioner</p>
                         <span class="cert-provider">EU Cyber Academy</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-credit-card"></i></div>
                         <h4>PCI DSS Compliance Training</h4>
                         <p>Payment Card Industry Standards</p>
                         <span class="cert-provider">Tayl</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-user-shield"></i></div>
                         <h4>GDPR Foundations</h4>
                         <p>Data Protection & Privacy</p>
                         <span class="cert-provider">Measured Collective</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-shield-virus"></i></div>
                         <h4>Vulnerability Management</h4>
                         <p>GRC Practices</p>
                         <span class="cert-provider">Qualys</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-hospital"></i></div>
                         <h4>HIPAA Compliance Training</h4>
                         <p>Healthcare Data Protection</p>
                         <span class="cert-provider">HIPAA Training US</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-fingerprint"></i></div>
                         <h4>Saviynt Identity Security for AI Age</h4>
                         <p>Identity & Access Management</p>
                         <span class="cert-provider">Saviynt</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="hacking">
+                        <div class="cert-icon"><i class="fas fa-user-secret"></i></div>
                         <h4>Ethical Hacker</h4>
                         <p>Offensive Security</p>
                         <span class="cert-provider">Cisco</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-bug"></i></div>
                         <h4>Malware Analysis</h4>
                         <p>Introduction to Malware Analysis</p>
                         <span class="cert-provider">Red Team Leaders</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-search"></i></div>
                         <h4>Digital Forensics & Incident Investigation</h4>
                         <p>Forensic Investigation</p>
                         <span class="cert-provider">Red Team Leaders</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-tasks"></i></div>
                         <h4>Break into GRC: Mindset, Methods & Skills</h4>
                         <p>Governance, Risk & Compliance</p>
                         <span class="cert-provider">Simply Cyber Academy</span>
@@ -557,74 +809,74 @@
                     AI & Emerging Technology
                 </h3>
                 <div class="cert-grid">
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-icon"><i class="fas fa-brain"></i></div>
                         <h4>AI Fluency for Educators</h4>
                         <p>AI Framework (4Ds)</p>
                         <span class="cert-provider">Anthropic</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="ai">
                         <div class="cert-icon"><i class="fab fa-google"></i></div>
                         <h4>Google Gemini Certified</h4>
                         <p>Valid: 2025-2028</p>
                         <span class="cert-provider">Google</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="ai">
                         <div class="cert-icon"><i class="fab fa-google"></i></div>
                         <h4>Gemini Certified University Student</h4>
                         <p>AI & Data-Driven Solutions</p>
                         <span class="cert-provider">Google</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="ai">
                         <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
                         <h4>Introduction to AI Concepts</h4>
                         <p>AI Fundamentals</p>
                         <span class="cert-provider">Microsoft</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-brain"></i></div>
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
                         <h4>AI Risks, Rewards & Responsibilities</h4>
                         <p>CAIR³ Framework</p>
                         <span class="cert-provider">The Alan Turing Institute</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-icon"><i class="fas fa-lightbulb"></i></div>
                         <h4>Demystifying Generative AI for Leaders</h4>
                         <p>LLMs & Business Applications</p>
                         <span class="cert-provider">Infosys</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="ai">
                         <div class="cert-icon"><i class="fas fa-robot"></i></div>
                         <h4>Foundations of Generative AI</h4>
                         <p>LLMs & Transformers</p>
                         <span class="cert-provider">Analytics Vidhya</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-icon"><i class="fas fa-pen-fancy"></i></div>
                         <h4>1 Million Promptors Program</h4>
                         <p>Prompt Engineering</p>
                         <span class="cert-provider">Dubai Center for AI</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-icon"><i class="fas fa-lock"></i></div>
                         <h4>AI Security and Governance</h4>
                         <p>AI Compliance & Risk Management</p>
                         <span class="cert-provider">Securiti AI</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="ai">
                         <div class="cert-icon"><i class="fab fa-google"></i></div>
                         <h4>Google Certified Educator Level 2</h4>
                         <p>Advanced Google Workspace</p>
                         <span class="cert-provider">Google</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="ai">
                         <div class="cert-icon"><i class="fab fa-google"></i></div>
                         <h4>Google Certified Educator Level 1</h4>
                         <p>Google Workspace Essentials</p>
                         <span class="cert-provider">Google</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                    <div class="cert-card" data-category="ai">
+                        <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
                         <h4>Digital Skills: Artificial Intelligence</h4>
                         <p>AI in the Workplace</p>
                         <span class="cert-provider">Accenture - FutureLearn</span>
@@ -639,20 +891,20 @@
                     Cloud & Database
                 </h3>
                 <div class="cert-grid">
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="cloud">
                         <div class="cert-score">95%</div>
                         <h4>PingCAP Certified TiDB Practitioner</h4>
                         <p>Distributed SQL Database</p>
                         <span class="cert-provider">TiDB - PingCAP</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="cloud">
                         <div class="cert-icon"><i class="fas fa-project-diagram"></i></div>
                         <h4>Graph Data Science Certification</h4>
                         <p>Graph Algorithms & Analytics</p>
                         <span class="cert-provider">Neo4j</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="cert-card" data-category="cloud">
+                        <div class="cert-icon"><i class="fas fa-cloud-upload-alt"></i></div>
                         <h4>Cloud Computing</h4>
                         <p>IaaS, PaaS, SaaS</p>
                         <span class="cert-provider">CodeRed - EC-Council</span>
@@ -667,37 +919,37 @@
                     Cybersecurity & Ethical Hacking
                 </h3>
                 <div class="cert-grid">
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="hacking">
                         <div class="cert-icon"><i class="fas fa-trophy"></i></div>
                         <h4>TryHackMe Bronze League - 1st Ranked</h4>
                         <p>Network Exploitation & Web Security</p>
                         <span class="cert-provider">TryHackMe</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-hack"></i></div>
+                    <div class="cert-card" data-category="hacking">
+                        <div class="cert-icon"><i class="fas fa-terminal"></i></div>
                         <h4>Ethical Hacking - 19 Hours</h4>
                         <p>Hands-on Hacking & Learning</p>
                         <span class="cert-provider">TryHackMe</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-hack"></i></div>
+                    <div class="cert-card" data-category="hacking">
+                        <div class="cert-icon"><i class="fas fa-user-ninja"></i></div>
                         <h4>Ethical Hacking for Beginners - 21 Hours</h4>
                         <p>Security Foundations</p>
                         <span class="cert-provider">Cursa</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="hacking">
                         <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
                         <h4>In-house Hacking & Pentesting Labs</h4>
                         <p>Practice Lab Environment</p>
                         <span class="cert-provider">CodeRed</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="cert-card" data-category="security">
+                        <div class="cert-icon"><i class="fas fa-skull-crossbones"></i></div>
                         <h4>Ransomware and Extortion</h4>
                         <p>Security Threats</p>
                         <span class="cert-provider">Microsoft</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="cloud">
                         <div class="cert-icon"><i class="fab fa-bitcoin"></i></div>
                         <h4>Blockchain Basics Course</h4>
                         <p>Decentralized Systems</p>
@@ -713,74 +965,74 @@
                     Finance & Accounting
                 </h3>
                 <div class="cert-grid">
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="finance">
                         <div class="cert-icon"><i class="fas fa-file-invoice-dollar"></i></div>
                         <h4>IFRS 9: Expected Credit Losses</h4>
                         <p>ECL Model</p>
                         <span class="cert-provider">EY & DBAN</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-building"></i></div>
+                    <div class="cert-card" data-category="finance">
+                        <div class="cert-icon"><i class="fas fa-globe"></i></div>
                         <h4>IFRS Certification Program</h4>
                         <p>International Standards</p>
                         <span class="cert-provider">ASB & AOSSG</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-file-contract"></i></div>
+                    <div class="cert-card" data-category="finance">
+                        <div class="cert-icon"><i class="fas fa-book"></i></div>
                         <h4>Conceptual Framework for Financial Reporting</h4>
                         <p>Accounting Principles</p>
                         <span class="cert-provider">Deloitte</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="finance">
                         <div class="cert-icon"><i class="fas fa-clipboard-check"></i></div>
                         <h4>Audit Job Simulation</h4>
                         <p>External Audit Procedures</p>
                         <span class="cert-provider">PwC Switzerland</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="cert-card" data-category="finance">
+                        <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
                         <h4>Investment Banking Job Simulation</h4>
                         <p>Financial Modeling & M&A</p>
                         <span class="cert-provider">JPMorgan Chase</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="finance">
                         <div class="cert-icon"><i class="fas fa-leaf"></i></div>
                         <h4>Financial Services: Climate Change</h4>
                         <p>Climate Risk in Finance</p>
                         <span class="cert-provider">Oliver Wyman</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="finance">
                         <div class="cert-icon"><i class="fas fa-calculator"></i></div>
                         <h4>Tally ERP 9 Course</h4>
                         <p>Accounting Software</p>
                         <span class="cert-provider">Henry Harvin Education</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="finance">
                         <div class="cert-icon"><i class="fab fa-intuit"></i></div>
                         <h4>QuickBooks Online Certification Level 1</h4>
                         <p>Cloud Accounting</p>
                         <span class="cert-provider">Intuit</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="cert-card" data-category="finance">
+                        <div class="cert-icon"><i class="fas fa-cloud"></i></div>
                         <h4>Xero Advisor Certified</h4>
                         <p>Cloud Accounting</p>
                         <span class="cert-provider">Xero</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="professional">
                         <div class="cert-icon"><i class="fas fa-users-cog"></i></div>
                         <h4>General Management & Communication Skills (GMCS)</h4>
                         <p>15 Days Training</p>
                         <span class="cert-provider">ICAN</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="professional">
                         <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
                         <h4>Information Technology Training - 60 Hours</h4>
                         <p>IT Fundamentals</p>
                         <span class="cert-provider">ICAN</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="cert-card" data-category="professional">
+                        <div class="cert-icon"><i class="fas fa-laptop"></i></div>
                         <h4>Information Technology Training - 40 Hours</h4>
                         <p>Advanced IT Skills</p>
                         <span class="cert-provider">ICAN</span>
@@ -795,44 +1047,44 @@
                     Data Analytics & Business Intelligence
                 </h3>
                 <div class="cert-grid">
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div class="cert-card" data-category="analytics">
+                        <div class="cert-icon"><i class="fas fa-chart-line"></i></div>
                         <h4>Power BI Beginner to Intermediate</h4>
                         <p>Data Modeling & DAX</p>
                         <span class="cert-provider">Cursa</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="analytics">
                         <div class="cert-icon"><i class="fas fa-chart-pie"></i></div>
                         <h4>Drag, Drop & Visualize With Power BI</h4>
                         <p>Interactive Dashboards</p>
                         <span class="cert-provider">PowerBi Pros</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div class="cert-card" data-category="analytics">
+                        <div class="cert-icon"><i class="fas fa-chart-area"></i></div>
                         <h4>Power BI for Beginners</h4>
                         <p>Data Visualization</p>
                         <span class="cert-provider">Simplilearn</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="analytics">
                         <div class="cert-icon"><i class="fab fa-google"></i></div>
                         <h4>Google Analytics Certification</h4>
                         <p>Data-Driven Decision Making</p>
                         <span class="cert-provider">Google Digital Academy</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fab fa-google"></i></div>
+                    <div class="cert-card" data-category="analytics">
+                        <div class="cert-icon"><i class="fas fa-ad"></i></div>
                         <h4>AI-Powered Performance Ads Certification</h4>
                         <p>Digital Marketing AI</p>
                         <span class="cert-provider">Google Digital Academy</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="analytics">
                         <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
                         <h4>Getting Started with Power BI</h4>
                         <p>BI Foundations</p>
                         <span class="cert-provider">Microsoft Learn</span>
                     </div>
-                    <div class="cert-card">
-                        <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                    <div class="cert-card" data-category="analytics">
+                        <div class="cert-icon"><i class="fas fa-database"></i></div>
                         <h4>Discover Data</h4>
                         <p>Data Concepts</p>
                         <span class="cert-provider">Microsoft Learn</span>
@@ -847,37 +1099,183 @@
                     Professional Development
                 </h3>
                 <div class="cert-grid">
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="professional">
                         <div class="cert-icon"><i class="fas fa-comments"></i></div>
                         <h4>Crisis Communication</h4>
                         <p>Reputation Management</p>
                         <span class="cert-provider">Saylor Academy</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="professional">
                         <div class="cert-icon"><i class="fas fa-chart-line"></i></div>
                         <h4>Sales Forecasting</h4>
                         <p>Business Analytics</p>
                         <span class="cert-provider">HP Foundation</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="professional">
                         <div class="cert-icon"><i class="fas fa-briefcase"></i></div>
                         <h4>Foundations of Business & Entrepreneurship</h4>
                         <p>Business Planning</p>
                         <span class="cert-provider">SkillFront</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="professional">
                         <div class="cert-icon"><i class="fas fa-users"></i></div>
                         <h4>The Journey to Taming our Biases</h4>
                         <p>Inclusion Champion</p>
                         <span class="cert-provider">UNICEF</span>
                     </div>
-                    <div class="cert-card">
+                    <div class="cert-card" data-category="professional">
                         <div class="cert-icon"><i class="fas fa-id-card"></i></div>
                         <h4>ISACA Member</h4>
                         <p>Professional Membership</p>
                         <span class="cert-provider">ISACA</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         NEW: CREDLY BADGES SECTION (9 BADGES)
+         ======================================== -->
+    <section id="badges" class="badges">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Industry Recognition</span>
+                <h2 class="section-title">Credly Verified Badges</h2>
+                <p style="max-width: 700px; margin: 20px auto; text-align: center; color: var(--text-muted);">
+                    Digital credentials issued by leading organizations, verified through Credly's blockchain-backed platform
+                </p>
+            </div>
+
+            <div class="badges-grid">
+                <!-- Badge 1: CA Badge - FEATURED -->
+                <div class="badge-card featured-badge">
+                    <div class="featured-ribbon">★ FLAGSHIP</div>
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/CA-Badge.png" alt="Chartered Accountant Badge">
+                    </div>
+                    <h4>Chartered Accountant (CA)</h4>
+                    <p>Institute of Chartered Accountants of Nepal (ICAN) - Qualified December 2024</p>
+                    <a href="https://www.credly.com/badges/your-ca-badge-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-crown"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 2: CISA -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/Certified-Information-Systems-Auditor-CISA.png" alt="CISA Badge">
+                    </div>
+                    <h4>Certified Information Systems Auditor</h4>
+                    <p>ISACA CISA Certification (Score: 625/800)</p>
+                    <a href="https://www.credly.com/badges/your-cisa-badge-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 3: ISO 27001 Lead Auditor -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/ISO-IEC-27001-2022-Lead-Auditor.png" alt="ISO 27001 Lead Auditor Badge">
+                    </div>
+                    <h4>ISO/IEC 27001:2022 Lead Auditor</h4>
+                    <p>Information Security Management Systems (95%)</p>
+                    <a href="https://www.credly.com/badges/your-iso27001-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 4: ISO 42001 Lead Auditor -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/ISO-IEC-42001-2023-Lead-Auditor.png" alt="ISO 42001 Lead Auditor Badge">
+                    </div>
+                    <h4>ISO/IEC 42001:2023 Lead Auditor</h4>
+                    <p>AI Management Systems (84%)</p>
+                    <a href="https://www.credly.com/badges/your-iso42001-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 5: AI Security Governance -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/AI-Security-Governance-Intro-to-Gen-AI.png" alt="AI Security Governance Badge">
+                    </div>
+                    <h4>AI Security Governance</h4>
+                    <p>Introduction to Generative AI Security & Governance</p>
+                    <a href="https://www.credly.com/badges/your-ai-security-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 6: Ethical Hacker -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/Ethical-Hacker.png" alt="Ethical Hacker Badge">
+                    </div>
+                    <h4>Ethical Hacker</h4>
+                    <p>Certified Ethical Hacking Professional</p>
+                    <a href="https://www.credly.com/badges/your-ethical-hacker-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 7: ISC2 Candidate -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/ISC2-candidate.png" alt="ISC2 Candidate Badge">
+                    </div>
+                    <h4>ISC2 Candidate</h4>
+                    <p>ISC2 Certification Candidate</p>
+                    <a href="https://www.credly.com/badges/your-isc2-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 8: Proofpoint AI Agent Security -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/Proofpoint-certified-AI-Agent-security-specialist-Badge.png" alt="Proofpoint AI Agent Security Badge">
+                    </div>
+                    <h4>AI Agent Security Specialist</h4>
+                    <p>Proofpoint Certified AI Agent Security</p>
+                    <a href="https://www.credly.com/badges/your-proofpoint-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+
+                <!-- Badge 9: QuickBooks Certification -->
+                <div class="badge-card">
+                    <div class="badge-glow"></div>
+                    <div class="badge-image-container">
+                        <img src="images/Quickbooks-Online-Certification-Level-1.png" alt="QuickBooks Certification Badge">
+                    </div>
+                    <h4>QuickBooks Online Certification</h4>
+                    <p>Level 1 Certification - Cloud Accounting</p>
+                    <a href="https://www.credly.com/badges/your-quickbooks-id" target="_blank" class="badge-verify-btn">
+                        <i class="fas fa-check-circle"></i> Verify Badge
+                    </a>
+                </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div style="text-align: center; margin-top: 60px;">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
+                    <i class="fas fa-shield-alt" style="color: #00d4ff;"></i> 
+                    All badges are cryptographically verified through <strong>Credly</strong>
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">
+                    Click "Verify Badge" to view official credential details on Credly.com
+                </p>
             </div>
         </div>
     </section>
@@ -1668,6 +2066,7 @@
                     <ul>
                         <li><a href="#about">About</a></li>
                         <li><a href="#qualifications">Qualifications</a></li>
+                        <li><a href="#badges">Badges</a></li>
                         <li><a href="#experience">Experience</a></li>
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
