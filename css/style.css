@@ -536,7 +536,7 @@ body.blackwhite-mode .theme-btn.active {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 100px 0 2rem 0; /* Fixed: Reduced top padding */
+    padding: 100px 0 2rem 0;
     overflow: hidden;
 }
 
@@ -565,7 +565,7 @@ body.blackwhite-mode .theme-btn.active {
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-lg);
     align-items: center;
-    margin-top: -60px; /* Fixed: Pull up the entire container */
+    margin-top: -60px;
 }
 
 .hero-content {
@@ -649,7 +649,7 @@ body.blackwhite-mode .theme-btn.active {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--spacing-md);
-    margin: var(--spacing-md) 0; /* Fixed: Reduced margin */
+    margin: var(--spacing-md) 0;
 }
 
 .stat-item {
@@ -685,7 +685,7 @@ body.blackwhite-mode .theme-btn.active {
 .hero-buttons {
     display: flex;
     gap: 1rem;
-    margin-bottom: var(--spacing-md); /* Fixed: Reduced margin */
+    margin-bottom: var(--spacing-md);
     flex-wrap: wrap;
 }
 
@@ -734,16 +734,14 @@ body.blackwhite-mode .theme-btn.active {
     }
 }
 
-/* Container for the geometric frame */
 .geometric-photo-container {
     position: relative;
     display: inline-block;
     width: 300px;
     height: 340px;
-    margin-top: -50px; /* Fixed: Pull photo up more */
+    margin-top: -50px;
 }
 
-/* Light sky blue geometric frame - Semi-circle left + sharp notch right */
 .geometric-frame {
     position: absolute;
     top: 50%;
@@ -760,7 +758,6 @@ body.blackwhite-mode .theme-btn.active {
     z-index: 1;
 }
 
-/* Photo that pops out from the frame */
 .pop-out-photo-wrapper {
     position: absolute;
     top: 50%;
@@ -784,7 +781,6 @@ body.blackwhite-mode .theme-btn.active {
     clip-path: polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-/* Hover effect - subtle lift */
 .geometric-photo-container:hover .pop-out-photo {
     transform: translateY(-8px) scale(1.03);
     box-shadow: 
@@ -799,7 +795,6 @@ body.blackwhite-mode .theme-btn.active {
         inset 0 -5px 15px rgba(255, 255, 255, 0.3);
 }
 
-/* Override old styles to prevent conflicts */
 .professional-photo-frame,
 .floating-card, 
 .image-border,
@@ -811,7 +806,6 @@ body.blackwhite-mode .theme-btn.active {
     display: none !important;
 }
 
-/* Black & White Mode - Frame color adjustment */
 body.blackwhite-mode .geometric-frame {
     background: linear-gradient(135deg, #d3d3d3 0%, #e8e8e8 100%);
     box-shadow: 
@@ -1232,10 +1226,69 @@ body.blackwhite-mode .pop-out-photo {
     color: white;
 }
 
-.cert-icon {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
+/* ===================================
+   NEW: IMPROVED CERTIFICATION ICONS
+   =================================== */
+.cert-card .cert-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+/* Category-Based Colors */
+.cert-card[data-category="iso"] .cert-icon {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: #ffffff;
+}
+
+.cert-card[data-category="security"] .cert-icon {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #ffffff;
+}
+
+.cert-card[data-category="ai"] .cert-icon {
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    color: #7b2ff7;
+}
+
+.cert-card[data-category="cloud"] .cert-icon {
+    background: linear-gradient(135deg, #fa709a, #fee140);
+    color: #ffffff;
+}
+
+.cert-card[data-category="hacking"] .cert-icon {
+    background: linear-gradient(135deg, #30cfd0, #330867);
+    color: #ffffff;
+}
+
+.cert-card[data-category="finance"] .cert-icon {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #ffffff;
+}
+
+.cert-card[data-category="analytics"] .cert-icon {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: #ffffff;
+}
+
+.cert-card[data-category="professional"] .cert-icon {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #ffffff;
+}
+
+.cert-card:hover .cert-icon {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 10px 30px rgba(123, 47, 247, 0.4);
+}
+
+.cert-card .cert-icon i {
+    font-size: 2rem;
 }
 
 .cert-card h4 {
@@ -1271,6 +1324,231 @@ body.blackwhite-mode .pop-out-photo {
     
     .cert-card {
         min-height: 200px;
+    }
+}
+
+/* ===================================
+   NEW: CREDLY BADGES SECTION
+   =================================== */
+.badges {
+    padding: var(--spacing-xl) 0;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.badge-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #7b2ff7, #00d4ff);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.badge-card:hover::before {
+    transform: scaleX(1);
+}
+
+.badge-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(123, 47, 247, 0.3);
+    border-color: #7b2ff7;
+}
+
+/* Featured Badge (CA) - Golden Styling */
+.badge-card.featured-badge {
+    border: 2px solid #ffd700;
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 215, 0, 0.1) 100%);
+}
+
+.badge-card.featured-badge::before {
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+}
+
+.badge-card.featured-badge:hover {
+    box-shadow: 0 20px 50px rgba(255, 215, 0, 0.4);
+    border-color: #ffd700;
+}
+
+.featured-ribbon {
+    position: absolute;
+    top: 15px;
+    right: -35px;
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+    color: #000;
+    padding: 5px 40px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.badge-image-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.badge-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.badge-card:hover .badge-image-container img {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.badge-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(123, 47, 247, 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.badge-card.featured-badge .badge-glow {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.4), transparent);
+}
+
+.badge-card:hover .badge-glow {
+    opacity: 1;
+}
+
+.badge-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.badge-verify-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #7b2ff7, #00d4ff);
+    color: #ffffff;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    border: none;
+}
+
+.badge-card.featured-badge .badge-verify-btn {
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    color: #000;
+    font-weight: 700;
+}
+
+.badge-verify-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(123, 47, 247, 0.4);
+}
+
+.badge-card.featured-badge .badge-verify-btn:hover {
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+}
+
+.badge-verify-btn i {
+    margin-right: 6px;
+}
+
+/* Light Mode Badges */
+body.light-mode .badge-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .badge-card:hover {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+body.light-mode .badge-card.featured-badge {
+    border-color: #ffd700;
+}
+
+/* Black & White Mode Badges */
+body.blackwhite-mode .badge-card::before,
+body.blackwhite-mode .badge-verify-btn {
+    background: linear-gradient(90deg, #000000, #333333);
+}
+
+body.blackwhite-mode .badge-card.featured-badge {
+    border-color: #000000;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+body.blackwhite-mode .featured-ribbon {
+    background: linear-gradient(90deg, #000000, #333333);
+    color: #ffffff;
+}
+
+body.blackwhite-mode .badge-card.featured-badge .badge-verify-btn {
+    background: linear-gradient(135deg, #000000, #333333);
+    color: #ffffff;
+}
+
+body.blackwhite-mode .badge-glow {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.2), transparent);
+}
+
+/* Responsive Badges Grid */
+@media (max-width: 768px) {
+    .badges-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .badge-image-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .featured-ribbon {
+        font-size: 0.6rem;
+        padding: 4px 35px;
     }
 }
 
@@ -2739,6 +3017,7 @@ body.blackwhite-mode .suggestion-btn:hover {
 .viewer-stats,
 .about,
 .qualifications,
+.badges,
 .experience,
 .skills,
 .projects,
@@ -2762,6 +3041,7 @@ body.blackwhite-mode .suggestion-btn:hover {
 
 .qualifications,
 .skills,
+.badges,
 .contact {
     background: rgba(5, 8, 22, 0.85) !important;
 }
@@ -2783,6 +3063,7 @@ body.light-mode .projects {
 
 body.light-mode .qualifications,
 body.light-mode .skills,
+body.light-mode .badges,
 body.light-mode .contact {
     background: rgba(245, 247, 250, 0.88) !important;
 }
@@ -2804,6 +3085,7 @@ body.blackwhite-mode .projects {
 
 body.blackwhite-mode .qualifications,
 body.blackwhite-mode .skills,
+body.blackwhite-mode .badges,
 body.blackwhite-mode .contact {
     background: rgba(248, 249, 250, 0.88) !important;
 }
