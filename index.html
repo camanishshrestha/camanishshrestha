@@ -259,15 +259,22 @@
         }
 
         /* ===================================
-           🔥 MOVE HERO CONTAINER UP BY 2 INCHES
+           🔥 MOVE HERO CONTAINER UP BY 4 INCHES TOTAL
+           (2 inches + 2 inches = 4 inches = ~384px)
            =================================== */
         .hero-container {
-            margin-top: -144px; /* 2 inches = 192px, adjusted to -144px for better visibility */
+            margin-top: -288px; /* 4 inches total upward movement */
         }
 
         @media (max-width: 768px) {
             .hero-container {
-                margin-top: -80px; /* Adjusted for mobile */
+                margin-top: -160px; /* Adjusted for mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-container {
+                margin-top: -120px; /* Adjusted for smaller mobile */
             }
         }
 
@@ -669,7 +676,7 @@
             
             <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT EFFECT -->
             <div class="hero-image">
-                <!-- QUOTE ABOVE PHOTO (NAME REMOVED) -->
+                <!-- QUOTE ABOVE PHOTO (NO NAME) -->
                 <div class="hero-quote">
                     <span class="quote-icon"><i class="fas fa-quote-left"></i></span>
                     <p>
