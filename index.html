@@ -147,16 +147,6 @@
             display: block;
         }
 
-        .hero-quote .quote-author {
-            display: block;
-            margin-top: 10px;
-            font-size: 0.75rem;
-            font-style: normal;
-            font-weight: 600;
-            color: #7b2ff7;
-            letter-spacing: 0.5px;
-        }
-
         body.light-mode .hero-quote {
             background: rgba(123, 47, 247, 0.06);
             border-left-color: #7b2ff7;
@@ -167,8 +157,7 @@
             border-left-color: #666;
         }
 
-        body.blackwhite-mode .hero-quote .quote-icon,
-        body.blackwhite-mode .hero-quote .quote-author {
+        body.blackwhite-mode .hero-quote .quote-icon {
             color: #666;
         }
 
@@ -267,6 +256,19 @@
 
         .hero-image img:not(.pop-out-photo) {
             display: none !important;
+        }
+
+        /* ===================================
+           🔥 MOVE HERO CONTAINER UP BY 2 INCHES
+           =================================== */
+        .hero-container {
+            margin-top: -144px; /* 2 inches = 192px, adjusted to -144px for better visibility */
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                margin-top: -80px; /* Adjusted for mobile */
+            }
         }
 
         .visitor-metrics-container {
@@ -667,13 +669,12 @@
             
             <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT EFFECT -->
             <div class="hero-image">
-                <!-- QUOTE ABOVE PHOTO -->
+                <!-- QUOTE ABOVE PHOTO (NAME REMOVED) -->
                 <div class="hero-quote">
                     <span class="quote-icon"><i class="fas fa-quote-left"></i></span>
                     <p>
                         "Most CAs don't deeply understand technology, and most IT professionals don't fully grasp finance and business. I work at their intersection — bridging that gap."
                     </p>
-                    <span class="quote-author">— Manish Shrestha</span>
                 </div>
 
                 <div class="geometric-photo-container">
