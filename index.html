@@ -287,7 +287,7 @@
         }
 
         /* ===================================
-           VISITOR METRICS (unchanged)
+           VISITOR METRICS
            =================================== */
         .visitor-metrics-container {
             margin-top: 30px;
@@ -398,6 +398,9 @@
             height: 180px;
             margin: 0 auto 20px;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .badge-image-container img {
@@ -405,6 +408,19 @@
             height: 100%;
             object-fit: contain;
             transition: transform 0.4s ease;
+        }
+
+        /* Fallback icon when image fails */
+        .badge-icon-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            font-size: 4rem;
+            color: white;
         }
 
         .badge-card:hover .badge-image-container img {
@@ -565,6 +581,35 @@
             margin: 0 auto 20px;
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
+
+        /* ===================================
+           PART-TIME BADGE FOR EXPERIENCE
+           =================================== */
+        .part-time-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid #ffc107;
+            border-radius: 50px;
+            color: #ffc107;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        .full-time-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
     </style>
     
     <!-- Schema.org Markup -->
@@ -665,7 +710,8 @@
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">
                         <i class="fas fa-envelope"></i>
-                        Get In Touch                    </a>
+                        Get In Touch
+                    </a>
                 </div>
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank" aria-label="LinkedIn">
@@ -685,7 +731,7 @@
             
             <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT EFFECT -->
             <div class="hero-image">
-                <!-- QUOTE ABOVE PHOTO (NAME REMOVED) -->
+                <!-- QUOTE ABOVE PHOTO -->
                 <div class="hero-quote">
                     <span class="quote-icon"><i class="fas fa-quote-left"></i></span>
                     <p>
@@ -783,9 +829,7 @@
         </div>
     </section>
 
-    <!-- ========================================
-         CREDLY BADGES SECTION (NOW AFTER ABOUT)
-         ======================================== -->
+    <!-- CREDLY BADGES SECTION -->
     <section id="badges" class="badges">
         <div class="container">
             <div class="section-header">
@@ -903,11 +947,16 @@
                     </a>
                 </div>
 
-                <!-- Badge 9: QuickBooks Certification -->
+                <!-- Badge 9: QuickBooks Certification - FIXED with icon fallback -->
                 <div class="badge-card">
                     <div class="badge-glow"></div>
                     <div class="badge-image-container">
-                        <img src="images/Quickbooks-Online-Certification-Level-1.png" alt="QuickBooks Certification Badge">
+                        <img src="images/Quickbooks-Online-Certification-Level-1.png" 
+                             alt="QuickBooks Certification Badge"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="badge-icon-fallback" style="display: none;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
                     </div>
                     <h4>QuickBooks Online Certification</h4>
                     <p>Level 1 Certification - Cloud Accounting</p>
@@ -1394,1067 +1443,1342 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <!-- END OF QUALIFICATIONS SECTION -->
 
-            <!-- ... (All other sections unchanged) ... -->
-
-            <!-- Experience Timeline -->
-            <section id="experience" class="experience">
-                <div class="container">
-                    <div class="section-header">
-                        <span class="section-subtitle">Career Journey</span>
-                        <h2 class="section-title">Professional Experience</h2>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">Apr 2025 - Present</span>
-                                <h3>Head of Internal Audit & Compliance</h3>
-                                <h4>Sanima Jum Hydropower Ltd (Sanima Group)</h4>
-                                <ul>
-                                    <li>Leading internal audit operations across <strong>9 companies</strong> within Sanima Group</li>
-                                    <li>Designed and implemented <strong>Internal Audit Manual 2025</strong></li>
-                                    <li>Conducted comprehensive <strong>IT GAP Assessment</strong> aligned with ISO 27001 Annex A Controls</li>
-                                    <li>Mentoring team of aspiring Chartered Accountants</li>
-                                    <li>Established risk-based audit frameworks across group entities</li>
-                                </ul>
-                                <div class="tech-tags">
-                                    <span>Internal Audit</span>
-                                    <span>ISO 27001</span>
-                                    <span>Compliance</span>
-                                    <span>Risk Management</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2024 - 2025</span>
-                                <h3>Junior Officer - Finance & Accounts</h3>
-                                <h4>Garima Bikas Bank Ltd</h4>
-                                <ul>
-                                    <li>Prepared <strong>Annual Book 2023/24</strong> and finalized FY 2024/25 Budget</li>
-                                    <li>Treasury Management: Bond, T-bills, SDF, SLF, OLF operations</li>
-                                    <li>MIS Reporting: Daily/Weekly/Monthly to management</li>
-                                    <li>Hands-on experience with Pumori, Finacle banking software</li>
-                                </ul>
-                                <div class="tech-tags">
-                                    <span>Financial Reporting</span>
-                                    <span>Treasury</span>
-                                    <span>MIS</span>
-                                    <span>Banking Software</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item featured">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2022 - 2024</span>
-                                <h3>Junior Officer - Finance, Accounts & Treasury</h3>
-                                <h4>Lumbini Bikas Bank Ltd</h4>
-                                <div class="achievement-badge">
-                                    <i class="fas fa-trophy"></i>
-                                    <span>2x Bronze Award Winner</span>
-                                </div>
-                                <ul>
-                                    <li>🏆 Won <strong>Best Presented Award (BPA)</strong> for Annual Books FY 2021/22 & 2022/23 by ICAN</li>
-                                    <li>Prepared <strong>10-year financial projections</strong> for Debenture Issuance (LBBLD89)</li>
-                                    <li>Implemented <strong>5-Year Strategic Plan (2080-2085)</strong></li>
-                                    <li>Successfully implemented <strong>Zero-Based Budgeting</strong> across organization</li>
-                                    <li>NRB/SEBON/NEPSE regulatory reporting & SIS Portal operations</li>
-                                    <li>Acting HOD - Second-in-command for department operations</li>
-                                </ul>
-                                <div class="tech-tags">
-                                    <span>Strategic Planning</span>
-                                    <span>NFRS/IFRS</span>
-                                    <span>Debenture</span>
-                                    <span>Zero-Based Budget</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2021 - 2022</span>
-                                <h3>Internal Audit Team Leader</h3>
-                                <h4>MR Associates</h4>
-                                <ul>
-                                    <li>Led internal audit of <strong>Citizens Bank</strong> - audited <strong>60+ branches</strong> nationwide</li>
-                                    <li>Implemented comprehensive risk-based internal audit frameworks</li>
-                                    <li>Managed audit teams for multi-location assignments</li>
-                                </ul>
-                                <div class="tech-tags">
-                                    <span>Internal Audit</span>
-                                    <span>Team Leadership</span>
-                                    <span>Risk Assessment</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2019 - 2020</span>
-                                <h3>Audit Associate</h3>
-                                <h4>S.A.R Associates (Former L.D.S.A Associates)</h4>
-                                <div class="achievement-badge">
-                                    <i class="fas fa-star"></i>
-                                    <span>Top 4 Employee Star 2019</span>
-                                </div>
-                                <ul>
-                                    <li>🌟 <strong>Top 4 Finalist</strong> - Employee Star 2019 (among 100+ staff)</li>
-                                    <li>Provided <strong>IFRS consultancy</strong> to multiple financial institutions</li>
-                                    <li>Developed <strong>IFRS/NFRS Accounting Manuals</strong> for major banks</li>
-                                </ul>
-                                <div class="tech-tags">
-                                    <span>IFRS Convergence</span>
-                                    <span>Consultancy</span>
-                                    <span>Policy Development</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-date">2016 - 2019</span>
-                                <h3>Article Trainee</h3>
-                                <h4>L.D.S.A. Associates</h4>
-                                <ul>
-                                    <li>Foundation training in statutory & internal audit</li>
-                                    <li>Hands-on experience in IFRS convergence projects</li>
-                                    <li>Exposure to banking, insurance, and corporate sectors</li>
-                                </ul>
-                                <div class="tech-tags">
-                                    <span>CA Training</span>
-                                    <span>Audit</span>
-                                    <span>Financial Analysis</span>
-                                </div>
-                            </div>
+    <!-- Experience Timeline - NOW PROPERLY CLOSED AND SEPARATE -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Career Journey</span>
+                <h2 class="section-title">Professional Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Apr 2025 - Present</span>
+                        <h3>Head of Internal Audit & Compliance</h3>
+                        <h4>Sanima Jum Hydropower Ltd (Sanima Group)</h4>
+                        <ul>
+                            <li>Leading internal audit operations across <strong>9 companies</strong> within Sanima Group</li>
+                            <li>Designed and implemented <strong>Internal Audit Manual 2025</strong></li>
+                            <li>Conducted comprehensive <strong>IT GAP Assessment</strong> aligned with ISO 27001 Annex A Controls</li>
+                            <li>Mentoring team of aspiring Chartered Accountants</li>
+                            <li>Established risk-based audit frameworks across group entities</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span>Internal Audit</span>
+                            <span>ISO 27001</span>
+                            <span>Compliance</span>
+                            <span>Risk Management</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Skills Section -->
-            <section id="skills" class="skills">
-                <div class="container">
-                    <div class="section-header">
-                        <span class="section-subtitle">What I Do Best</span>
-                        <h2 class="section-title">Professional Skills</h2>
-                    </div>
-                    
-                    <div class="skills-grid">
-                        <!-- Audit & Assurance -->
-                        <div class="skill-category">
-                            <div class="category-header">
-                                <i class="fas fa-search-dollar"></i>
-                                <h3>Audit & Assurance</h3>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Internal Audit</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>IS Audit (CISA)</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Risk-Based Audit</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 88%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Statutory Audit</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Financial Management -->
-                        <div class="skill-category">
-                            <div class="category-header">
-                                <i class="fas fa-chart-line"></i>
-                                <h3>Financial Management</h3>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>IFRS/NFRS Reporting</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Financial Projections</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Treasury Management</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Budget Preparation</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 92%"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Compliance & Risk -->
-                        <div class="skill-category">
-                            <div class="category-header">
-                                <i class="fas fa-shield-alt"></i>
-                                <h3>Compliance & Risk</h3>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>ISO 27001 (ISMS)</span>
-                                    <span class="skill-level">Lead Auditor</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>ISO 42001 (AI Management)</span>
-                                    <span class="skill-level">Lead Auditor</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 84%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>GRC (Governance, Risk, Compliance)</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>NRB/SEBON Compliance</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 93%"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Technology & Tools -->
-                        <div class="skill-category">
-                            <div class="category-header">
-                                <i class="fas fa-laptop-code"></i>
-                                <h3>Technology & Tools</h3>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Banking Software (Pumori, Finacle, T24)</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Power BI & Analytics</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>Cybersecurity Tools</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 78%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span>AI & Machine Learning Basics</span>
-                                    <span class="skill-level">Intermediate</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 70%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tech Stack Icons -->
-                    <div class="tech-stack">
-                        <h3>Technologies I Work With</h3>
-                        <div class="tech-grid">
-                            <div class="tech-item" data-tooltip="Banking Core System">
-                                <i class="fas fa-database"></i>
-                                <span>CBS</span>
-                            </div>
-                            <div class="tech-item" data-tooltip="Microsoft Power BI">
-                                <i class="fas fa-chart-bar"></i>
-                                <span>Power BI</span>
-                            </div>
-                            <div class="tech-item" data-tooltip="Microsoft Excel">
-                                <i class="fas fa-file-excel"></i>
-                                <span>Excel</span>
-                            </div>
-                            <div class="tech-item" data-tooltip="Google Analytics">
-                                <i class="fab fa-google"></i>
-                                <span>Analytics</span>
-                            </div>
-                            <div class="tech-item" data-tooltip="ISO 27001">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>ISO 27001</span>
-                            </div>
-                            <div class="tech-item" data-tooltip="CISA Framework">
-                                <i class="fas fa-user-shield"></i>
-                                <span>CISA</span>
-                            </div>
-                            <div class="tech-item" data-tooltip="Blockchain Basics">
-                                <i class="fab fa-bitcoin"></i>
-                                <span>Blockchain</span>
-                            </div>
-                            <div class="tech-item" data-tooltip="AI & ML">
-                                <i class="fas fa-brain"></i>
-                                <span>AI/ML</span>
-                            </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2024 - 2025</span>
+                        <h3>Junior Officer - Finance & Accounts</h3>
+                        <h4>Garima Bikas Bank Ltd</h4>
+                        <ul>
+                            <li>Prepared <strong>Annual Book 2023/24</strong> and finalized FY 2024/25 Budget</li>
+                            <li>Treasury Management: Bond, T-bills, SDF, SLF, OLF operations</li>
+                            <li>MIS Reporting: Daily/Weekly/Monthly to management</li>
+                            <li>Hands-on experience with Pumori, Finacle banking software</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span>Financial Reporting</span>
+                            <span>Treasury</span>
+                            <span>MIS</span>
+                            <span>Banking Software</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Projects Section (unchanged) -->
-            <section id="projects" class="projects">
-                <div class="container">
-                    <div class="section-header">
-                        <span class="section-subtitle">Portfolio</span>
-                        <h2 class="section-title">Major Projects & Achievements</h2>
-                    </div>
-
-                    <div class="project-filters">
-                        <button class="filter-btn active" data-filter="all">All Projects</button>
-                        <button class="filter-btn" data-filter="ifrs">IFRS Convergence</button>
-                        <button class="filter-btn" data-filter="audit">Internal Audit</button>
-                        <button class="filter-btn" data-filter="is-audit">IS Audit</button>
-                        <button class="filter-btn" data-filter="policy">Policy Development</button>
-                    </div>
-
-                    <div class="projects-grid">
-                        <!-- IFRS Convergence Projects -->
-                        <div class="project-card" data-category="ifrs">
-                            <div class="project-icon">
-                                <i class="fas fa-university"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>IFRS Convergence - Banking Sector</h3>
-                                <span class="project-tag">20+ Financial Institutions</span>
-                            </div>
-                            <p class="project-description">
-                                Led IFRS convergence projects for major commercial banks including NABIL Bank, Citizens Bank, Sanima Bank, and 17 other financial institutions.
-                            </p>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <i class="fas fa-building"></i>
-                                    <div>
-                                        <h4>14</h4>
-                                        <p>Commercial Banks</p>
-                                    </div>
-                                </div>
-                                <div class="metric">
-                                    <i class="fas fa-chart-line"></i>
-                                    <div>
-                                        <h4>6</h4>
-                                        <p>Development Banks</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details">
-                                <h4>Key Deliverables:</h4>
-                                <ul>
-                                    <li>GAAP to IFRS financial statement conversion</li>
-                                    <li>Deferred tax recognition & accounting</li>
-                                    <li>ECL impairment modeling</li>
-                                    <li>Fair value measurement implementation</li>
-                                </ul>
-                            </div>
+                <div class="timeline-item featured">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2022 - 2024</span>
+                        <h3>Junior Officer - Finance, Accounts & Treasury</h3>
+                        <h4>Lumbini Bikas Bank Ltd</h4>
+                        <div class="achievement-badge">
+                            <i class="fas fa-trophy"></i>
+                            <span>2x Bronze Award Winner</span>
                         </div>
-
-                        <!-- Citizens Bank Internal Audit -->
-                        <div class="project-card featured" data-category="audit">
-                            <div class="project-badge">Featured</div>
-                            <div class="project-icon">
-                                <i class="fas fa-search-dollar"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>Citizens Bank Internal Audit</h3>
-                                <span class="project-tag">Team Leader | 1.5 Years</span>
-                            </div>
-                            <p class="project-description">
-                                Led comprehensive internal audit covering 60+ branches nationwide, focusing on credit risk, operational efficiency, and regulatory compliance.
-                            </p>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                    <div>
-                                        <h4>60+</h4>
-                                        <p>Branches Audited</p>
-                                    </div>
-                                </div>
-                                <div class="metric">
-                                    <i class="fas fa-users"></i>
-                                    <div>
-                                        <h4>Team</h4>
-                                        <p>Leader Role</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details">
-                                <h4>Audit Scope:</h4>
-                                <ul>
-                                    <li>Credit file review & loan portfolio analysis</li>
-                                    <li>Operational risk assessment</li>
-                                    <li>Internal control evaluation</li>
-                                    <li>NRB compliance verification</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- IT GAP Assessment - Sanima Group -->
-                        <div class="project-card" data-category="is-audit">
-                            <div class="project-icon">
-                                <i class="fas fa-network-wired"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>IT GAP Assessment - Sanima Group</h3>
-                                <span class="project-tag">9 Companies | 2025</span>
-                            </div>
-                            <p class="project-description">
-                                Comprehensive IS function assessment against ISO 27001 Annex A Controls for entire Sanima Group portfolio.
-                            </p>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <i class="fas fa-building"></i>
-                                    <div>
-                                        <h4>9</h4>
-                                        <p>Companies</p>
-                                    </div>
-                                </div>
-                                <div class="metric">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <div>
-                                        <h4>ISO 27001</h4>
-                                        <p>Framework</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details">
-                                <h4>Assessment Areas:</h4>
-                                <ul>
-                                    <li>IT General Controls (ITGC) evaluation</li>
-                                    <li>Cybersecurity framework gap analysis</li>
-                                    <li>Risk identification & remediation roadmap</li>
-                                    <li>Security policy & procedure review</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Debenture Issuance - Lumbini Bikas Bank -->
-                        <div class="project-card" data-category="ifrs">
-                            <div class="project-icon">
-                                <i class="fas fa-file-invoice-dollar"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>Debenture Issuance - LBBLD89</h3>
-                                <span class="project-tag">Lumbini Bikas Bank Ltd</span>
-                            </div>
-                            <p class="project-description">
-                                Prepared comprehensive 10-year financial projections and managed complete debenture issuance process.
-                            </p>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <div>
-                                        <h4>10 Years</h4>
-                                        <p>Projections</p>
-                                    </div>
-                                </div>
-                                <div class="metric">
-                                    <i class="fas fa-check-circle"></i>
-                                    <div>
-                                        <h4>Complete</h4>
-                                        <p>Success</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details">
-                                <h4>Responsibilities:</h4>
-                                <ul>
-                                    <li>Financial modeling & projections</li>
-                                    <li>Prospectus preparation</li>
-                                    <li>RTS agreement management</li>
-                                    <li>NEPSE listing coordination</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Award-Winning Annual Reports -->
-                        <div class="project-card featured" data-category="ifrs">
-                            <div class="project-badge">🏆 Award Winner</div>
-                            <div class="project-icon">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>Best Presented Annual Reports</h3>
-                                <span class="project-tag">2x Bronze Award Winner</span>
-                            </div>
-                            <p class="project-description">
-                                Prepared award-winning Annual Books for Lumbini Bikas Bank (FY 2021/22 & 2022/23), recognized by ICAN.
-                            </p>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <i class="fas fa-award"></i>
-                                    <div>
-                                        <h4>2x</h4>
-                                        <p>Bronze Awards</p>
-                                    </div>
-                                </div>
-                                <div class="metric">
-                                    <i class="fas fa-star"></i>
-                                    <div>
-                                        <h4>ICAN</h4>
-                                        <p>Recognition</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details">
-                                <h4>Achievements:</h4>
-                                <ul>
-                                    <li>Best Presented Award (BPA) - FY 2021/22</li>
-                                    <li>Best Presented Award (BPA) - FY 2022/23</li>
-                                    <li>Comprehensive IFRS/NFRS disclosures</li>
-                                    <li>Enhanced stakeholder communication</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Internal Audit Manual 2025 -->
-                        <div class="project-card" data-category="policy">
-                            <div class="project-icon">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>Internal Audit Manual 2025</h3>
-                                <span class="project-tag">Sanima Group</span>
-                            </div>
-                            <p class="project-description">
-                                Designed comprehensive Internal Audit Manual implementing risk-based audit methodology across group entities.
-                            </p>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <i class="fas fa-building"></i>
-                                    <div>
-                                        <h4>9</h4>
-                                        <p>Companies</p>
-                                    </div>
-                                </div>
-                                <div class="metric">
-                                    <i class="fas fa-tasks"></i>
-                                    <div>
-                                        <h4>Risk-Based</h4>
-                                        <p>Methodology</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details">
-                                <h4>Manual Components:</h4>
-                                <ul>
-                                    <li>Audit planning & execution framework</li>
-                                    <li>Risk assessment methodologies</li>
-                                    <li>Quality assurance procedures</li>
-                                    <li>Reporting & follow-up protocols</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Strategic Planning - 5 Year Plan -->
-                        <div class="project-card" data-category="policy">
-                            <div class="project-icon">
-                                <i class="fas fa-route"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>5-Year Strategic Plan (2080-2085)</h3>
-                                <span class="project-tag">Lumbini Bikas Bank Ltd</span>
-                            </div>
-                            <p class="project-description">
-                                Implemented comprehensive strategic plan with zero-based budgeting framework.
-                            </p>
-                            <div class="project-metrics">
-                                <div class="metric">
-                                    <i class="fas fa-calendar-check"></i>
-                                    <div>
-                                        <h4>5 Years</h4>
-                                        <p>Roadmap</p>
-                                    </div>
-                                </div>
-                                <div class="metric">
-                                    <i class="fas fa-calculator"></i>
-                                    <div>
-                                        <h4>Zero-Based</h4>
-                                        <p>Budgeting</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="project-details">
-                                <h4>Implementation:</h4>
-                                <ul>
-                                    <li>Strategic objectives definition</li>
-                                    <li>Zero-based budgeting rollout</li>
-                                    <li>KPI development & tracking</li>
-                                    <li>Performance measurement systems</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Himalayan Bank Risk-Based Audit -->
-                        <div class="project-card" data-category="audit">
-                            <div class="project-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div class="project-header">
-                                <h3>Risk-Based Internal Audit Implementation</h3>
-                                <span class="project-tag">Himalayan Bank Limited</span>
-                            </div>
-                            <p class="project-description">
-                                Implemented comprehensive risk-based internal audit framework for one of Nepal's leading commercial banks.
-                            </p>
-                            <div class="project-details">
-                                <h4>Framework Components:</h4>
-                                <ul>
-                                    <li>Risk universe mapping</li>
-                                    <li>Audit plan prioritization</li>
-                                    <li>Control effectiveness testing</li>
-                                    <li>Continuous monitoring system</li>
-                                </ul>
-                            </div>
+                        <ul>
+                            <li>🏆 Won <strong>Best Presented Award (BPA)</strong> for Annual Books FY 2021/22 & 2022/23 by ICAN</li>
+                            <li>Prepared <strong>10-year financial projections</strong> for Debenture Issuance (LBBLD89)</li>
+                            <li>Implemented <strong>5-Year Strategic Plan (2080-2085)</strong></li>
+                            <li>Successfully implemented <strong>Zero-Based Budgeting</strong> across organization</li>
+                            <li>NRB/SEBON/NEPSE regulatory reporting & SIS Portal operations</li>
+                            <li>Acting HOD - Second-in-command for department operations</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span>Strategic Planning</span>
+                            <span>NFRS/IFRS</span>
+                            <span>Debenture</span>
+                            <span>Zero-Based Budget</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Contact Section (unchanged) -->
-            <section id="contact" class="contact">
-                <div class="container">
-                    <div class="section-header">
-                        <span class="section-subtitle">Get In Touch</span>
-                        <h2 class="section-title">Contact Me</h2>
-                    </div>
-                    <div class="contact-content">
-                        <div class="contact-info">
-                            <h3>Let's discuss your next project</h3>
-                            <p>I'm available for consulting, auditing projects, and professional collaborations.</p>
-                            
-                            <div class="contact-details">
-                                <div class="contact-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div class="contact-text">
-                                        <h4>Email</h4>
-                                        <a href="mailto:ca.manish.shrestha@gmail.com">ca.manish.shrestha@gmail.com</a>
-                                        <a href="mailto:manish.shrestha5396@gmail.com">manish.shrestha5396@gmail.com</a>
-                                    </div>
-                                </div>
-                                <div class="contact-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <div class="contact-text">
-                                        <h4>Phone</h4>
-                                        <a href="tel:+9779843676945">+977 9843676945</a>
-                                        <a href="tel:+9779803456703">+977 9803456703</a>
-                                    </div>
-                                </div>
-                                <div class="contact-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div class="contact-text">
-                                        <h4>Location</h4>
-                                        <p>Satdobato, Lalitpur</p>
-                                        <p>Nepal</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="social-links-contact">
-                                <a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank" aria-label="LinkedIn">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="https://github.com/camanishshrestha" target="_blank" aria-label="GitHub">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="mailto:ca.manish.shrestha@gmail.com" aria-label="Email">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <form class="contact-form" id="contact-form">
-                            <div class="form-group">
-                                <input type="text" id="name" name="name" placeholder="Your Name" required>
-                                <label for="name">Name</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="email" name="email" placeholder="Your Email" required>
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                                <label for="subject">Subject</label>
-                            </div>
-                            <div class="form-group">
-                                <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-                                <label for="message">Message</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i>
-                                Send Message
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Footer (unchanged) -->
-            <footer class="footer">
-                <div class="container">
-                    <div class="footer-content">
-                        <div class="footer-section">
-                            <h3>Manish Shrestha</h3>
-                            <p>CA (ICAN) | CISA | GRC Professional</p>
-                            <p>Building excellence in audit, compliance, and governance.</p>
-                        </div>
-                        <div class="footer-section">
-                            <h4>Quick Links</h4>
-                            <ul>
-                                <li><a href="#about">About</a></li>
-                                <li><a href="#badges">Badges</a></li>
-                                <li><a href="#qualifications">Qualifications</a></li>
-                                <li><a href="#experience">Experience</a></li>
-                                <li><a href="#skills">Skills</a></li>
-                                <li><a href="#projects">Projects</a></li>
-                                <li><a href="#contact">Contact</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-section">
-                            <h4>Professional</h4>
-                            <ul>
-                                <li><a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank">LinkedIn</a></li>
-                                <li><a href="https://github.com/camanishshrestha" target="_blank">GitHub</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="footer-bottom">
-                        <div class="copyright-text">
-                            &copy; 2026 CA Manish Shrestha. All Rights Reserved.
-                        </div>
-                        
-                        <!-- VISITOR COUNTER SECTION -->
-                        <div class="visitor-metrics-container">
-                            <span>Total Views: </span>
-                            <span id="view-count" class="visitor-count-badge">Loading...</span>
-                            
-                            <p class="privacy-disclaimer">
-                                <strong>Transparency Notice:</strong> This website utilizes an anonymous visitor counter for statistical metrics only. We strictly adhere to user privacy standards; no personally identifiable information (PII) or user browsing habits are recorded or stored by this website.
-                            </p>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2021 - 2022</span>
+                        <h3>Internal Audit Team Leader</h3>
+                        <h4>MR Associates</h4>
+                        <ul>
+                            <li>Led internal audit of <strong>Citizens Bank</strong> - audited <strong>60+ branches</strong> nationwide</li>
+                            <li>Implemented comprehensive risk-based internal audit frameworks</li>
+                            <li>Managed audit teams for multi-location assignments</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span>Internal Audit</span>
+                            <span>Team Leadership</span>
+                            <span>Risk Assessment</span>
                         </div>
                     </div>
                 </div>
-            </footer>
 
-            <!-- Scroll to Top Button -->
-            <button class="scroll-top" id="scroll-top" aria-label="Scroll to Top">
-                <i class="fas fa-arrow-up"></i>
-            </button>
-
-            <!-- AI Chat Container (unchanged) -->
-            <div id="ai-chat-container" class="chat-container hidden">
-                <div class="chat-header">
-                    <div class="chat-header-content">
-                        <div class="avatar-container">
-                            <img src="images/ms.jpg" alt="Manish Shrestha" class="chat-avatar">
-                            <span class="online-indicator"></span>
+                <!-- SAR Associates - Role 1: Audit Professional -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Sep 2016 - Feb 2020 · 3 yrs 6 mos</span>
+                        <h3>Audit Professional <span class="full-time-badge">Full-time</span></h3>
+                        <h4>SAR Associates | Chartered Accountants (Former L.D.S.A Associates)</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                            <i class="fas fa-map-marker-alt"></i> Bishalbasti "A", Bishalnagar, Kathmandu
+                        </p>
+                        <div class="achievement-badge">
+                            <i class="fas fa-star"></i>
+                            <span>Top 4 Employee Star 2019</span>
                         </div>
-                        <div class="chat-title">
-                            <h3>Ask Manish AI</h3>
-                            <p class="chat-status">Online • Instant Response</p>
-                        </div>
-                    </div>
-                    <button class="chat-minimize" onclick="toggleChat()" aria-label="Minimize Chat">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button class="chat-close" onclick="closeChat()" aria-label="Close Chat">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message bot-message">
-                        <div class="message-avatar">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="message-content">
-                            <p>👋 Hi! I'm Manish's AI assistant. Ask me anything about his:</p>
-                            <div class="quick-suggestions">
-                                <button class="suggestion-btn" onclick="askQuestion('What are your certifications?')">
-                                    📜 Certifications
-                                </button>
-                                <button class="suggestion-btn" onclick="askQuestion('Tell me about your experience')">
-                                    💼 Experience
-                                </button>
-                                <button class="suggestion-btn" onclick="askQuestion('What projects have you done?')">
-                                    🚀 Projects
-                                </button>
-                                <button class="suggestion-btn" onclick="askQuestion('How can I contact you?')">
-                                    📧 Contact                                </button>
-                            </div>
+                        <ul>
+                            <li>🌟 <strong>Top 4 Finalist</strong> - Employee Star 2019 (among 100+ staff)</li>
+                            <li>Statutory and internal audit engagements</li>
+                            <li>Financial statement auditing for multiple clients</li>
+                            <li>Exposure to banking, insurance, and corporate sectors</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span>Auditing</span>
+                            <span>Financial Statement Auditing</span>
+                            <span>Statutory Audit</span>
+                            <span>Internal Audit</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="chat-input-container">
-                    <input type="text" id="chatInput" class="chat-input" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
-                    <button class="chat-send-btn" onclick="sendMessage()" aria-label="Send Message">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+
+                <!-- SAR Associates - Role 2: IFRS Implementor -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Sep 2017 - Sep 2019 · 2 yrs 1 mo</span>
+                        <h3>First-time IFRS Implementor (In Nepal) & IFRS Advisor <span class="part-time-badge">Part-time</span></h3>
+                        <h4>SAR Associates | Chartered Accountants</h4>
+                        <div class="achievement-badge" style="background: linear-gradient(135deg, #ffd700, #ffaa00);">
+                            <i class="fas fa-crown"></i>
+                            <span style="color: #000;">Pioneer in Nepal</span>
+                        </div>
+                        <ul>
+                            <li>🏆 <strong>First-time IFRS Implementor in Nepal</strong> - Pioneered IFRS convergence</li>
+                            <li>Provided <strong>IFRS consultancy</strong> to multiple financial institutions (BFIs)</li>
+                            <li>IFRS convergence of GAAP Financials</li>
+                            <li>Developed <strong>IFRS/NFRS Accounting Manuals</strong> for major banks</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span>IFRS</span>
+                            <span>IFRS Convergence</span>
+                            <span>GAAP to IFRS</span>
+                            <span>BFI Consultancy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2016 - 2019</span>
+                        <h3>Article Trainee</h3>
+                        <h4>L.D.S.A. Associates</h4>
+                        <ul>
+                            <li>Foundation training in statutory & internal audit</li>
+                            <li>Hands-on experience in IFRS convergence projects</li>
+                            <li>Exposure to banking, insurance, and corporate sectors</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span>CA Training</span>
+                            <span>Audit</span>
+                            <span>Financial Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">What I Do Best</span>
+                <h2 class="section-title">Professional Skills</h2>
+            </div>
+            
+            <div class="skills-grid">
+                <!-- Audit & Assurance -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-search-dollar"></i>
+                        <h3>Audit & Assurance</h3>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Internal Audit</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>IS Audit (CISA)</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Risk-Based Audit</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Statutory Audit</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Management -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Financial Management</h3>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>IFRS/NFRS Reporting</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Financial Projections</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Treasury Management</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Budget Preparation</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compliance & Risk -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Compliance & Risk</h3>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>ISO 27001 (ISMS)</span>
+                            <span class="skill-level">Lead Auditor</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>ISO 42001 (AI Management)</span>
+                            <span class="skill-level">Lead Auditor</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 84%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>GRC (Governance, Risk, Compliance)</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>NRB/SEBON Compliance</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 93%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technology & Tools -->
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Technology & Tools</h3>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Banking Software (Pumori, Finacle, T24)</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Power BI & Analytics</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Cybersecurity Tools</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>AI & Machine Learning Basics</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <button class="chat-toggle-btn" onclick="toggleChat()" id="chatToggleBtn" aria-label="Open AI Chat">
-                <i class="fas fa-robot"></i>
-                <span class="chat-badge">Ask me!</span>
+            <!-- Tech Stack Icons -->
+            <div class="tech-stack">
+                <h3>Technologies I Work With</h3>
+                <div class="tech-grid">
+                    <div class="tech-item" data-tooltip="Banking Core System">
+                        <i class="fas fa-database"></i>
+                        <span>CBS</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="Microsoft Power BI">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Power BI</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="Microsoft Excel">
+                        <i class="fas fa-file-excel"></i>
+                        <span>Excel</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="Google Analytics">
+                        <i class="fab fa-google"></i>
+                        <span>Analytics</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="ISO 27001">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>ISO 27001</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="CISA Framework">
+                        <i class="fas fa-user-shield"></i>
+                        <span>CISA</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="Blockchain Basics">
+                        <i class="fab fa-bitcoin"></i>
+                        <span>Blockchain</span>
+                    </div>
+                    <div class="tech-item" data-tooltip="AI & ML">
+                        <i class="fas fa-brain"></i>
+                        <span>AI/ML</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Portfolio</span>
+                <h2 class="section-title">Major Projects & Achievements</h2>
+            </div>
+
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="ifrs">IFRS Convergence</button>
+                <button class="filter-btn" data-filter="audit">Internal Audit</button>
+                <button class="filter-btn" data-filter="is-audit">IS Audit</button>
+                <button class="filter-btn" data-filter="policy">Policy Development</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- EXISTING PROJECTS -->
+                
+                <!-- IFRS Convergence Projects -->
+                <div class="project-card" data-category="ifrs">
+                    <div class="project-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>IFRS Convergence - Banking Sector</h3>
+                        <span class="project-tag">20+ Financial Institutions</span>
+                    </div>
+                    <p class="project-description">
+                        Led IFRS convergence projects for major commercial banks including NABIL Bank, Citizens Bank, Sanima Bank, and 17 other financial institutions.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h4>14</h4>
+                                <p>Commercial Banks</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>6</h4>
+                                <p>Development Banks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Key Deliverables:</h4>
+                        <ul>
+                            <li>GAAP to IFRS financial statement conversion</li>
+                            <li>Deferred tax recognition & accounting</li>
+                            <li>ECL impairment modeling</li>
+                            <li>Fair value measurement implementation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Citizens Bank Internal Audit -->
+                <div class="project-card featured" data-category="audit">
+                    <div class="project-badge">Featured</div>
+                    <div class="project-icon">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Citizens Bank Internal Audit</h3>
+                        <span class="project-tag">Team Leader | 1.5 Years</span>
+                    </div>
+                    <p class="project-description">
+                        Led comprehensive internal audit covering 60+ branches nationwide, focusing on credit risk, operational efficiency, and regulatory compliance.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <div>
+                                <h4>60+</h4>
+                                <p>Branches Audited</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Team</h4>
+                                <p>Leader Role</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Audit Scope:</h4>
+                        <ul>
+                            <li>Credit file review & loan portfolio analysis</li>
+                            <li>Operational risk assessment</li>
+                            <li>Internal control evaluation</li>
+                            <li>NRB compliance verification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- IT GAP Assessment - Sanima Group -->
+                <div class="project-card" data-category="is-audit">
+                    <div class="project-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>IT GAP Assessment - Sanima Group</h3>
+                        <span class="project-tag">9 Companies | 2025</span>
+                    </div>
+                    <p class="project-description">
+                        Comprehensive IS function assessment against ISO 27001 Annex A Controls for entire Sanima Group portfolio.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h4>9</h4>
+                                <p>Companies</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>ISO 27001</h4>
+                                <p>Framework</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Assessment Areas:</h4>
+                        <ul>
+                            <li>IT General Controls (ITGC) evaluation</li>
+                            <li>Cybersecurity framework gap analysis</li>
+                            <li>Risk identification & remediation roadmap</li>
+                            <li>Security policy & procedure review</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Debenture Issuance - Lumbini Bikas Bank -->
+                <div class="project-card" data-category="ifrs">
+                    <div class="project-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Debenture Issuance - LBBLD89</h3>
+                        <span class="project-tag">Lumbini Bikas Bank Ltd</span>
+                    </div>
+                    <p class="project-description">
+                        Prepared comprehensive 10-year financial projections and managed complete debenture issuance process.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <h4>10 Years</h4>
+                                <p>Projections</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Complete</h4>
+                                <p>Success</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Responsibilities:</h4>
+                        <ul>
+                            <li>Financial modeling & projections</li>
+                            <li>Prospectus preparation</li>
+                            <li>RTS agreement management</li>
+                            <li>NEPSE listing coordination</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Award-Winning Annual Reports -->
+                <div class="project-card featured" data-category="ifrs">
+                    <div class="project-badge">🏆 Award Winner</div>
+                    <div class="project-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Best Presented Annual Reports</h3>
+                        <span class="project-tag">2x Bronze Award Winner</span>
+                    </div>
+                    <p class="project-description">
+                        Prepared award-winning Annual Books for Lumbini Bikas Bank (FY 2021/22 & 2022/23), recognized by ICAN.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h4>2x</h4>
+                                <p>Bronze Awards</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-star"></i>
+                            <div>
+                                <h4>ICAN</h4>
+                                <p>Recognition</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Achievements:</h4>
+                        <ul>
+                            <li>Best Presented Award (BPA) - FY 2021/22</li>
+                            <li>Best Presented Award (BPA) - FY 2022/23</li>
+                            <li>Comprehensive IFRS/NFRS disclosures</li>
+                            <li>Enhanced stakeholder communication</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Internal Audit Manual 2025 -->
+                <div class="project-card" data-category="policy">
+                    <div class="project-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Internal Audit Manual 2025</h3>
+                        <span class="project-tag">Sanima Group</span>
+                    </div>
+                    <p class="project-description">
+                        Designed comprehensive Internal Audit Manual implementing risk-based audit methodology across group entities.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h4>9</h4>
+                                <p>Companies</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-tasks"></i>
+                            <div>
+                                <h4>Risk-Based</h4>
+                                <p>Methodology</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Manual Components:</h4>
+                        <ul>
+                            <li>Audit planning & execution framework</li>
+                            <li>Risk assessment methodologies</li>
+                            <li>Quality assurance procedures</li>
+                            <li>Reporting & follow-up protocols</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Strategic Planning - 5 Year Plan -->
+                <div class="project-card" data-category="policy">
+                    <div class="project-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>5-Year Strategic Plan (2080-2085)</h3>
+                        <span class="project-tag">Lumbini Bikas Bank Ltd</span>
+                    </div>
+                    <p class="project-description">
+                        Implemented comprehensive strategic plan with zero-based budgeting framework.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-calendar-check"></i>
+                            <div>
+                                <h4>5 Years</h4>
+                                <p>Roadmap</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-calculator"></i>
+                            <div>
+                                <h4>Zero-Based</h4>
+                                <p>Budgeting</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Implementation:</h4>
+                        <ul>
+                            <li>Strategic objectives definition</li>
+                            <li>Zero-based budgeting rollout</li>
+                            <li>KPI development & tracking</li>
+                            <li>Performance measurement systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Himalayan Bank Risk-Based Audit -->
+                <div class="project-card" data-category="audit">
+                    <div class="project-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Risk-Based Internal Audit Implementation</h3>
+                        <span class="project-tag">Himalayan Bank Limited</span>
+                    </div>
+                    <p class="project-description">
+                        Implemented comprehensive risk-based internal audit framework for one of Nepal's leading commercial banks.
+                    </p>
+                    <div class="project-details">
+                        <h4>Framework Components:</h4>
+                        <ul>
+                            <li>Risk universe mapping</li>
+                            <li>Audit plan prioritization</li>
+                            <li>Control effectiveness testing</li>
+                            <li>Continuous monitoring system</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ========================================
+                     NEW PROJECTS START HERE
+                     ======================================== -->
+
+                <!-- NEW PROJECT 1: Annual Book Preparation - Garima -->
+                <div class="project-card" data-category="ifrs">
+                    <div class="project-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Annual Book Preparation – Garima Bikas Bank (FY 2023/24)</h3>
+                        <span class="project-tag">Annual Report</span>
+                    </div>
+                    <p class="project-description">
+                        Prepared a comprehensive annual book aligning financial, operational, and governance disclosures for regulatory compliance.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-file-alt"></i>
+                            <div>
+                                <h4>Complete</h4>
+                                <p>Annual Report</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-check-double"></i>
+                            <div>
+                                <h4>NRB</h4>
+                                <p>Compliant</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Key Deliverables:</h4>
+                        <ul>
+                            <li>Compiled financial and non-financial data across departments</li>
+                            <li>Structured report aligned with NRB + IFRS requirements</li>
+                            <li>Ensured consistency between financial statements and management discussion</li>
+                            <li>Coordinated with audit and finance teams for validation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW PROJECT 2: Budget Finalization - Garima -->
+                <div class="project-card" data-category="policy">
+                    <div class="project-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Annual Budget Finalization – Garima Bikas Bank (FY 2024/25)</h3>
+                        <span class="project-tag">Financial Planning</span>
+                    </div>
+                    <p class="project-description">
+                        Developed a realistic and performance-aligned annual financial budget to support strategic decision-making.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-chart-pie"></i>
+                            <div>
+                                <h4>FY 2024/25</h4>
+                                <p>Budget</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-bullseye"></i>
+                            <div>
+                                <h4>Strategic</h4>
+                                <p>Alignment</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Key Deliverables:</h4>
+                        <ul>
+                            <li>Consolidated departmental forecasts</li>
+                            <li>Performed variance and trend analysis from prior years</li>
+                            <li>Built financial projections (revenue, cost, capital allocation)</li>
+                            <li>Aligned budget with strategic and operational goals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW PROJECT 3: IFRS 9 ECL Model - Garima -->
+                <div class="project-card" data-category="ifrs">
+                    <div class="project-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>IFRS 9 Implementation – Expected Credit Loss (ECL) Model</h3>
+                        <span class="project-tag">Garima Bikas Bank</span>
+                    </div>
+                    <p class="project-description">
+                        Developed and implemented Expected Credit Loss (ECL) calculations as per IFRS 9, shifting accounting from reactive to predictive.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-layer-group"></i>
+                            <div>
+                                <h4>3 Stages</h4>
+                                <p>Classification</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-chart-area"></i>
+                            <div>
+                                <h4>PD/LGD/EAD</h4>
+                                <p>Modeling</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Key Deliverables:</h4>
+                        <ul>
+                            <li>Classified financial assets into Stage 1, 2, and 3</li>
+                            <li>Developed PD, LGD, EAD models</li>
+                            <li>Incorporated forward-looking macroeconomic factors</li>
+                            <li>Calculated provision requirements per IFRS 9</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW PROJECT 4: IS Audit - Citizens International Bank -->
+                <div class="project-card" data-category="is-audit">
+                    <div class="project-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Information Systems (IS) Audit</h3>
+                        <span class="project-tag">Citizens International Bank</span>
+                    </div>
+                    <p class="project-description">
+                        Evaluated IT controls, security, and governance effectiveness to strengthen IT governance and control environment.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-cogs"></i>
+                            <div>
+                                <h4>ITGC</h4>
+                                <p>Review</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-lock"></i>
+                            <div>
+                                <h4>COBIT</h4>
+                                <p>Framework</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Audit Scope:</h4>
+                        <ul>
+                            <li>Reviewed IT general controls (ITGC)</li>
+                            <li>Assessed access controls, change management, and backup processes</li>
+                            <li>Evaluated system security and data integrity</li>
+                            <li>Identified control gaps and recommended improvements</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW PROJECT 5: 10-Year Financial Projection - Lumbini -->
+                <div class="project-card" data-category="ifrs">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>10-Year Financial Projection – Lumbini Bikas Bank (2081–2090)</h3>
+                        <span class="project-tag">Long-Term Planning</span>
+                    </div>
+                    <p class="project-description">
+                        Developed a long-term financial outlook to support strategic planning, capital planning, and sustainability assessment.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <h4>10 Years</h4>
+                                <p>Projection</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-random"></i>
+                            <div>
+                                <h4>3 Scenarios</h4>
+                                <p>Analysis</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Key Deliverables:</h4>
+                        <ul>
+                            <li>Built 10-year financial model covering income, expenses, and capital</li>
+                            <li>Projected key drivers: loan growth, interest income, operational costs</li>
+                            <li>Conducted scenario analysis (best, base, worst case)</li>
+                            <li>Evaluated long-term capital adequacy and profitability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW PROJECT 6: Zero-Based Budgeting - Lumbini -->
+                <div class="project-card" data-category="policy">
+                    <div class="project-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="project-header">
+                        <h3>Zero-Based Budgeting (ZBB) Implementation</h3>
+                        <span class="project-tag">Lumbini Bikas Bank</span>
+                    </div>
+                    <p class="project-description">
+                        Implemented a budgeting approach where all expenses are justified from zero, ensuring optimal allocation of resources and cost efficiency.
+                    </p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <i class="fas fa-sitemap"></i>
+                            <div>
+                                <h4>All Depts</h4>
+                                <p>Coverage</p>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <div>
+                                <h4>Cost</h4>
+                                <p>Optimization</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4>Key Deliverables:</h4>
+                        <ul>
+                            <li>Designed and implemented ZBB framework from ground up</li>
+                            <li>Required all departments to justify each expense from zero</li>
+                            <li>Identified inefficiencies and eliminated redundant spending</li>
+                            <li>Aligned budget allocations with strategic priorities</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Get In Touch</span>
+                <h2 class="section-title">Contact Me</h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's discuss your next project</h3>
+                    <p>I'm available for consulting, auditing projects, and professional collaborations.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:ca.manish.shrestha@gmail.com">ca.manish.shrestha@gmail.com</a>
+                                <a href="mailto:manish.shrestha5396@gmail.com">manish.shrestha5396@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <a href="tel:+9779843676945">+977 9843676945</a>
+                                <a href="tel:+9779803456703">+977 9803456703</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <p>Satdobato, Lalitpur</p>
+                                <p>Nepal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links-contact">
+                        <a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/camanishshrestha" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:ca.manish.shrestha@gmail.com" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        <label for="subject">Subject</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                        <label for="message">Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Manish Shrestha</h3>
+                    <p>CA (ICAN) | CISA | GRC Professional</p>
+                    <p>Building excellence in audit, compliance, and governance.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#badges">Badges</a></li>
+                        <li><a href="#qualifications">Qualifications</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Professional</h4>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/manish-shrestha-cisa-grc" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://github.com/camanishshrestha" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright-text">
+                    &copy; 2026 CA Manish Shrestha. All Rights Reserved.
+                </div>
+                
+                <!-- VISITOR COUNTER SECTION -->
+                <div class="visitor-metrics-container">
+                    <span>Total Views: </span>
+                    <span id="view-count" class="visitor-count-badge">Loading...</span>
+                    
+                    <p class="privacy-disclaimer">
+                        <strong>Transparency Notice:</strong> This website utilizes an anonymous visitor counter for statistical metrics only. We strictly adhere to user privacy standards; no personally identifiable information (PII) or user browsing habits are recorded or stored by this website.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scroll-top" aria-label="Scroll to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- AI Chat Container -->
+    <div id="ai-chat-container" class="chat-container hidden">
+        <div class="chat-header">
+            <div class="chat-header-content">
+                <div class="avatar-container">
+                    <img src="images/ms.jpg" alt="Manish Shrestha" class="chat-avatar">
+                    <span class="online-indicator"></span>
+                </div>
+                <div class="chat-title">
+                    <h3>Ask Manish AI</h3>
+                    <p class="chat-status">Online • Instant Response</p>
+                </div>
+            </div>
+            <button class="chat-minimize" onclick="toggleChat()" aria-label="Minimize Chat">
+                <i class="fas fa-minus"></i>
             </button>
+            <button class="chat-close" onclick="closeChat()" aria-label="Close Chat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>👋 Hi! I'm Manish's AI assistant. Ask me anything about his:</p>
+                    <div class="quick-suggestions">
+                        <button class="suggestion-btn" onclick="askQuestion('What are your certifications?')">
+                            📜 Certifications
+                        </button>
+                        <button class="suggestion-btn" onclick="askQuestion('Tell me about your experience')">
+                            💼 Experience
+                        </button>
+                        <button class="suggestion-btn" onclick="askQuestion('What projects have you done?')">
+                            🚀 Projects
+                        </button>
+                        <button class="suggestion-btn" onclick="askQuestion('How can I contact you?')">
+                            📧 Contact
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button class="chat-send-btn" onclick="sendMessage()" aria-label="Send Message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
 
-            <!-- PARTICLE NETWORK BACKGROUND (unchanged) -->
-            <script>
-            (function() {
-                var canvas = document.getElementById('particle-canvas');
-                if (!canvas) return;
-                if (window.innerWidth <= 768) return;
+    <button class="chat-toggle-btn" onclick="toggleChat()" id="chatToggleBtn" aria-label="Open AI Chat">
+        <i class="fas fa-robot"></i>
+        <span class="chat-badge">Ask me!</span>
+    </button>
 
-                var ctx = canvas.getContext('2d');
+    <!-- PARTICLE NETWORK BACKGROUND -->
+    <script>
+    (function() {
+        var canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        if (window.innerWidth <= 768) return;
 
-                /* ---- CONFIG ---- */
-                var TOTAL       = 90;
-                var MIN_R       = 1.5;
-                var MAX_R       = 3;
-                var SPEED       = 0.4;
-                var LINK_DIST   = 160;
-                var MOUSE_DIST  = 180;
-                var MIN_LINKS   = 3;
-                var MAX_LINKS   = 5;
-                var DOT_ALPHA   = 0.85;
-                var LINE_ALPHA  = 0.35;
+        var ctx = canvas.getContext('2d');
 
-                /* ---- MOUSE ---- */
-                var mx = -9999, my = -9999;
-                document.addEventListener('mousemove', function(e) {
-                    mx = e.clientX;
-                    my = e.clientY;
+        /* ---- CONFIG ---- */
+        var TOTAL       = 90;
+        var MIN_R       = 1.5;
+        var MAX_R       = 3;
+        var SPEED       = 0.4;
+        var LINK_DIST   = 160;
+        var MOUSE_DIST  = 180;
+        var MIN_LINKS   = 3;
+        var MAX_LINKS   = 5;
+        var DOT_ALPHA   = 0.85;
+        var LINE_ALPHA  = 0.35;
+
+        /* ---- MOUSE ---- */
+        var mx = -9999, my = -9999;
+        document.addEventListener('mousemove', function(e) {
+            mx = e.clientX;
+            my = e.clientY;
+        });
+        document.addEventListener('mouseleave', function() {
+            mx = -9999;
+            my = -9999;
+        });
+
+        /* ---- RESIZE ---- */
+        function resize() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', function() {
+            resize();
+            build();
+        });
+
+        /* ---- THEME COLOR ---- */
+        function color() {
+            var b = document.body;
+            if (b.classList.contains('blackwhite-mode')) return '120,120,120';
+            if (b.classList.contains('light-mode'))      return '123,47,247';
+            return '0,245,255';
+        }
+
+        /* ---- PARTICLES ---- */
+        var dots = [];
+
+        function build() {
+            dots = [];
+            for (var i = 0; i < TOTAL; i++) {
+                var vx = (Math.random() - 0.5) * SPEED * 2;
+                var vy = (Math.random() - 0.5) * SPEED * 2;
+                dots.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: vx,
+                    vy: vy,
+                    bvx: vx,
+                    bvy: vy,
+                    r: MIN_R + Math.random() * (MAX_R - MIN_R),
+                    links: MIN_LINKS + Math.floor(Math.random() * (MAX_LINKS - MIN_LINKS + 1))
                 });
-                document.addEventListener('mouseleave', function() {
-                    mx = -9999;
-                    my = -9999;
-                });
+            }
+        }
 
-                /* ---- RESIZE ---- */
-                function resize() {
-                    canvas.width  = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                }
-                window.addEventListener('resize', function() {
-                    resize();
-                    build();
-                });
+        function update(p) {
+            var dx = p.x - mx;
+            var dy = p.y - my;
+            var d  = Math.sqrt(dx * dx + dy * dy);
 
-                /* ---- THEME COLOR ---- */
-                function color() {
-                    var b = document.body;
-                    if (b.classList.contains('blackwhite-mode')) return '120,120,120';
-                    if (b.classList.contains('light-mode'))      return '123,47,247';
-                    return '0,245,255';
-                }
+            if (d < MOUSE_DIST && d > 0) {
+                var f = (MOUSE_DIST - d) / MOUSE_DIST;
+                p.vx += (dx / d) * f * 3;
+                p.vy += (dy / d) * f * 3;
+            }
 
-                /* ---- PARTICLES ---- */
-                var dots = [];
+            p.vx += (p.bvx - p.vx) * 0.03;
+            p.vy += (p.bvy - p.vy) * 0.03;
 
-                function build() {
-                    dots = [];
-                    for (var i = 0; i < TOTAL; i++) {
-                        var vx = (Math.random() - 0.5) * SPEED * 2;
-                        var vy = (Math.random() - 0.5) * SPEED * 2;
-                        dots.push({
-                            x: Math.random() * canvas.width,
-                            y: Math.random() * canvas.height,
-                            vx: vx,
-                            vy: vy,
-                            bvx: vx,
-                            bvy: vy,
-                            r: MIN_R + Math.random() * (MAX_R - MIN_R),
-                            links: MIN_LINKS + Math.floor(Math.random() * (MAX_LINKS - MIN_LINKS + 1))
-                        });
-                    }
-                }
+            var sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+            var ms = SPEED * 4;
+            if (sp > ms) {
+                p.vx = (p.vx / sp) * ms;
+                p.vy = (p.vy / sp) * ms;
+            }
 
-                function update(p) {
-                    var dx = p.x - mx;
-                    var dy = p.y - my;
-                    var d  = Math.sqrt(dx * dx + dy * dy);
+            p.x += p.vx;
+            p.y += p.vy;
 
-                    if (d < MOUSE_DIST && d > 0) {
-                        var f = (MOUSE_DIST - d) / MOUSE_DIST;
-                        p.vx += (dx / d) * f * 3;
-                        p.vy += (dy / d) * f * 3;
-                    }
+            if (p.x < -10)                p.x = canvas.width  + 10;
+            if (p.x > canvas.width  + 10) p.x = -10;
+            if (p.y < -10)                p.y = canvas.height + 10;
+            if (p.y > canvas.height + 10) p.y = -10;
+        }
 
-                    p.vx += (p.bvx - p.vx) * 0.03;
-                    p.vy += (p.bvy - p.vy) * 0.03;
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            var c = color();
 
-                    var sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-                    var ms = SPEED * 4;
-                    if (sp > ms) {
-                        p.vx = (p.vx / sp) * ms;
-                        p.vy = (p.vy / sp) * ms;
-                    }
+            for (var i = 0; i < dots.length; i++) {
+                var a  = dots[i];
+                var nb = [];
 
-                    p.x += p.vx;
-                    p.y += p.vy;
-
-                    if (p.x < -10)                p.x = canvas.width  + 10;
-                    if (p.x > canvas.width  + 10) p.x = -10;
-                    if (p.y < -10)                p.y = canvas.height + 10;
-                    if (p.y > canvas.height + 10) p.y = -10;
+                for (var j = 0; j < dots.length; j++) {
+                    if (i === j) continue;
+                    var b  = dots[j];
+                    var dx = a.x - b.x;
+                    var dy = a.y - b.y;
+                    var dd = Math.sqrt(dx * dx + dy * dy);
+                    if (dd < LINK_DIST) nb.push({ p: b, d: dd });
                 }
 
-                function draw() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    var c = color();
+                nb.sort(function(x, y) { return x.d - y.d; });
+                var lim = Math.min(nb.length, a.links);
 
-                    for (var i = 0; i < dots.length; i++) {
-                        var a  = dots[i];
-                        var nb = [];
-
-                        for (var j = 0; j < dots.length; j++) {
-                            if (i === j) continue;
-                            var b  = dots[j];
-                            var dx = a.x - b.x;
-                            var dy = a.y - b.y;
-                            var dd = Math.sqrt(dx * dx + dy * dy);
-                            if (dd < LINK_DIST) nb.push({ p: b, d: dd });
-                        }
-
-                        nb.sort(function(x, y) { return x.d - y.d; });
-                        var lim = Math.min(nb.length, a.links);
-
-                        for (var k = 0; k < lim; k++) {
-                            var al = LINE_ALPHA * (1 - nb[k].d / LINK_DIST);
-                            ctx.beginPath();
-                            ctx.moveTo(a.x, a.y);
-                            ctx.lineTo(nb[k].p.x, nb[k].p.y);
-                            ctx.strokeStyle = 'rgba(' + c + ',' + al + ')';
-                            ctx.lineWidth = 0.8;
-                            ctx.stroke();
-                        }
-                    }
-
-                    for (var i = 0; i < dots.length; i++) {
-                        update(dots[i]);
-                        ctx.beginPath();
-                        ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(' + c + ',' + DOT_ALPHA + ')';
-                        ctx.fill();
-                    }
-
-                    requestAnimationFrame(draw);
+                for (var k = 0; k < lim; k++) {
+                    var al = LINE_ALPHA * (1 - nb[k].d / LINK_DIST);
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(nb[k].p.x, nb[k].p.y);
+                    ctx.strokeStyle = 'rgba(' + c + ',' + al + ')';
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
                 }
+            }
 
-                resize();
-                build();
-                draw();
-            })();
-            </script>
+            for (var i = 0; i < dots.length; i++) {
+                update(dots[i]);
+                ctx.beginPath();
+                ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + c + ',' + DOT_ALPHA + ')';
+                ctx.fill();
+            }
 
-            <!-- External JS -->
-            <script src="js/script.js"></script>
+            requestAnimationFrame(draw);
+        }
 
-            <!-- Real-Time Visitor Counter -->
-            <script>
-                const counterElement = document.getElementById('view-count');
-                fetch('https://api.counterapi.dev/v1/camanishshrestha.com.np/views/up')
-                    .then(response => response.json())
-                    .then(data => {
-                        counterElement.innerText = data.count;
-                    })
-                    .catch(error => {
-                        console.error('Counter Error:', error);
-                        counterElement.innerText = '1,200+';
+        resize();
+        build();
+        draw();
+    })();
+    </script>
+
+    <!-- External JS -->
+    <script src="js/script.js"></script>
+
+    <!-- Real-Time Visitor Counter -->
+    <script>
+        const counterElement = document.getElementById('view-count');
+        fetch('https://api.counterapi.dev/v1/camanishshrestha.com.np/views/up')
+            .then(response => response.json())
+            .then(data => {
+                counterElement.innerText = data.count;
+            })
+            .catch(error => {
+                console.error('Counter Error:', error);
+                counterElement.innerText = '1,200+';
+            });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
                     });
-
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const target = document.querySelector(this.getAttribute('href'));
-                        if(target) {
-                            target.scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-            </script>
+                }
+            });
+        });
+    </script>
 </body>
 </html>
