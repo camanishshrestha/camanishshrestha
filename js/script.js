@@ -3,7 +3,34 @@
  * Author: Manish Shrestha
  * Description: Interactive functionality for portfolio website
  * Features: AI Chatbot, Email Notifications, Particle Background, Credly Badges, and more
+ * Performance: Optimized for 60fps animations and butter-smooth interactions
  */
+
+// ========================================
+// PERFORMANCE OPTIMIZATION
+// ========================================
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+const throttle = (func, limit) => {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+};
 
 // ========================================
 // INITIALIZATION & DOM CONTENT LOADED
@@ -13,30 +40,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
-    // Initialize all components
-    initNavigation();
-    initThemeToggle();
-    initTypingEffect();
-    initCounters();
-    initScrollAnimations();
-    initProjectFilters();
-    initContactForm();
-    initScrollToTop();
-    initCustomCursor();
-    initSkillBars();
-    initParticleBackground();
-    initGeometricPhotoEffect();
-    initAIChatbot();
-    initBadgesSection(); // NEW: Initialize Badges section
+    // Initialize all components with stagger for smooth load
+    requestAnimationFrame(() => {
+        initNavigation();
+        initThemeToggle();
+        loadTheme(); // Load saved theme first
+    });
     
-    // Load saved theme (without notification)
-    loadTheme();
+    setTimeout(() => {
+        initTypingEffect();
+        initCounters();
+        initScrollAnimations();
+    }, 100);
+    
+    setTimeout(() => {
+        initProjectFilters();
+        initContactForm();
+        initScrollToTop();
+    }, 200);
+    
+    setTimeout(() => {
+        initCustomCursor();
+        initSkillBars();
+        initGeometricPhotoEffect();
+    }, 300);
+    
+    setTimeout(() => {
+        initParticleBackground();
+        initBadgesSection();
+        initAIChatbot();
+    }, 400);
     
     console.log('✅ Portfolio initialized successfully!');
 }
 
 // ========================================
-// NEW: CREDLY BADGES SECTION
+// NEW: CREDLY BADGES SECTION (ULTRA-SMOOTH)
 // ========================================
 function initBadgesSection() {
     console.log('🎖️ Initializing Badges section...');
@@ -48,27 +87,27 @@ function initBadgesSection() {
         return;
     }
     
-    // Animate badges on scroll
+    // Smooth stagger animation on scroll
     const badgeObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, index * 100); // Stagger animation
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                }, index * 80); // Reduced delay for smoother feel
                 
                 badgeObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05, // Earlier trigger
+        rootMargin: '0px 0px -30px 0px'
     });
     
     badgeCards.forEach(card => {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        card.style.transform = 'translateY(20px) scale(0.95)';
+        card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'; // Smooth easing
         badgeObserver.observe(card);
     });
     
@@ -78,28 +117,36 @@ function initBadgesSection() {
         btn.addEventListener('click', (e) => {
             const badgeName = e.target.closest('.badge-card').querySelector('h4').textContent;
             trackEvent('Badges', 'Verify Click', badgeName);
+            
+            // Smooth feedback
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                btn.style.transform = 'scale(1)';
+            }, 150);
+            
             console.log('🔗 Verifying badge:', badgeName);
         });
     });
     
-    // Badge card hover effects
+    // Smooth badge hover effects with transform optimization
     badgeCards.forEach(card => {
+        const glow = card.querySelector('.badge-glow');
+        
         card.addEventListener('mouseenter', () => {
-            const glow = card.querySelector('.badge-glow');
             if (glow) {
+                glow.style.transition = 'opacity 0.4s ease';
                 glow.style.opacity = '1';
             }
         });
         
         card.addEventListener('mouseleave', () => {
-            const glow = card.querySelector('.badge-glow');
             if (glow) {
                 glow.style.opacity = '0';
             }
         });
     });
     
-    console.log(`✅ ${badgeCards.length} badges initialized!`);
+    console.log(`✅ ${badgeCards.length} badges initialized with smooth animations!`);
 }
 
 // ========================================
@@ -140,12 +187,14 @@ What would you like to know?`
         keywords: ['badge', 'credly', 'verified', 'digital credential', 'blockchain', 'verify'],
         response: `🎖️ **Credly Verified Badges (9 Total)**
 
-**Featured Badge:**
+**Featured Badges:**
 🏆 **Chartered Accountant (CA)**
    ICAN - Qualified December 2024
 
+🛡️ **CISA - Certified Information Systems Auditor**
+   ISACA - Score 625/800
+
 **Professional Certifications:**
-✅ CISA - Score 625/800 (ISACA)
 ✅ ISO/IEC 27001:2022 Lead Auditor (95%)
 ✅ ISO/IEC 42001:2023 Lead Auditor (84%)
 
@@ -241,8 +290,10 @@ Want details on any specific certification?`
    🏆 2x Bronze Award Winner - Best Presented Annual Report
 🔹 **Internal Audit Team Leader** | MR Associates (2021-2022)
    • Audited 60+ branches of Citizens Bank
-🔹 **Audit Associate** | S.A.R Associates (2019-2020)
+🔹 **Audit Professional** | SAR Associates (2016-2020)
    ⭐ Top 4 Employee Star 2019
+🔹 **IFRS Implementor** | SAR Associates (Part-time, 2017-2019)
+   🏆 First-time IFRS Implementor in Nepal
 
 Which role would you like to know more about?`
     },
@@ -263,6 +314,17 @@ Which role would you like to know more about?`
 **IT/IS Audit:**
 ✅ IT GAP Assessment - Sanima Group (9 companies)
 ✅ ISO 27001 Annex A Controls evaluation
+✅ IS Audit - Citizens International Bank
+
+**Financial Projects (NEW):**
+✅ Annual Book Preparation - Garima Bikas Bank FY 2023/24
+✅ Annual Budget Finalization - Garima FY 2024/25
+✅ IFRS 9 ECL Model - Garima Bikas Bank
+✅ 10-Year Financial Projection - Lumbini Bikas Bank
+
+**Policy & Strategic:**
+✅ Zero-Based Budgeting - Lumbini Bikas Bank
+✅ 5-Year Strategic Plan implementation
 
 **Awards:**
 🏆 Best Presented Annual Report FY 2021/22 (Bronze)
@@ -270,8 +332,7 @@ Which role would you like to know more about?`
 
 **Other:**
 ✅ Debenture Issuance (LBBLD89) - 10-year projections
-✅ 5-Year Strategic Plan implementation
-✅ Zero-Based Budgeting rollout
+✅ Internal Audit Manual 2025
 
 Want details on any specific project?`
     },
@@ -824,7 +885,7 @@ function initAIChatbot() {
     console.log('✅ AI Chatbot initialized successfully!');
 }
 
-// Toggle Chat Window
+// Toggle Chat Window (SMOOTH)
 function toggleChat() {
     const chatContainer = document.getElementById('ai-chat-container');
     const toggleBtn = document.getElementById('chatToggleBtn');
@@ -835,8 +896,9 @@ function toggleChat() {
     
     if (chatState.isOpen) {
         chatContainer.classList.remove('hidden');
+        chatContainer.style.animation = 'slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
         
-        // Focus on input
+        // Focus on input with smooth delay
         setTimeout(() => {
             const input = document.getElementById('chatInput');
             if (input) input.focus();
@@ -844,7 +906,11 @@ function toggleChat() {
         
         // Hide badge
         const badge = toggleBtn.querySelector('.chat-badge');
-        if (badge) badge.style.display = 'none';
+        if (badge) {
+            badge.style.transition = 'opacity 0.3s ease';
+            badge.style.opacity = '0';
+            setTimeout(() => badge.style.display = 'none', 300);
+        }
         
         // Track event
         if (chatState.messageCount === 0) {
@@ -855,16 +921,22 @@ function toggleChat() {
         saveChatState();
         
     } else {
-        chatContainer.classList.add('hidden');
+        chatContainer.style.animation = 'slideOutDown 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTimeout(() => {
+            chatContainer.classList.add('hidden');
+        }, 350);
     }
 }
 
-// Close Chat
+// Close Chat (SMOOTH)
 function closeChat() {
     const chatContainer = document.getElementById('ai-chat-container');
     if (chatContainer) {
-        chatContainer.classList.add('hidden');
-        chatState.isOpen = false;
+        chatContainer.style.animation = 'slideOutDown 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTimeout(() => {
+            chatContainer.classList.add('hidden');
+            chatState.isOpen = false;
+        }, 350);
     }
 }
 
@@ -876,11 +948,17 @@ function showChatNotification() {
     const badge = toggleBtn.querySelector('.chat-badge');
     if (badge) {
         badge.style.display = 'block';
+        badge.style.opacity = '0';
         badge.textContent = '👋 Ask me!';
+        badge.style.transition = 'opacity 0.5s ease';
+        
+        requestAnimationFrame(() => {
+            badge.style.opacity = '1';
+        });
     }
 }
 
-// Send Message
+// Send Message (SMOOTH)
 function sendMessage() {
     const input = document.getElementById('chatInput');
     if (!input) return;
@@ -891,6 +969,9 @@ function sendMessage() {
     // Add user message to chat
     addMessage(message, 'user');
     input.value = '';
+    
+    // Smooth input reset
+    input.style.height = 'auto';
     
     // Store in conversation history
     chatState.conversationHistory.push({
@@ -940,13 +1021,16 @@ function askQuestion(question) {
     }
 }
 
-// Add Message to Chat
+// Add Message to Chat (ULTRA-SMOOTH)
 function addMessage(text, sender) {
     const messagesContainer = document.getElementById('chatMessages');
     if (!messagesContainer) return;
     
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}-message`;
+    messageDiv.style.opacity = '0';
+    messageDiv.style.transform = 'translateY(15px)';
+    messageDiv.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
     
     const avatarDiv = document.createElement('div');
     avatarDiv.className = 'message-avatar';
@@ -970,11 +1054,20 @@ function addMessage(text, sender) {
     
     messagesContainer.appendChild(messageDiv);
     
-    // Auto-scroll to bottom
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    // Trigger smooth fade-in animation
+    requestAnimationFrame(() => {
+        messageDiv.style.opacity = '1';
+        messageDiv.style.transform = 'translateY(0)';
+    });
+    
+    // Auto-scroll to bottom (SMOOTH)
+    messagesContainer.scrollTo({
+        top: messagesContainer.scrollHeight,
+        behavior: 'smooth'
+    });
 }
 
-// Show Typing Indicator
+// Show Typing Indicator (SMOOTH)
 function showTypingIndicator() {
     const messagesContainer = document.getElementById('chatMessages');
     if (!messagesContainer) return;
@@ -985,6 +1078,9 @@ function showTypingIndicator() {
     const typingDiv = document.createElement('div');
     typingDiv.className = 'message bot-message';
     typingDiv.id = 'typing-indicator';
+    typingDiv.style.opacity = '0';
+    typingDiv.style.transform = 'translateY(10px)';
+    typingDiv.style.transition = 'all 0.3s ease';
     
     typingDiv.innerHTML = `
         <div class="message-avatar">
@@ -1000,14 +1096,25 @@ function showTypingIndicator() {
     `;
     
     messagesContainer.appendChild(typingDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    requestAnimationFrame(() => {
+        typingDiv.style.opacity = '1';
+        typingDiv.style.transform = 'translateY(0)';
+    });
+    
+    messagesContainer.scrollTo({
+        top: messagesContainer.scrollHeight,
+        behavior: 'smooth'
+    });
 }
 
-// Hide Typing Indicator
+// Hide Typing Indicator (SMOOTH)
 function hideTypingIndicator() {
     const indicator = document.getElementById('typing-indicator');
     if (indicator) {
-        indicator.remove();
+        indicator.style.opacity = '0';
+        indicator.style.transform = 'translateY(-10px)';
+        setTimeout(() => indicator.remove(), 300);
     }
 }
 
@@ -1154,7 +1261,7 @@ function loadChatState() {
 }
 
 // ========================================
-// GEOMETRIC PHOTO POP-OUT EFFECT
+// GEOMETRIC PHOTO POP-OUT EFFECT (ULTRA-SMOOTH)
 // ========================================
 function initGeometricPhotoEffect() {
     const photoContainer = document.querySelector('.geometric-photo-container');
@@ -1166,50 +1273,87 @@ function initGeometricPhotoEffect() {
         return;
     }
     
-    // Add subtle parallax effect on mouse move
+    // Ultra-smooth parallax with requestAnimationFrame
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+    
     photoContainer.addEventListener('mousemove', (e) => {
         const rect = photoContainer.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    });
+    
+    function animatePhoto() {
+        currentX += (mouseX - currentX) * 0.08; // Smooth interpolation
+        currentY += (mouseY - currentY) * 0.08;
         
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const deltaX = (x - centerX) / centerX;
-        const deltaY = (y - centerY) / centerY;
-        
-        // Apply subtle tilt effect
         photo.style.transform = `
             translateY(-8px) 
             scale(1.03) 
-            rotateY(${deltaX * 5}deg) 
-            rotateX(${-deltaY * 5}deg)
+            rotateY(${currentX * 5}deg) 
+            rotateX(${-currentY * 5}deg)
         `;
         
         frame.style.transform = `
             translate(-50%, -50%) 
-            rotateY(${deltaX * 3}deg) 
-            rotateX(${-deltaY * 3}deg)
+            rotateY(${currentX * 3}deg) 
+            rotateX(${-currentY * 3}deg)
         `;
+        
+        if (Math.abs(currentX - mouseX) > 0.001 || Math.abs(currentY - mouseY) > 0.001) {
+            requestAnimationFrame(animatePhoto);
+        }
+    }
+    
+    photoContainer.addEventListener('mouseenter', () => {
+        requestAnimationFrame(animatePhoto);
     });
     
-    // Reset on mouse leave
+    // Smooth reset on mouse leave
     photoContainer.addEventListener('mouseleave', () => {
-        photo.style.transform = '';
-        frame.style.transform = 'translate(-50%, -50%)';
+        mouseX = 0;
+        mouseY = 0;
+        
+        function resetPhoto() {
+            currentX += (0 - currentX) * 0.1;
+            currentY += (0 - currentY) * 0.1;
+            
+            photo.style.transform = `
+                translateY(-8px) 
+                scale(1.03) 
+                rotateY(${currentX * 5}deg) 
+                rotateX(${-currentY * 5}deg)
+            `;
+            
+            frame.style.transform = `
+                translate(-50%, -50%) 
+                rotateY(${currentX * 3}deg) 
+                rotateX(${-currentY * 3}deg)
+            `;
+            
+            if (Math.abs(currentX) > 0.001 || Math.abs(currentY) > 0.001) {
+                requestAnimationFrame(resetPhoto);
+            } else {
+                photo.style.transform = '';
+                frame.style.transform = 'translate(-50%, -50%)';
+            }
+        }
+        
+        requestAnimationFrame(resetPhoto);
     });
     
-    // Photo load handler
+    // Smooth photo load
     photo.addEventListener('load', () => {
+        photo.style.transition = 'opacity 0.8s ease';
         photo.style.opacity = '1';
         console.log('✨ Geometric photo loaded');
     });
     
-    console.log('✨ Geometric photo effect initialized');
+    console.log('✨ Geometric photo effect initialized with ultra-smooth parallax');
 }
 
 // ========================================
-// PARTICLE NETWORK BACKGROUND
+// PARTICLE NETWORK BACKGROUND (OPTIMIZED 60FPS)
 // ========================================
 function initParticleBackground() {
     if (window.innerWidth <= 768) {
@@ -1217,10 +1361,13 @@ function initParticleBackground() {
         return;
     }
 
-    const canvas = document.createElement('canvas');
-    canvas.id = 'particle-canvas';
-    document.body.prepend(canvas);
-    const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) {
+        console.warn('⚠️ Particle canvas not found');
+        return;
+    }
+    
+    const ctx = canvas.getContext('2d', { alpha: true });
 
     const CONFIG = {
         particleCount: 90,
@@ -1249,10 +1396,10 @@ function initParticleBackground() {
 
     const mouse = { x: -9999, y: -9999 };
 
-    window.addEventListener('mousemove', (e) => {
+    window.addEventListener('mousemove', throttle((e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
-    });
+    }, 16)); // 60fps throttle
 
     window.addEventListener('mouseleave', () => {
         mouse.x = -9999;
@@ -1264,10 +1411,10 @@ function initParticleBackground() {
         canvas.height = window.innerHeight;
     }
 
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', debounce(() => {
         resize();
         initParticles();
-    });
+    }, 250));
 
     class Particle {
         constructor() {
@@ -1308,6 +1455,7 @@ function initParticleBackground() {
             this.x += this.vx;
             this.y += this.vy;
 
+            // Wrap around edges
             if (this.x < -10) this.x = canvas.width + 10;
             if (this.x > canvas.width + 10) this.x = -10;
             if (this.y < -10) this.y = canvas.height + 10;
@@ -1368,6 +1516,7 @@ function initParticleBackground() {
         }
     }
 
+    let animationId;
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const colour = getThemeColour();
@@ -1378,18 +1527,27 @@ function initParticleBackground() {
             p.draw(colour);
         }
 
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
     }
+
+    // Pause animation when tab not visible (performance)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            cancelAnimationFrame(animationId);
+        } else {
+            animate();
+        }
+    });
 
     resize();
     initParticles();
     animate();
 
-    console.log('✨ Particle background initialized');
+    console.log('✨ Particle background initialized (60fps optimized)');
 }
 
 // ========================================
-// NAVIGATION
+// NAVIGATION (SMOOTH SCROLL)
 // ========================================
 function initNavigation() {
     const navbar = document.getElementById('navbar');
@@ -1397,13 +1555,19 @@ function initNavigation() {
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
+    // Smooth navbar scroll effect
+    let lastScroll = 0;
+    window.addEventListener('scroll', throttle(() => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
+        
+        lastScroll = currentScroll;
+    }, 16)); // 60fps
     
     if (hamburger) {
         hamburger.addEventListener('click', () => {
@@ -1421,7 +1585,7 @@ function initNavigation() {
     
     const sections = document.querySelectorAll('section[id]');
     
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
         const scrollY = window.pageYOffset;
         
         sections.forEach(section => {
@@ -1435,8 +1599,9 @@ function initNavigation() {
                 navLink?.classList.add('active');
             }
         });
-    });
+    }, 100));
     
+    // BUTTER-SMOOTH SCROLL TO SECTIONS
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -1445,6 +1610,8 @@ function initNavigation() {
             
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 80;
+                
+                // Use native smooth scroll (hardware accelerated)
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -1455,7 +1622,7 @@ function initNavigation() {
 }
 
 // ========================================
-// MULTI-THEME TOGGLE
+// MULTI-THEME TOGGLE (SMOOTH)
 // ========================================
 function initThemeToggle() {
     const themeButtons = document.querySelectorAll('.theme-btn');
@@ -1464,11 +1631,20 @@ function initThemeToggle() {
         button.addEventListener('click', () => {
             const theme = button.getAttribute('data-theme');
             setTheme(theme, true);
+            
+            // Smooth button feedback
+            button.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 150);
         });
     });
 }
 
 function setTheme(theme, showNotificationFlag = false) {
+    // Smooth transition
+    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    
     document.body.classList.remove('light-mode', 'blackwhite-mode');
     
     document.querySelectorAll('.theme-btn').forEach(btn => {
@@ -1493,7 +1669,7 @@ function setTheme(theme, showNotificationFlag = false) {
             'light': 'Light Mode',
             'blackwhite': 'Black & White Mode'
         };
-        showNotification(`Switched to ${themeNames[theme]}`, 'success');
+        showNotification(`Switched to ${themeNames[theme]} ✨`, 'success');
     }
 }
 
@@ -1503,7 +1679,7 @@ function loadTheme() {
 }
 
 // ========================================
-// TYPING EFFECT
+// TYPING EFFECT (SMOOTH)
 // ========================================
 function initTypingEffect() {
     const typingText = document.querySelector('.typing-text');
@@ -1553,7 +1729,7 @@ function initTypingEffect() {
 }
 
 // ========================================
-// COUNTER ANIMATION
+// COUNTER ANIMATION (SMOOTH)
 // ========================================
 function initCounters() {
     const counters = document.querySelectorAll('.counter');
@@ -1593,7 +1769,7 @@ function initCounters() {
 }
 
 // ========================================
-// SCROLL ANIMATIONS
+// SCROLL ANIMATIONS (ULTRA-SMOOTH)
 // ========================================
 function initScrollAnimations() {
     const animateElements = document.querySelectorAll(
@@ -1602,27 +1778,31 @@ function initScrollAnimations() {
     );
     
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                }, index * 50); // Stagger
+                
+                observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05,
+        rootMargin: '0px 0px -40px 0px'
     });
     
     animateElements.forEach(element => {
         element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        element.style.transform = 'translateY(20px) scale(0.98)';
+        element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         observer.observe(element);
     });
 }
 
 // ========================================
-// PROJECT FILTERS
+// PROJECT FILTERS (SMOOTH)
 // ========================================
 function initProjectFilters() {
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -1637,18 +1817,18 @@ function initProjectFilters() {
             
             const filterValue = btn.getAttribute('data-filter');
             
-            projectCards.forEach(card => {
+            projectCards.forEach((card, index) => {
                 const category = card.getAttribute('data-category');
                 
                 if (filterValue === 'all' || category === filterValue) {
                     card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 10);
+                        card.style.transform = 'translateY(0) scale(1)';
+                    }, index * 50); // Smooth stagger
                 } else {
                     card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
+                    card.style.transform = 'translateY(10px) scale(0.95)';
                     setTimeout(() => {
                         card.style.display = 'none';
                     }, 300);
@@ -1659,7 +1839,7 @@ function initProjectFilters() {
 }
 
 // ========================================
-// SKILL BARS ANIMATION
+// SKILL BARS ANIMATION (SMOOTH)
 // ========================================
 function initSkillBars() {
     const skillBars = document.querySelectorAll('.skill-progress');
@@ -1669,9 +1849,12 @@ function initSkillBars() {
             if (entry.isIntersecting) {
                 const width = entry.target.style.width;
                 entry.target.style.width = '0';
+                entry.target.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                
                 setTimeout(() => {
                     entry.target.style.width = width;
                 }, 100);
+                
                 skillObserver.unobserve(entry.target);
             }
         });
@@ -1683,7 +1866,7 @@ function initSkillBars() {
 }
 
 // ========================================
-// CONTACT FORM
+// CONTACT FORM (WITH SMOOTH FEEDBACK)
 // ========================================
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
@@ -1704,16 +1887,24 @@ function initContactForm() {
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
+        submitBtn.style.transform = 'scale(0.98)';
         
         try {
             await sendContactEmail(formData);
-            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+            showNotification('✅ Message sent successfully! I\'ll get back to you soon.', 'success');
             contactForm.reset();
+            
+            // Smooth success feedback
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+            }, 2000);
+            
         } catch (error) {
-            showNotification('Failed to send message. Please try again.', 'error');
+            showNotification('❌ Failed to send message. Please try again.', 'error');
         } finally {
-            submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
+            submitBtn.style.transform = 'scale(1)';
         }
     });
 }
@@ -1766,12 +1957,13 @@ Time: ${new Date().toLocaleString()}
 }
 
 // ========================================
-// NOTIFICATION SYSTEM
+// NOTIFICATION SYSTEM (ULTRA-SMOOTH)
 // ========================================
 function showNotification(message, type = 'success') {
     const existingNotification = document.querySelector('.notification');
     if (existingNotification) {
-        existingNotification.remove();
+        existingNotification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => existingNotification.remove(), 300);
     }
     
     const notification = document.createElement('div');
@@ -1779,7 +1971,7 @@ function showNotification(message, type = 'success') {
     notification.innerHTML = `
         <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
         <span>${message}</span>
-        <button class="notification-close" onclick="this.parentElement.remove()" aria-label="Close">
+        <button class="notification-close" onclick="this.parentElement.style.animation='slideOut 0.3s ease'; setTimeout(() => this.parentElement.remove(), 300)" aria-label="Close">
             <i class="fas fa-times"></i>
         </button>
     `;
@@ -1791,13 +1983,13 @@ function showNotification(message, type = 'success') {
         background: ${type === 'success' ? '#10b981' : '#ef4444'};
         color: white;
         padding: 1rem 1.5rem;
-        border-radius: 8px;
+        border-radius: 12px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         display: flex;
         align-items: center;
         gap: 1rem;
         z-index: 10000;
-        animation: slideIn 0.3s ease;
+        animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         max-width: 350px;
     `;
     
@@ -1815,12 +2007,24 @@ function showNotification(message, type = 'success') {
 const notificationStyle = document.createElement('style');
 notificationStyle.textContent = `
     @keyframes slideIn {
-        from { transform: translateX(400px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+        from { 
+            transform: translateX(400px); 
+            opacity: 0; 
+        }
+        to { 
+            transform: translateX(0); 
+            opacity: 1; 
+        }
     }
     @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(400px); opacity: 0; }
+        from { 
+            transform: translateX(0); 
+            opacity: 1; 
+        }
+        to { 
+            transform: translateX(400px); 
+            opacity: 0; 
+        }
     }
     .notification-close {
         background: none;
@@ -1830,38 +2034,47 @@ notificationStyle.textContent = `
         padding: 0.25rem;
         margin-left: auto;
         opacity: 0.8;
-        transition: opacity 0.2s;
+        transition: all 0.2s;
     }
-    .notification-close:hover { opacity: 1; }
+    .notification-close:hover { 
+        opacity: 1;
+        transform: scale(1.1);
+    }
 `;
 document.head.appendChild(notificationStyle);
 
 // ========================================
-// SCROLL TO TOP BUTTON
+// SCROLL TO TOP BUTTON (SMOOTH)
 // ========================================
 function initScrollToTop() {
     const scrollTopBtn = document.getElementById('scroll-top');
     
     if (!scrollTopBtn) return;
     
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
         if (window.scrollY > 300) {
             scrollTopBtn.classList.add('active');
         } else {
             scrollTopBtn.classList.remove('active');
         }
-    });
+    }, 100));
     
     scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
+        
+        // Smooth click feedback
+        scrollTopBtn.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            scrollTopBtn.style.transform = 'scale(1)';
+        }, 150);
     });
 }
 
 // ========================================
-// CUSTOM CURSOR
+// CUSTOM CURSOR (ULTRA-SMOOTH 60FPS)
 // ========================================
 function initCustomCursor() {
     if (window.innerWidth < 1024) return;
@@ -1872,12 +2085,14 @@ function initCustomCursor() {
     if (!cursor) {
         cursor = document.createElement('div');
         cursor.className = 'cursor';
+        cursor.style.willChange = 'transform'; // GPU acceleration
         document.body.appendChild(cursor);
     }
     
     if (!cursorFollower) {
         cursorFollower = document.createElement('div');
         cursorFollower.className = 'cursor-follower';
+        cursorFollower.style.willChange = 'transform'; // GPU acceleration
         document.body.appendChild(cursorFollower);
     }
     
@@ -1887,22 +2102,27 @@ function initCustomCursor() {
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        
+        // Instant cursor update (no delay)
         cursor.style.left = mouseX + 'px';
         cursor.style.top = mouseY + 'px';
     });
     
+    // Smooth follower with RAF
     function animateFollower() {
-        const speed = 0.15;
+        const speed = 0.12; // Adjusted for ultra-smooth feel
         followerX += (mouseX - followerX) * speed;
         followerY += (mouseY - followerY) * speed;
+        
         cursorFollower.style.left = followerX + 'px';
         cursorFollower.style.top = followerY + 'px';
+        
         requestAnimationFrame(animateFollower);
     }
     
     animateFollower();
     
-    // Interactive elements including badges
+    // Interactive elements
     const interactiveElements = document.querySelectorAll(
         'a, button, .btn, .project-card, .cert-card, .qual-card, .badge-card, ' +
         '.info-card, .tech-item, .filter-btn, .social-links a, ' +
@@ -1913,14 +2133,17 @@ function initCustomCursor() {
     
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', () => {
+            cursor.style.transition = 'transform 0.2s ease, background 0.2s ease';
             cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
             cursor.style.background = 'rgba(0, 245, 255, 0.5)';
+            
+            cursorFollower.style.transition = 'transform 0.2s ease';
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.8)';
         });
         
         element.addEventListener('mouseleave', () => {
             cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursor.style.background = 'var(--primary)';
+            cursor.style.background = 'var(--accent-purple)';
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
         });
     });
@@ -1965,10 +2188,10 @@ function initParallax() {
     
     if (!heroBackground) return;
     
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
         const scrolled = window.pageYOffset;
         heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
-    });
+    }, 16));
 }
 
 function initCopyEmail() {
@@ -1981,7 +2204,7 @@ function initCopyEmail() {
                 const email = link.textContent;
                 
                 navigator.clipboard.writeText(email).then(() => {
-                    showNotification(`Email "${email}" copied!`, 'success');
+                    showNotification(`📧 Email "${email}" copied!`, 'success');
                 });
             }
         });
@@ -2011,7 +2234,12 @@ function initKeyboardShortcuts() {
             closeChat();
             document.getElementById('hamburger')?.classList.remove('active');
             document.getElementById('nav-menu')?.classList.remove('active');
-            document.querySelector('.notification')?.remove();
+            
+            const notification = document.querySelector('.notification');
+            if (notification) {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }
         }
         
         // Ctrl + /: Toggle chat
@@ -2065,11 +2293,12 @@ window.addEventListener('load', () => {
     // Hide loader if exists
     const loader = document.querySelector('.loader');
     if (loader) {
+        loader.style.transition = 'opacity 0.5s ease';
         loader.style.opacity = '0';
         setTimeout(() => loader.remove(), 500);
     }
     
-    console.log('✅ All features loaded!');
+    console.log('✅ All features loaded - ULTRA-SMOOTH mode activated!');
 });
 
 // ========================================
@@ -2094,4 +2323,8 @@ console.log(
 console.log(
     '%c📜 75+ Professional Certifications!',
     'color: #ff006e; font-size: 12px;'
+);
+console.log(
+    '%c🚀 60fps animations | Hardware accelerated | Butter-smooth experience!',
+    'color: #10b981; font-size: 11px; font-weight: bold;'
 );
