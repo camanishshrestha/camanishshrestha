@@ -144,6 +144,7 @@
             }
         }
 
+        /* UPDATED: Exclude signature from hiding */
         .hero-image img:not(.pop-out-photo):not(.signature-img) {
             display: none !important;
         }
@@ -287,7 +288,7 @@
         }
 
         /* ===================================
-           SIGNATURE STYLES - BELOW PHOTO
+           SIGNATURE STYLES - FIXED FOR WHITE BG + BLACK INK
            =================================== */
         .hero-signature {
             margin-top: 20px;
@@ -298,27 +299,25 @@
         }
 
         .signature-img {
-            max-width: 180px;
+            max-width: 200px;
             height: auto;
-            filter: brightness(1.1) contrast(1.1);
             transition: all 0.3s ease;
-            opacity: 0.95;
+            
+            /* Dark mode: removes white bg, makes black ink visible as cyan/white */
+            mix-blend-mode: screen;
+            filter: invert(1);
         }
 
-        /* Dark mode - invert signature for visibility */
-        .signature-img {
-            filter: invert(1) brightness(2);
-        }
-
-        /* Light mode - keep signature dark/original */
+        /* Light mode - black ink on light background, white bg disappears */
         body.light-mode .signature-img {
+            mix-blend-mode: multiply;
             filter: none;
-            opacity: 0.9;
         }
 
-        /* Black & White mode */
+        /* Black & White mode - grayscale with multiply blend */
         body.blackwhite-mode .signature-img {
-            filter: grayscale(100%) invert(1) brightness(1.5);
+            mix-blend-mode: multiply;
+            filter: grayscale(100%);
         }
 
         .signature-label {
@@ -342,7 +341,7 @@
             }
             
             .signature-img {
-                max-width: 140px;
+                max-width: 160px;
             }
             
             .signature-label {
@@ -352,7 +351,7 @@
 
         @media (max-width: 480px) {
             .signature-img {
-                max-width: 120px;
+                max-width: 130px;
             }
         }
 
@@ -824,7 +823,8 @@
                     <img src="images/my-sign.png" 
                          alt="Manish Shrestha Signature" 
                          class="signature-img"
-                         onerror="this.style.display='none';">
+                         loading="lazy"
+                         onerror="this.parentElement.style.display='none';">
                 </div>
             </div>
         </div>
@@ -1026,7 +1026,7 @@
                     </a>
                 </div>
 
-                <!-- Badge 9: QuickBooks Certification - FIXED with icon fallback -->
+                <!-- Badge 9: QuickBooks Certification -->
                 <div class="badge-card">
                     <div class="badge-glow"></div>
                     <div class="badge-image-container">
@@ -2060,45 +2060,6 @@
                     </div>
                 </div>
 
-                <!-- Debenture Issuance -->
-                <div class="project-card" data-category="ifrs">
-                    <div class="project-icon">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>Debenture Issuance - LBBLD89</h3>
-                        <span class="project-tag">Lumbini Bikas Bank Ltd</span>
-                    </div>
-                    <p class="project-description">
-                        Prepared comprehensive 10-year financial projections and managed complete debenture issuance process.
-                    </p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <i class="fas fa-calendar-alt"></i>
-                            <div>
-                                <h4>10 Years</h4>
-                                <p>Projections</p>
-                            </div>
-                        </div>
-                        <div class="metric">
-                            <i class="fas fa-check-circle"></i>
-                            <div>
-                                <h4>Complete</h4>
-                                <p>Success</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-details">
-                        <h4>Responsibilities:</h4>
-                        <ul>
-                            <li>Financial modeling & projections</li>
-                            <li>Prospectus preparation</li>
-                            <li>RTS agreement management</li>
-                            <li>NEPSE listing coordination</li>
-                        </ul>
-                    </div>
-                </div>
-
                 <!-- Award-Winning Annual Reports -->
                 <div class="project-card featured" data-category="ifrs">
                     <div class="project-badge">🏆 Award Winner</div>
@@ -2174,263 +2135,6 @@
                             <li>Risk assessment methodologies</li>
                             <li>Quality assurance procedures</li>
                             <li>Reporting & follow-up protocols</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 5-Year Strategic Plan -->
-                <div class="project-card" data-category="policy">
-                    <div class="project-icon">
-                        <i class="fas fa-route"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>5-Year Strategic Plan (2080-2085)</h3>
-                        <span class="project-tag">Lumbini Bikas Bank Ltd</span>
-                    </div>
-                    <p class="project-description">
-                        Implemented comprehensive strategic plan with zero-based budgeting framework.
-                    </p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <i class="fas fa-calendar-check"></i>
-                            <div>
-                                <h4>5 Years</h4>
-                                <p>Roadmap</p>
-                            </div>
-                        </div>
-                        <div class="metric">
-                            <i class="fas fa-calculator"></i>
-                            <div>
-                                <h4>Zero-Based</h4>
-                                <p>Budgeting</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-details">
-                        <h4>Implementation:</h4>
-                        <ul>
-                            <li>Strategic objectives definition</li>
-                            <li>Zero-based budgeting rollout</li>
-                            <li>KPI development & tracking</li>
-                            <li>Performance measurement systems</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Risk-Based Audit - Himalayan Bank -->
-                <div class="project-card" data-category="audit">
-                    <div class="project-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>Risk-Based Internal Audit Implementation</h3>
-                        <span class="project-tag">Himalayan Bank Limited</span>
-                    </div>
-                    <p class="project-description">
-                        Implemented comprehensive risk-based internal audit framework for one of Nepal's leading commercial banks.
-                    </p>
-                    <div class="project-details">
-                        <h4>Framework Components:</h4>
-                        <ul>
-                            <li>Risk universe mapping</li>
-                            <li>Audit plan prioritization</li>
-                            <li>Control effectiveness testing</li>
-                            <li>Continuous monitoring system</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Annual Book - Garima -->
-                <div class="project-card" data-category="ifrs">
-                    <div class="project-icon">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>Annual Book Preparation – Garima Bikas Bank (FY 2023/24)</h3>
-                        <span class="project-tag">Annual Report</span>
-                    </div>
-                    <p class="project-description">
-                        Prepared a comprehensive annual book aligning financial, operational, and governance disclosures for regulatory compliance.
-                    </p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <i class="fas fa-file-alt"></i>
-                            <div>
-                                <h4>Complete</h4>
-                                <p>Annual Report</p>
-                            </div>
-                        </div>
-                        <div class="metric">
-                            <i class="fas fa-check-double"></i>
-                            <div>
-                                <h4>NRB</h4>
-                                <p>Compliant</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-details">
-                        <h4>Key Deliverables:</h4>
-                        <ul>
-                            <li>Compiled financial and non-financial data across departments</li>
-                            <li>Structured report aligned with NRB + IFRS requirements</li>
-                            <li>Ensured consistency between financial statements and management discussion</li>
-                            <li>Coordinated with audit and finance teams for validation</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Budget Finalization - Garima -->
-                <div class="project-card" data-category="policy">
-                    <div class="project-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>Annual Budget Finalization – Garima Bikas Bank (FY 2024/25)</h3>
-                        <span class="project-tag">Financial Planning</span>
-                    </div>
-                    <p class="project-description">
-                        Developed a realistic and performance-aligned annual financial budget to support strategic decision-making.
-                    </p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <i class="fas fa-chart-pie"></i>
-                            <div>
-                                <h4>FY 2024/25</h4>
-                                <p>Budget</p>
-                            </div>
-                        </div>
-                        <div class="metric">
-                            <i class="fas fa-bullseye"></i>
-                            <div>
-                                <h4>Strategic</h4>
-                                <p>Alignment</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-details">
-                        <h4>Key Deliverables:</h4>
-                        <ul>
-                            <li>Consolidated departmental forecasts</li>
-                            <li>Performed variance and trend analysis from prior years</li>
-                            <li>Built financial projections (revenue, cost, capital allocation)</li>
-                            <li>Aligned budget with strategic and operational goals</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- IFRS 9 ECL Model -->
-                <div class="project-card" data-category="ifrs">
-                    <div class="project-icon">
-                        <i class="fas fa-percentage"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>IFRS 9 Implementation – Expected Credit Loss (ECL) Model</h3>
-                        <span class="project-tag">Garima Bikas Bank</span>
-                    </div>
-                    <p class="project-description">
-                        Developed and implemented Expected Credit Loss (ECL) calculations as per IFRS 9, shifting accounting from reactive to predictive.
-                    </p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <i class="fas fa-layer-group"></i>
-                            <div>
-                                <h4>3 Stages</h4>
-                                <p>Classification</p>
-                            </div>
-                        </div>
-                        <div class="metric">
-                            <i class="fas fa-chart-area"></i>
-                            <div>
-                                <h4>PD/LGD/EAD</h4>
-                                <p>Modeling</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-details">
-                        <h4>Key Deliverables:</h4>
-                        <ul>
-                            <li>Classified financial assets into Stage 1, 2, and 3</li>
-                            <li>Developed PD, LGD, EAD models</li>
-                            <li>Incorporated forward-looking macroeconomic factors</li>
-                            <li>Calculated provision requirements per IFRS 9</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- IS Audit - Citizens International Bank -->
-                <div class="project-card" data-category="is-audit">
-                    <div class="project-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>Information Systems (IS) Audit</h3>
-                        <span class="project-tag">Citizens International Bank</span>
-                    </div>
-                    <p class="project-description">
-                        Evaluated IT controls, security, and governance effectiveness to strengthen IT governance and control environment.
-                    </p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <i class="fas fa-cogs"></i>
-                            <div>
-                                <h4>ITGC</h4>
-                                <p>Review</p>
-                            </div>
-                        </div>
-                        <div class="metric">
-                            <i class="fas fa-lock"></i>
-                            <div>
-                                <h4>COBIT</h4>
-                                <p>Framework</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-details">
-                        <h4>Audit Scope:</h4>
-                        <ul>
-                            <li>Reviewed IT general controls (ITGC)</li>
-                            <li>Assessed access controls, change management, and backup processes</li>
-                            <li>Evaluated system security and data integrity</li>
-                            <li>Identified control gaps and recommended improvements</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- 10-Year Financial Projection -->
-                <div class="project-card" data-category="ifrs">
-                    <div class="project-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="project-header">
-                        <h3>10-Year Financial Projection – Lumbini Bikas Bank (2081–2090)</h3>
-                        <span class="project-tag">Long-Term Planning</span>
-                    </div>
-                    <p class="project-description">
-                        Developed a long-term financial outlook to support strategic planning, capital planning, and sustainability assessment.
-                    </p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <i class="fas fa-calendar-alt"></i>
-                            <div>
-                                <h4>10 Years</h4>
-                                <p>Projection</p>
-                            </div>
-                        </div>
-                        <div class="metric">
-                            <i class="fas fa-random"></i>
-                            <div>
-                                <h4>3 Scenarios</h4>
-                                <p>Analysis</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-details">
-                        <h4>Key Deliverables:</h4>
-                        <ul>
-                            <li>Built 10-year financial model covering income, expenses, and capital</li>
-                            <li>Projected key drivers: loan growth, interest income, operational costs</li>
-                            <li>Conducted scenario analysis (best, base, worst case)</li>
-                            <li>Evaluated long-term capital adequacy and profitability</li>
                         </ul>
                     </div>
                 </div>
