@@ -85,7 +85,7 @@ body.blackwhite-mode {
     --shadow-glow-purple: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-body.blackwhite-mode img {
+body.blackwhite-mode img:not(.signature-img) {
     filter: grayscale(100%);
 }
 
@@ -528,7 +528,7 @@ body.blackwhite-mode .theme-btn.active {
 }
 
 /* ========================================
-   HERO SECTION + GEOMETRIC PHOTO - FIXED POSITION
+   HERO SECTION + GEOMETRIC PHOTO + SIGNATURE
    ======================================== */
 .hero {
     min-height: 100vh;
@@ -803,7 +803,7 @@ body.blackwhite-mode .theme-btn.active {
     display: none !important;
 }
 
-.hero-image img:not(.pop-out-photo) {
+.hero-image img:not(.pop-out-photo):not(.signature-img) {
     display: none !important;
 }
 
@@ -817,6 +817,76 @@ body.blackwhite-mode .geometric-frame {
 body.blackwhite-mode .pop-out-photo {
     filter: grayscale(100%);
     border-color: #f5f5f5;
+}
+
+/* ===================================
+   SIGNATURE STYLES - BELOW PHOTO
+   =================================== */
+.hero-signature {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signature-img {
+    max-width: 180px;
+    height: auto;
+    filter: brightness(1.1) contrast(1.1);
+    transition: all 0.3s ease;
+    opacity: 0.95;
+}
+
+/* Dark mode - invert signature for visibility */
+.signature-img {
+    filter: invert(1) brightness(2);
+}
+
+/* Light mode - keep signature dark/original */
+body.light-mode .signature-img {
+    filter: none;
+    opacity: 0.9;
+}
+
+/* Black & White mode */
+body.blackwhite-mode .signature-img {
+    filter: grayscale(100%) invert(1) brightness(1.5);
+}
+
+.signature-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Hover effect for signature */
+.hero-signature:hover .signature-img {
+    transform: scale(1.05);
+}
+
+/* Responsive signature */
+@media (max-width: 768px) {
+    .hero-signature {
+        margin-top: 15px;
+    }
+    
+    .signature-img {
+        max-width: 140px;
+    }
+    
+    .signature-label {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .signature-img {
+        max-width: 120px;
+    }
 }
 
 .scroll-indicator {
