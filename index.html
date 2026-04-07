@@ -114,7 +114,7 @@
            =================================== */
         .hero {
             align-items: flex-start !important;
-            padding-top: 20px !important; /* ← CHANGED FROM 100px */
+            padding-top: 20px !important;
         }
 
         .hero-container {
@@ -131,20 +131,20 @@
 
         @media (max-width: 992px) {
             .hero {
-                padding-top: 15px !important; /* ← CHANGED FROM 90px */
+                padding-top: 15px !important;
             }
         }
 
         @media (max-width: 768px) {
             .hero {
-                padding-top: 10px !important; /* ← CHANGED FROM 80px */
+                padding-top: 10px !important;
             }
             .hero-image {
                 margin-top: 0;
             }
         }
 
-        .hero-image img:not(.pop-out-photo) {
+        .hero-image img:not(.pop-out-photo):not(.signature-img) {
             display: none !important;
         }
 
@@ -284,6 +284,76 @@
         .image-border,
         .image-wrapper {
             display: none !important;
+        }
+
+        /* ===================================
+           SIGNATURE STYLES - BELOW PHOTO
+           =================================== */
+        .hero-signature {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .signature-img {
+            max-width: 180px;
+            height: auto;
+            filter: brightness(1.1) contrast(1.1);
+            transition: all 0.3s ease;
+            opacity: 0.95;
+        }
+
+        /* Dark mode - invert signature for visibility */
+        .signature-img {
+            filter: invert(1) brightness(2);
+        }
+
+        /* Light mode - keep signature dark/original */
+        body.light-mode .signature-img {
+            filter: none;
+            opacity: 0.9;
+        }
+
+        /* Black & White mode */
+        body.blackwhite-mode .signature-img {
+            filter: grayscale(100%) invert(1) brightness(1.5);
+        }
+
+        .signature-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Hover effect for signature */
+        .hero-signature:hover .signature-img {
+            transform: scale(1.05);
+        }
+
+        /* Responsive signature */
+        @media (max-width: 768px) {
+            .hero-signature {
+                margin-top: 15px;
+            }
+            
+            .signature-img {
+                max-width: 140px;
+            }
+            
+            .signature-label {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signature-img {
+                max-width: 120px;
+            }
         }
 
         /* ===================================
@@ -729,7 +799,7 @@
                 </div>
             </div>
             
-            <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT EFFECT -->
+            <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT EFFECT + SIGNATURE -->
             <div class="hero-image">
                 <!-- QUOTE ABOVE PHOTO -->
                 <div class="hero-quote">
@@ -739,6 +809,7 @@
                     </p>
                 </div>
 
+                <!-- PHOTO -->
                 <div class="geometric-photo-container">
                     <div class="geometric-frame"></div>
                     <div class="pop-out-photo-wrapper">
@@ -746,6 +817,14 @@
                              alt="Manish Shrestha - Chartered Accountant" 
                              class="pop-out-photo">
                     </div>
+                </div>
+
+                <!-- SIGNATURE BELOW PHOTO -->
+                <div class="hero-signature">
+                    <img src="images/my-sign.png" 
+                         alt="Manish Shrestha Signature" 
+                         class="signature-img"
+                         onerror="this.style.display='none';">
                 </div>
             </div>
         </div>
@@ -1447,7 +1526,7 @@
     </section>
     <!-- END OF QUALIFICATIONS SECTION -->
 
-    <!-- Experience Timeline - NOW PROPERLY CLOSED AND SEPARATE -->
+    <!-- Experience Timeline -->
     <section id="experience" class="experience">
         <div class="container">
             <div class="section-header">
@@ -1544,7 +1623,6 @@
                     </div>
                 </div>
 
-                <!-- SAR Associates - Role 1: Audit Professional -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
@@ -1573,7 +1651,6 @@
                     </div>
                 </div>
 
-                <!-- SAR Associates - Role 2: IFRS Implementor -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
@@ -1865,8 +1942,6 @@
             </div>
 
             <div class="projects-grid">
-                <!-- EXISTING PROJECTS -->
-                
                 <!-- IFRS Convergence Projects -->
                 <div class="project-card" data-category="ifrs">
                     <div class="project-icon">
@@ -1985,7 +2060,7 @@
                     </div>
                 </div>
 
-                <!-- Debenture Issuance - Lumbini Bikas Bank -->
+                <!-- Debenture Issuance -->
                 <div class="project-card" data-category="ifrs">
                     <div class="project-icon">
                         <i class="fas fa-file-invoice-dollar"></i>
@@ -2103,7 +2178,7 @@
                     </div>
                 </div>
 
-                <!-- Strategic Planning - 5 Year Plan -->
+                <!-- 5-Year Strategic Plan -->
                 <div class="project-card" data-category="policy">
                     <div class="project-icon">
                         <i class="fas fa-route"></i>
@@ -2142,7 +2217,7 @@
                     </div>
                 </div>
 
-                <!-- Himalayan Bank Risk-Based Audit -->
+                <!-- Risk-Based Audit - Himalayan Bank -->
                 <div class="project-card" data-category="audit">
                     <div class="project-icon">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -2165,11 +2240,7 @@
                     </div>
                 </div>
 
-                <!-- ========================================
-                     NEW PROJECTS START HERE
-                     ======================================== -->
-
-                <!-- NEW PROJECT 1: Annual Book Preparation - Garima -->
+                <!-- Annual Book - Garima -->
                 <div class="project-card" data-category="ifrs">
                     <div class="project-icon">
                         <i class="fas fa-book-open"></i>
@@ -2208,7 +2279,7 @@
                     </div>
                 </div>
 
-                <!-- NEW PROJECT 2: Budget Finalization - Garima -->
+                <!-- Budget Finalization - Garima -->
                 <div class="project-card" data-category="policy">
                     <div class="project-icon">
                         <i class="fas fa-calculator"></i>
@@ -2247,7 +2318,7 @@
                     </div>
                 </div>
 
-                <!-- NEW PROJECT 3: IFRS 9 ECL Model - Garima -->
+                <!-- IFRS 9 ECL Model -->
                 <div class="project-card" data-category="ifrs">
                     <div class="project-icon">
                         <i class="fas fa-percentage"></i>
@@ -2286,7 +2357,7 @@
                     </div>
                 </div>
 
-                <!-- NEW PROJECT 4: IS Audit - Citizens International Bank -->
+                <!-- IS Audit - Citizens International Bank -->
                 <div class="project-card" data-category="is-audit">
                     <div class="project-icon">
                         <i class="fas fa-server"></i>
@@ -2325,7 +2396,7 @@
                     </div>
                 </div>
 
-                <!-- NEW PROJECT 5: 10-Year Financial Projection - Lumbini -->
+                <!-- 10-Year Financial Projection -->
                 <div class="project-card" data-category="ifrs">
                     <div class="project-icon">
                         <i class="fas fa-chart-line"></i>
@@ -2364,7 +2435,7 @@
                     </div>
                 </div>
 
-                <!-- NEW PROJECT 6: Zero-Based Budgeting - Lumbini -->
+                <!-- Zero-Based Budgeting -->
                 <div class="project-card" data-category="policy">
                     <div class="project-icon">
                         <i class="fas fa-balance-scale"></i>
@@ -2402,7 +2473,6 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -2612,7 +2682,6 @@
 
         var ctx = canvas.getContext('2d');
 
-        /* ---- CONFIG ---- */
         var TOTAL       = 90;
         var MIN_R       = 1.5;
         var MAX_R       = 3;
@@ -2624,7 +2693,6 @@
         var DOT_ALPHA   = 0.85;
         var LINE_ALPHA  = 0.35;
 
-        /* ---- MOUSE ---- */
         var mx = -9999, my = -9999;
         document.addEventListener('mousemove', function(e) {
             mx = e.clientX;
@@ -2635,7 +2703,6 @@
             my = -9999;
         });
 
-        /* ---- RESIZE ---- */
         function resize() {
             canvas.width  = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -2645,7 +2712,6 @@
             build();
         });
 
-        /* ---- THEME COLOR ---- */
         function color() {
             var b = document.body;
             if (b.classList.contains('blackwhite-mode')) return '120,120,120';
@@ -2653,7 +2719,6 @@
             return '0,245,255';
         }
 
-        /* ---- PARTICLES ---- */
         var dots = [];
 
         function build() {
