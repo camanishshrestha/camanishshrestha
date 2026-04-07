@@ -529,7 +529,7 @@ body.blackwhite-mode .theme-btn.active {
 }
 
 /* ========================================
-   HERO SECTION + GEOMETRIC PHOTO + SIGNATURE
+   HERO SECTION + GEOMETRIC PHOTO + SIGNATURE OVERLAY
    ======================================== */
 .hero {
     min-height: 100vh;
@@ -715,7 +715,9 @@ body.blackwhite-mode .theme-btn.active {
     box-shadow: var(--shadow-glow);
 }
 
-/* ==================== GEOMETRIC PHOTO POP-OUT EFFECT ==================== */
+/* ===================================
+   GEOMETRIC PHOTO POP-OUT WITH SIGNATURE OVERLAY
+   =================================== */
 .hero-image {
     position: relative;
     animation: fadeInRight 1s ease;
@@ -781,6 +783,45 @@ body.blackwhite-mode .theme-btn.active {
         inset 0 0 0 1px rgba(255, 255, 255, 0.6);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     clip-path: polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%);
+    display: block !important;
+}
+
+/* ===================================
+   SIGNATURE OVERLAY ON PHOTO
+   =================================== */
+.signature-overlay {
+    position: absolute;
+    bottom: 12%;
+    right: 8%;
+    z-index: 3;
+    width: 120px;
+    height: auto;
+    pointer-events: none;
+}
+
+.signature-overlay img {
+    width: 100%;
+    height: auto;
+    display: block !important;
+    
+    /* Dark mode: signature appears light/cyan */
+    mix-blend-mode: screen;
+    filter: invert(1) brightness(1.2);
+    opacity: 0.95;
+}
+
+/* Light mode - signature appears as black ink */
+body.light-mode .signature-overlay img {
+    mix-blend-mode: multiply;
+    filter: none;
+    opacity: 0.85;
+}
+
+/* Black & White mode - grayscale signature */
+body.blackwhite-mode .signature-overlay img {
+    mix-blend-mode: multiply;
+    filter: grayscale(100%);
+    opacity: 0.8;
 }
 
 .geometric-photo-container:hover .pop-out-photo {
@@ -804,8 +845,8 @@ body.blackwhite-mode .theme-btn.active {
     display: none !important;
 }
 
-/* UPDATED: Exclude signature from hiding */
-.hero-image img:not(.pop-out-photo):not(.signature-img) {
+/* UPDATED: Only hide images that are not the main photo or signature */
+.hero-image img:not(.pop-out-photo) {
     display: none !important;
 }
 
@@ -821,71 +862,19 @@ body.blackwhite-mode .pop-out-photo {
     border-color: #f5f5f5;
 }
 
-/* ===================================
-   SIGNATURE STYLES - WHITE BG + BLACK INK FIX
-   =================================== */
-.hero-signature {
-    margin-top: 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.signature-img {
-    max-width: 200px;
-    height: auto;
-    transition: all 0.3s ease;
-    
-    /* Dark mode: removes white bg, makes black ink visible as cyan/white */
-    mix-blend-mode: screen;
-    filter: invert(1);
-}
-
-/* Light mode - black ink on light background, white bg disappears */
-body.light-mode .signature-img {
-    mix-blend-mode: multiply;
-    filter: none;
-}
-
-/* Black & White mode - grayscale with multiply blend */
-body.blackwhite-mode .signature-img {
-    mix-blend-mode: multiply;
-    filter: grayscale(100%);
-}
-
-.signature-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 5px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-/* Hover effect for signature */
-.hero-signature:hover .signature-img {
-    transform: scale(1.05);
-}
-
-/* Responsive signature */
+/* Responsive signature overlay */
 @media (max-width: 768px) {
-    .hero-signature {
-        margin-top: 15px;
-    }
-    
-    .signature-img {
-        max-width: 160px;
-    }
-    
-    .signature-label {
-        font-size: 0.7rem;
+    .signature-overlay {
+        width: 90px;
+        bottom: 10%;
+        right: 6%;
     }
 }
 
 @media (max-width: 480px) {
-    .signature-img {
-        max-width: 130px;
+    .signature-overlay {
+        width: 70px;
+        bottom: 8%;
     }
 }
 
@@ -1450,7 +1439,7 @@ body.blackwhite-mode .signature-img {
     border-color: #7b2ff7;
 }
 
-/* Featured Badge (CA) - Golden Styling */
+/* Featured Badge (CA & CISA) - Golden Styling */
 .badge-card.featured-badge {
     border: 2px solid #ffd700;
     background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 215, 0, 0.1) 100%);
