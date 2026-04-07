@@ -85,6 +85,7 @@ body.blackwhite-mode {
     --shadow-glow-purple: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
+/* UPDATED: Exclude signature from grayscale filter */
 body.blackwhite-mode img:not(.signature-img) {
     filter: grayscale(100%);
 }
@@ -803,6 +804,7 @@ body.blackwhite-mode .theme-btn.active {
     display: none !important;
 }
 
+/* UPDATED: Exclude signature from hiding */
 .hero-image img:not(.pop-out-photo):not(.signature-img) {
     display: none !important;
 }
@@ -820,7 +822,7 @@ body.blackwhite-mode .pop-out-photo {
 }
 
 /* ===================================
-   SIGNATURE STYLES - BELOW PHOTO
+   SIGNATURE STYLES - WHITE BG + BLACK INK FIX
    =================================== */
 .hero-signature {
     margin-top: 20px;
@@ -831,27 +833,25 @@ body.blackwhite-mode .pop-out-photo {
 }
 
 .signature-img {
-    max-width: 180px;
+    max-width: 200px;
     height: auto;
-    filter: brightness(1.1) contrast(1.1);
     transition: all 0.3s ease;
-    opacity: 0.95;
+    
+    /* Dark mode: removes white bg, makes black ink visible as cyan/white */
+    mix-blend-mode: screen;
+    filter: invert(1);
 }
 
-/* Dark mode - invert signature for visibility */
-.signature-img {
-    filter: invert(1) brightness(2);
-}
-
-/* Light mode - keep signature dark/original */
+/* Light mode - black ink on light background, white bg disappears */
 body.light-mode .signature-img {
+    mix-blend-mode: multiply;
     filter: none;
-    opacity: 0.9;
 }
 
-/* Black & White mode */
+/* Black & White mode - grayscale with multiply blend */
 body.blackwhite-mode .signature-img {
-    filter: grayscale(100%) invert(1) brightness(1.5);
+    mix-blend-mode: multiply;
+    filter: grayscale(100%);
 }
 
 .signature-label {
@@ -875,7 +875,7 @@ body.blackwhite-mode .signature-img {
     }
     
     .signature-img {
-        max-width: 140px;
+        max-width: 160px;
     }
     
     .signature-label {
@@ -885,10 +885,13 @@ body.blackwhite-mode .signature-img {
 
 @media (max-width: 480px) {
     .signature-img {
-        max-width: 120px;
+        max-width: 130px;
     }
 }
 
+/* ===================================
+   SCROLL INDICATOR
+   =================================== */
 .scroll-indicator {
     position: absolute;
     bottom: 2rem;
@@ -1298,7 +1301,7 @@ body.blackwhite-mode .signature-img {
 }
 
 /* ===================================
-   NEW: IMPROVED CERTIFICATION ICONS
+   IMPROVED CERTIFICATION ICONS
    =================================== */
 .cert-card .cert-icon {
     width: 70px;
@@ -1399,7 +1402,7 @@ body.blackwhite-mode .signature-img {
 }
 
 /* ===================================
-   NEW: CREDLY BADGES SECTION
+   CREDLY BADGES SECTION
    =================================== */
 .badges {
     padding: var(--spacing-xl) 0;
