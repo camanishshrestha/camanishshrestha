@@ -144,8 +144,8 @@
             }
         }
 
-        /* UPDATED: Exclude signature from hiding */
-        .hero-image img:not(.pop-out-photo):not(.signature-img) {
+        /* UPDATED: Hide all images except the one in geometric container */
+        .hero-image img:not(.pop-out-photo) {
             display: none !important;
         }
 
@@ -225,7 +225,9 @@
             }
         }
 
-        /* GEOMETRIC PHOTO POP-OUT EFFECT */
+        /* ===================================
+           GEOMETRIC PHOTO WITH SIGNATURE OVERLAY
+           =================================== */
         .geometric-photo-container {
             position: relative;
             display: inline-block;
@@ -270,6 +272,45 @@
                 inset 0 0 0 1px rgba(255, 255, 255, 0.6);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             clip-path: polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%);
+            display: block !important;
+        }
+
+        /* ===================================
+           SIGNATURE OVERLAY ON PHOTO
+           =================================== */
+        .signature-overlay {
+            position: absolute;
+            bottom: 12%;
+            right: 8%;
+            z-index: 3;
+            width: 120px;
+            height: auto;
+            pointer-events: none;
+        }
+
+        .signature-overlay img {
+            width: 100%;
+            height: auto;
+            display: block !important;
+            
+            /* Dark mode: signature appears light */
+            mix-blend-mode: screen;
+            filter: invert(1) brightness(1.2);
+            opacity: 0.95;
+        }
+
+        /* Light mode - signature appears as black ink */
+        body.light-mode .signature-overlay img {
+            mix-blend-mode: multiply;
+            filter: none;
+            opacity: 0.85;
+        }
+
+        /* Black & White mode - grayscale signature */
+        body.blackwhite-mode .signature-overlay img {
+            mix-blend-mode: multiply;
+            filter: grayscale(100%);
+            opacity: 0.8;
         }
 
         body.blackwhite-mode .geometric-frame {
@@ -287,71 +328,19 @@
             display: none !important;
         }
 
-        /* ===================================
-           SIGNATURE STYLES - FIXED FOR WHITE BG + BLACK INK
-           =================================== */
-        .hero-signature {
-            margin-top: 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .signature-img {
-            max-width: 200px;
-            height: auto;
-            transition: all 0.3s ease;
-            
-            /* Dark mode: removes white bg, makes black ink visible as cyan/white */
-            mix-blend-mode: screen;
-            filter: invert(1);
-        }
-
-        /* Light mode - black ink on light background, white bg disappears */
-        body.light-mode .signature-img {
-            mix-blend-mode: multiply;
-            filter: none;
-        }
-
-        /* Black & White mode - grayscale with multiply blend */
-        body.blackwhite-mode .signature-img {
-            mix-blend-mode: multiply;
-            filter: grayscale(100%);
-        }
-
-        .signature-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 5px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Hover effect for signature */
-        .hero-signature:hover .signature-img {
-            transform: scale(1.05);
-        }
-
         /* Responsive signature */
         @media (max-width: 768px) {
-            .hero-signature {
-                margin-top: 15px;
-            }
-            
-            .signature-img {
-                max-width: 160px;
-            }
-            
-            .signature-label {
-                font-size: 0.7rem;
+            .signature-overlay {
+                width: 90px;
+                bottom: 10%;
+                right: 6%;
             }
         }
 
         @media (max-width: 480px) {
-            .signature-img {
-                max-width: 130px;
+            .signature-overlay {
+                width: 70px;
+                bottom: 8%;
             }
         }
 
@@ -798,7 +787,7 @@
                 </div>
             </div>
             
-            <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT EFFECT + SIGNATURE -->
+            <!-- Hero Image - QUOTE + GEOMETRIC POP-OUT WITH SIGNATURE OVERLAY -->
             <div class="hero-image">
                 <!-- QUOTE ABOVE PHOTO -->
                 <div class="hero-quote">
@@ -808,7 +797,7 @@
                     </p>
                 </div>
 
-                <!-- PHOTO -->
+                <!-- PHOTO WITH SIGNATURE OVERLAY -->
                 <div class="geometric-photo-container">
                     <div class="geometric-frame"></div>
                     <div class="pop-out-photo-wrapper">
@@ -816,15 +805,13 @@
                              alt="Manish Shrestha - Chartered Accountant" 
                              class="pop-out-photo">
                     </div>
-                </div>
-
-                <!-- SIGNATURE BELOW PHOTO -->
-                <div class="hero-signature">
-                    <img src="images/my-sign.png" 
-                         alt="Manish Shrestha Signature" 
-                         class="signature-img"
-                         loading="lazy"
-                         onerror="this.parentElement.style.display='none';">
+                    <!-- SIGNATURE OVERLAID ON PHOTO -->
+                    <div class="signature-overlay">
+                        <img src="images/my-sign.png" 
+                             alt="Manish Shrestha Signature"
+                             loading="lazy"
+                             onerror="this.parentElement.style.display='none';">
+                    </div>
                 </div>
             </div>
         </div>
