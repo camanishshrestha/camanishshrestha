@@ -1,7 +1,6 @@
 /* =================================================
-   CAMANISH SHRESTHA — 2026 ELITE PORTFOLIO
-   Chartered Accountant × Full-Stack Developer
-   Where Finance Meets Innovation
+   CAMANISH SHRESTHA — ELITE PORTFOLIO 2026
+   Performance-Optimized | GPU-Accelerated | Beautiful
    ================================================= */
 
 /* ========================================
@@ -35,11 +34,11 @@
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 6rem;
-    --font-primary: 'Inter', sans-serif;
-    --font-heading: 'Space Grotesk', sans-serif;
-    --transition-fast: 0.2s ease;
-    --transition-base: 0.3s ease;
-    --transition-slow: 0.5s ease;
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -47,6 +46,7 @@
     --radius-full: 50%;
 }
 
+/* Light Mode Variables */
 body.light-mode {
     --bg-dark: #ffffff;
     --bg-darker: #f5f7fa;
@@ -61,6 +61,7 @@ body.light-mode {
     --shadow-glow-purple: 0 0 30px rgba(124, 58, 237, 0.25);
 }
 
+/* Black & White Mode Variables */
 body.blackwhite-mode {
     --primary: #000000;
     --primary-dark: #1a1a1a;
@@ -85,7 +86,6 @@ body.blackwhite-mode {
     --shadow-glow-purple: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-/* UPDATED: Exclude signature from grayscale filter */
 body.blackwhite-mode img:not(.signature-img) {
     filter: grayscale(100%);
 }
@@ -98,7 +98,7 @@ body.blackwhite-mode .gradient-text {
 }
 
 /* ========================================
-   GLOBAL RESET & BASE STYLES
+   PERFORMANCE-OPTIMIZED RESET
    ======================================== */
 * {
     margin: 0;
@@ -107,9 +107,17 @@ body.blackwhite-mode .gradient-text {
     cursor: none;
 }
 
+*,
+*::before,
+*::after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -118,11 +126,13 @@ body {
     color: var(--text-secondary);
     line-height: 1.6;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color var(--transition-base), color var(--transition-base);
+    min-height: 100vh;
+    position: relative;
 }
 
 /* ========================================
-   CUSTOM CURSOR (BUTTER SMOOTH)
+   CUSTOM CURSOR - GPU OPTIMIZED
    ======================================== */
 .cursor,
 .cursor-follower {
@@ -131,7 +141,8 @@ body {
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: difference;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--transition-base);
+    will-change: transform;
 }
 
 .cursor {
@@ -180,13 +191,14 @@ button:hover ~ .cursor-follower,
 }
 
 /* ========================================
-   TYPOGRAPHY
+   TYPOGRAPHY - OPTIMIZED
    ======================================== */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     color: var(--text-primary);
     font-weight: 700;
     line-height: 1.2;
+    contain: layout style paint;
 }
 
 h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
@@ -226,6 +238,7 @@ img {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
+    contain: layout style;
 }
 
 .gradient-text {
@@ -238,6 +251,7 @@ img {
 .section-header {
     text-align: center;
     margin-bottom: var(--spacing-lg);
+    contain: layout style;
 }
 
 .section-subtitle {
@@ -270,7 +284,7 @@ img {
 }
 
 /* ========================================
-   BUTTONS
+   BUTTONS - GPU ACCELERATED
    ======================================== */
 .btn {
     display: inline-flex;
@@ -282,9 +296,10 @@ img {
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: all var(--transition-base);
+    transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    will-change: transform;
 }
 
 .btn::before {
@@ -329,7 +344,7 @@ img {
 }
 
 /* ========================================
-   NAVIGATION
+   NAVIGATION - OPTIMIZED
    ======================================== */
 .navbar {
     position: fixed;
@@ -341,6 +356,8 @@ img {
     z-index: 1000;
     padding: 1rem 0;
     transition: var(--transition-base);
+    will-change: background, box-shadow;
+    contain: layout style paint;
 }
 
 body.light-mode .navbar {
@@ -447,6 +464,7 @@ body.blackwhite-mode .theme-switcher {
     justify-content: center;
     transition: var(--transition-base);
     font-size: 0.9rem;
+    will-change: transform, background;
 }
 
 .theme-btn:hover {
@@ -529,7 +547,7 @@ body.blackwhite-mode .theme-btn.active {
 }
 
 /* ========================================
-   HERO SECTION + GEOMETRIC PHOTO + SIGNATURE OVERLAY
+   HERO SECTION - ULTRA OPTIMIZED
    ======================================== */
 .hero {
     min-height: 100vh;
@@ -539,6 +557,7 @@ body.blackwhite-mode .theme-btn.active {
     position: relative;
     padding: 120px 0 2rem 0;
     overflow: hidden;
+    contain: layout style;
 }
 
 .hero-background {
@@ -550,6 +569,7 @@ body.blackwhite-mode .theme-btn.active {
     background: radial-gradient(circle at 20% 50%, rgba(123, 47, 247, 0.06) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(0, 245, 255, 0.06) 0%, transparent 50%);
     z-index: -1;
+    will-change: transform;
 }
 
 .gradient-overlay {
@@ -570,7 +590,7 @@ body.blackwhite-mode .theme-btn.active {
 }
 
 .hero-content {
-    animation: fadeInLeft 1s ease;
+    animation: fadeInLeft 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes fadeInLeft {
@@ -659,7 +679,9 @@ body.blackwhite-mode .theme-btn.active {
     background: var(--bg-card);
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 245, 255, 0.1);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .stat-item:hover {
@@ -705,7 +727,8 @@ body.blackwhite-mode .theme-btn.active {
     border: 1px solid rgba(0, 245, 255, 0.2);
     border-radius: 50%;
     color: var(--primary);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
+    will-change: transform;
 }
 
 .social-links a:hover {
@@ -716,11 +739,11 @@ body.blackwhite-mode .theme-btn.active {
 }
 
 /* ===================================
-   GEOMETRIC PHOTO POP-OUT WITH SIGNATURE OVERLAY
+   GEOMETRIC PHOTO WITH SIGNATURE
    =================================== */
 .hero-image {
     position: relative;
-    animation: fadeInRight 1s ease;
+    animation: fadeInRight 1s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -744,6 +767,7 @@ body.blackwhite-mode .theme-btn.active {
     width: 300px;
     height: 340px;
     margin-top: 0;
+    contain: layout style paint;
 }
 
 .geometric-frame {
@@ -760,6 +784,7 @@ body.blackwhite-mode .theme-btn.active {
         0 8px 25px rgba(0, 0, 0, 0.15),
         inset 0 -5px 15px rgba(255, 255, 255, 0.2);
     z-index: 1;
+    will-change: transform;
 }
 
 .pop-out-photo-wrapper {
@@ -781,14 +806,12 @@ body.blackwhite-mode .theme-btn.active {
         0 30px 70px rgba(0, 0, 0, 0.3),
         0 15px 35px rgba(0, 0, 0, 0.2),
         inset 0 0 0 1px rgba(255, 255, 255, 0.6);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition-smooth);
     clip-path: polygon(0% 12%, 100% 0%, 100% 100%, 0% 100%);
     display: block !important;
+    will-change: transform;
 }
 
-/* ===================================
-   SIGNATURE OVERLAY ON PHOTO
-   =================================== */
 .signature-overlay {
     position: absolute;
     bottom: 12%;
@@ -803,21 +826,17 @@ body.blackwhite-mode .theme-btn.active {
     width: 100%;
     height: auto;
     display: block !important;
-    
-    /* Dark mode: signature appears light/cyan */
     mix-blend-mode: screen;
     filter: invert(1) brightness(1.2);
     opacity: 0.95;
 }
 
-/* Light mode - signature appears as black ink */
 body.light-mode .signature-overlay img {
     mix-blend-mode: multiply;
     filter: none;
     opacity: 0.85;
 }
 
-/* Black & White mode - grayscale signature */
 body.blackwhite-mode .signature-overlay img {
     mix-blend-mode: multiply;
     filter: grayscale(100%);
@@ -845,7 +864,6 @@ body.blackwhite-mode .signature-overlay img {
     display: none !important;
 }
 
-/* UPDATED: Only hide images that are not the main photo or signature */
 .hero-image img:not(.pop-out-photo) {
     display: none !important;
 }
@@ -862,7 +880,6 @@ body.blackwhite-mode .pop-out-photo {
     border-color: #f5f5f5;
 }
 
-/* Responsive signature overlay */
 @media (max-width: 768px) {
     .signature-overlay {
         width: 90px;
@@ -1027,6 +1044,7 @@ body.blackwhite-mode .pop-out-photo {
     border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
+    contain: layout style paint;
 }
 
 .terminal-header {
@@ -1092,7 +1110,9 @@ body.blackwhite-mode .pop-out-photo {
     padding: 1.5rem;
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 245, 255, 0.1);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .info-card:hover {
@@ -1129,7 +1149,7 @@ body.blackwhite-mode .pop-out-photo {
 }
 
 /* ========================================
-   QUALIFICATIONS - FULL CERTIFICATE SUPPORT
+   QUALIFICATIONS - OPTIMIZED
    ======================================== */
 .qualifications {
     padding: var(--spacing-xl) 0;
@@ -1165,9 +1185,11 @@ body.blackwhite-mode .pop-out-photo {
     border: 1px solid rgba(0, 245, 255, 0.1);
     display: flex;
     gap: var(--spacing-md);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .qual-card::before {
@@ -1260,13 +1282,15 @@ body.blackwhite-mode .pop-out-photo {
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 245, 255, 0.1);
     text-align: center;
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
     position: relative;
     min-height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .cert-card:hover {
@@ -1289,9 +1313,6 @@ body.blackwhite-mode .pop-out-photo {
     color: white;
 }
 
-/* ===================================
-   IMPROVED CERTIFICATION ICONS
-   =================================== */
 .cert-card .cert-icon {
     width: 70px;
     height: 70px;
@@ -1301,10 +1322,10 @@ body.blackwhite-mode .pop-out-photo {
     justify-content: center;
     margin: 0 auto 20px;
     font-size: 2rem;
-    transition: all 0.3s ease;
+    transition: var(--transition-smooth);
+    will-change: transform;
 }
 
-/* Category-Based Colors */
 .cert-card[data-category="iso"] .cert-icon {
     background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
     color: #ffffff;
@@ -1391,7 +1412,7 @@ body.blackwhite-mode .pop-out-photo {
 }
 
 /* ===================================
-   CREDLY BADGES SECTION
+   CREDLY BADGES - ULTRA OPTIMIZED
    =================================== */
 .badges {
     padding: var(--spacing-xl) 0;
@@ -1410,10 +1431,12 @@ body.blackwhite-mode .pop-out-photo {
     padding: 30px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition-smooth);
     border: 2px solid transparent;
     position: relative;
     overflow: hidden;
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .badge-card::before {
@@ -1439,7 +1462,6 @@ body.blackwhite-mode .pop-out-photo {
     border-color: #7b2ff7;
 }
 
-/* Featured Badge (CA & CISA) - Golden Styling */
 .badge-card.featured-badge {
     border: 2px solid #ffd700;
     background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 215, 0, 0.1) 100%);
@@ -1480,6 +1502,7 @@ body.blackwhite-mode .pop-out-photo {
     height: 100%;
     object-fit: contain;
     transition: transform 0.4s ease;
+    will-change: transform;
 }
 
 .badge-card:hover .badge-image-container img {
@@ -1534,9 +1557,10 @@ body.blackwhite-mode .pop-out-photo {
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: var(--transition-smooth);
     margin-top: 10px;
     border: none;
+    will-change: transform;
 }
 
 .badge-card.featured-badge .badge-verify-btn {
@@ -1558,7 +1582,6 @@ body.blackwhite-mode .pop-out-photo {
     margin-right: 6px;
 }
 
-/* Light Mode Badges */
 body.light-mode .badge-card {
     background: #ffffff;
     border-color: rgba(0, 0, 0, 0.1);
@@ -1572,7 +1595,6 @@ body.light-mode .badge-card.featured-badge {
     border-color: #ffd700;
 }
 
-/* Black & White Mode Badges */
 body.blackwhite-mode .badge-card::before,
 body.blackwhite-mode .badge-verify-btn {
     background: linear-gradient(90deg, #000000, #333333);
@@ -1597,7 +1619,6 @@ body.blackwhite-mode .badge-glow {
     background: radial-gradient(circle, rgba(0, 0, 0, 0.2), transparent);
 }
 
-/* Responsive Badges Grid */
 @media (max-width: 768px) {
     .badges-grid {
         grid-template-columns: 1fr;
@@ -1616,7 +1637,7 @@ body.blackwhite-mode .badge-glow {
 }
 
 /* ========================================
-   EXPERIENCE TIMELINE
+   EXPERIENCE TIMELINE - OPTIMIZED
    ======================================== */
 .experience {
     padding: var(--spacing-xl) 0;
@@ -1642,6 +1663,7 @@ body.blackwhite-mode .badge-glow {
     position: relative;
     margin-bottom: var(--spacing-lg);
     animation: fadeInUp 0.6s ease;
+    contain: layout style paint;
 }
 
 @keyframes fadeInUp {
@@ -1696,8 +1718,9 @@ body.blackwhite-mode .badge-glow {
     padding: var(--spacing-md);
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 245, 255, 0.1);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
     position: relative;
+    will-change: transform;
 }
 
 .timeline-content::before {
@@ -1814,7 +1837,7 @@ body.blackwhite-mode .badge-glow {
 }
 
 /* ========================================
-   SKILLS SECTION
+   SKILLS - GPU OPTIMIZED
    ======================================== */
 .skills {
     padding: var(--spacing-xl) 0;
@@ -1831,7 +1854,9 @@ body.blackwhite-mode .badge-glow {
     padding: var(--spacing-md);
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 245, 255, 0.1);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .skill-category:hover {
@@ -1892,6 +1917,7 @@ body.blackwhite-mode .badge-glow {
     border-radius: 50px;
     position: relative;
     animation: fillSkill 1.5s ease-out;
+    will-change: width;
 }
 
 @keyframes fillSkill {
@@ -1940,9 +1966,11 @@ body.blackwhite-mode .badge-glow {
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
     cursor: pointer;
     position: relative;
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .tech-item::before {
@@ -1996,7 +2024,7 @@ body.blackwhite-mode .badge-glow {
 }
 
 /* ========================================
-   PROJECTS SECTION
+   PROJECTS - OPTIMIZED
    ======================================== */
 .projects {
     padding: var(--spacing-xl) 0;
@@ -2017,8 +2045,9 @@ body.blackwhite-mode .badge-glow {
     border-radius: 50px;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
     font-weight: 600;
+    will-change: transform;
 }
 
 .filter-btn:hover,
@@ -2040,9 +2069,11 @@ body.blackwhite-mode .badge-glow {
     padding: var(--spacing-md);
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 245, 255, 0.1);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .project-card::before {
@@ -2203,7 +2234,7 @@ body.blackwhite-mode .badge-glow {
 }
 
 /* ========================================
-   CONTACT SECTION
+   CONTACT - OPTIMIZED
    ======================================== */
 .contact {
     padding: var(--spacing-xl) 0;
@@ -2284,7 +2315,8 @@ body.blackwhite-mode .badge-glow {
     align-items: center;
     justify-content: center;
     color: var(--primary);
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
+    will-change: transform;
 }
 
 .social-links-contact a:hover {
@@ -2299,6 +2331,7 @@ body.blackwhite-mode .badge-glow {
     padding: var(--spacing-md);
     border-radius: var(--radius-md);
     border: 1px solid rgba(0, 245, 255, 0.1);
+    contain: layout style paint;
 }
 
 .form-group {
@@ -2432,7 +2465,7 @@ body.blackwhite-mode .badge-glow {
 }
 
 /* ========================================
-   SCROLL TO TOP BUTTON
+   SCROLL TO TOP
    ======================================== */
 .scroll-top {
     position: fixed;
@@ -2448,9 +2481,10 @@ body.blackwhite-mode .badge-glow {
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
-    transition: var(--transition-base);
+    transition: var(--transition-smooth);
     z-index: 999;
     box-shadow: var(--shadow-glow);
+    will-change: transform, opacity;
 }
 
 .scroll-top.active {
@@ -2463,10 +2497,8 @@ body.blackwhite-mode .badge-glow {
 }
 
 /* ========================================
-   AI CHATBOT STYLES
+   AI CHATBOT - ULTRA OPTIMIZED
    ======================================== */
-
-/* Floating Chat Toggle Button */
 .chat-toggle-btn {
     position: fixed;
     bottom: 30px;
@@ -2483,11 +2515,12 @@ body.blackwhite-mode .badge-glow {
         0 8px 30px rgba(0, 245, 255, 0.4),
         0 4px 15px rgba(123, 47, 247, 0.3);
     z-index: 9998;
-    transition: all 0.3s ease;
+    transition: var(--transition-smooth);
     animation: chatPulse 2s infinite;
     display: flex;
     align-items: center;
     justify-content: center;
+    will-change: transform;
 }
 
 .chat-toggle-btn:hover {
@@ -2536,7 +2569,6 @@ body.blackwhite-mode .badge-glow {
     }
 }
 
-/* Chat Container */
 .chat-container {
     position: fixed;
     bottom: 115px;
@@ -2553,7 +2585,9 @@ body.blackwhite-mode .badge-glow {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition-smooth);
+    will-change: transform, opacity;
+    contain: layout style paint;
 }
 
 .chat-container.hidden {
@@ -2567,7 +2601,6 @@ body.blackwhite-mode .badge-glow {
     height: 70px;
 }
 
-/* Chat Header */
 .chat-header {
     background: linear-gradient(135deg, #00f5ff 0%, #7b2ff7 100%);
     padding: 16px 20px;
@@ -2643,7 +2676,7 @@ body.blackwhite-mode .badge-glow {
     height: 34px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2656,7 +2689,6 @@ body.blackwhite-mode .badge-glow {
     transform: scale(1.1);
 }
 
-/* Chat Messages Area */
 .chat-messages {
     flex: 1;
     overflow-y: auto;
@@ -2680,7 +2712,6 @@ body.blackwhite-mode .badge-glow {
     border-radius: 10px;
 }
 
-/* Messages */
 .message {
     display: flex;
     gap: 12px;
@@ -2750,7 +2781,6 @@ body.blackwhite-mode .badge-glow {
     border: none;
 }
 
-/* Quick Suggestions */
 .quick-suggestions {
     display: flex;
     flex-wrap: wrap;
@@ -2767,7 +2797,8 @@ body.blackwhite-mode .badge-glow {
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: var(--transition-smooth);
+    will-change: transform;
 }
 
 .suggestion-btn:hover {
@@ -2777,7 +2808,6 @@ body.blackwhite-mode .badge-glow {
     box-shadow: 0 6px 20px rgba(0, 245, 255, 0.4);
 }
 
-/* Chat Input Area */
 .chat-input-container {
     padding: 18px 20px;
     background: var(--bg-card);
@@ -2796,7 +2826,7 @@ body.blackwhite-mode .badge-glow {
     color: var(--text-primary);
     font-size: 0.95rem;
     font-family: var(--font-primary);
-    transition: all 0.25s ease;
+    transition: var(--transition-base);
 }
 
 .chat-input:focus {
@@ -2818,11 +2848,12 @@ body.blackwhite-mode .badge-glow {
     color: white;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: var(--transition-smooth);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    will-change: transform;
 }
 
 .chat-send-btn:hover {
@@ -2830,7 +2861,6 @@ body.blackwhite-mode .badge-glow {
     box-shadow: 0 6px 25px rgba(0, 245, 255, 0.5);
 }
 
-/* Typing Indicator */
 .typing-indicator {
     display: flex;
     gap: 6px;
@@ -2866,7 +2896,6 @@ body.blackwhite-mode .badge-glow {
     }
 }
 
-/* Light Mode Chat Styles */
 body.light-mode .chat-container {
     background: #ffffff;
     border-color: rgba(0, 0, 0, 0.1);
@@ -2891,7 +2920,6 @@ body.light-mode .chat-input {
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Black & White Mode Chat Styles */
 body.blackwhite-mode .chat-toggle-btn {
     background: linear-gradient(135deg, #000000 0%, #333333 100%);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
@@ -2923,7 +2951,6 @@ body.blackwhite-mode .suggestion-btn:hover {
     color: white;
 }
 
-/* Mobile Responsive Chat */
 @media (max-width: 768px) {
     .chat-container {
         width: calc(100vw - 40px);
@@ -3003,6 +3030,102 @@ body.blackwhite-mode .suggestion-btn:hover {
 }
 
 /* ========================================
+   PARTICLE BACKGROUND
+   ======================================== */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.navbar {
+    z-index: 1000;
+}
+
+.hero,
+.credentials,
+.viewer-stats,
+.about,
+.qualifications,
+.badges,
+.experience,
+.skills,
+.projects,
+.contact,
+.footer,
+.scroll-top {
+    position: relative;
+    z-index: 1;
+}
+
+.hero {
+    background: transparent !important;
+}
+
+.about,
+.experience,
+.projects {
+    background: rgba(10, 14, 39, 0.85) !important;
+}
+
+.qualifications,
+.skills,
+.badges,
+.contact {
+    background: rgba(5, 8, 22, 0.85) !important;
+}
+
+.footer {
+    background: rgba(5, 8, 22, 0.92) !important;
+}
+
+body.light-mode .hero {
+    background: transparent !important;
+}
+
+body.light-mode .about,
+body.light-mode .experience,
+body.light-mode .projects {
+    background: rgba(255, 255, 255, 0.88) !important;
+}
+
+body.light-mode .qualifications,
+body.light-mode .skills,
+body.light-mode .badges,
+body.light-mode .contact {
+    background: rgba(245, 247, 250, 0.88) !important;
+}
+
+body.light-mode .footer {
+    background: rgba(245, 247, 250, 0.93) !important;
+}
+
+body.blackwhite-mode .hero {
+    background: transparent !important;
+}
+
+body.blackwhite-mode .about,
+body.blackwhite-mode .experience,
+body.blackwhite-mode .projects {
+    background: rgba(255, 255, 255, 0.88) !important;
+}
+
+body.blackwhite-mode .qualifications,
+body.blackwhite-mode .skills,
+body.blackwhite-mode .badges,
+body.blackwhite-mode .contact {
+    background: rgba(248, 249, 250, 0.88) !important;
+}
+
+body.blackwhite-mode .footer {
+    background: rgba(248, 249, 250, 0.93) !important;
+}
+
+/* ========================================
    RESPONSIVE DESIGN
    ======================================== */
 @media (max-width: 1200px) {
@@ -3058,105 +3181,5 @@ body.blackwhite-mode .suggestion-btn:hover {
 }
 
 /* ========================================
-   PARTICLE NETWORK BACKGROUND
-   ======================================== */
-
-#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.navbar {
-    z-index: 1000;
-}
-
-.hero,
-.credentials,
-.viewer-stats,
-.about,
-.qualifications,
-.badges,
-.experience,
-.skills,
-.projects,
-.contact,
-.footer,
-.scroll-top {
-    position: relative;
-    z-index: 1;
-}
-
-/* DARK MODE (default) */
-.hero {
-    background: transparent !important;
-}
-
-.about,
-.experience,
-.projects {
-    background: rgba(10, 14, 39, 0.85) !important;
-}
-
-.qualifications,
-.skills,
-.badges,
-.contact {
-    background: rgba(5, 8, 22, 0.85) !important;
-}
-
-.footer {
-    background: rgba(5, 8, 22, 0.92) !important;
-}
-
-/* LIGHT MODE */
-body.light-mode .hero {
-    background: transparent !important;
-}
-
-body.light-mode .about,
-body.light-mode .experience,
-body.light-mode .projects {
-    background: rgba(255, 255, 255, 0.88) !important;
-}
-
-body.light-mode .qualifications,
-body.light-mode .skills,
-body.light-mode .badges,
-body.light-mode .contact {
-    background: rgba(245, 247, 250, 0.88) !important;
-}
-
-body.light-mode .footer {
-    background: rgba(245, 247, 250, 0.93) !important;
-}
-
-/* BLACK & WHITE MODE */
-body.blackwhite-mode .hero {
-    background: transparent !important;
-}
-
-body.blackwhite-mode .about,
-body.blackwhite-mode .experience,
-body.blackwhite-mode .projects {
-    background: rgba(255, 255, 255, 0.88) !important;
-}
-
-body.blackwhite-mode .qualifications,
-body.blackwhite-mode .skills,
-body.blackwhite-mode .badges,
-body.blackwhite-mode .contact {
-    background: rgba(248, 249, 250, 0.88) !important;
-}
-
-body.blackwhite-mode .footer {
-    background: rgba(248, 249, 250, 0.93) !important;
-}
-
-/* ========================================
-   END OF STYLESHEET
+   END OF OPTIMIZED STYLESHEET
    ======================================== */
