@@ -1396,64 +1396,106 @@ function initNavigation() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
+    // ── Navbar scroll background ──────────────────────────
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
-    
+    }, { passive: true });
+
+    // ── Hamburger toggle ──────────────────────────────────
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
     }
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger?.classList.remove('active');
-            navMenu?.classList.remove('active');
-        });
-    });
-    
-    const sections = document.querySelectorAll('section[id]');
-    
-    window.addEventListener('scroll', () => {
-        const scrollY = window.pageYOffset;
-        
-        sections.forEach(section => {
-            const sectionHeight = section.offsetHeight;
-            const sectionTop = section.offsetTop - 100;
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-            
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                navLink?.classList.add('active');
-            }
-        });
-    });
-    
+
+    // ── Smooth scroll helper ──────────────────────────────
+    function scrollToSection(targetId) {
+        if (!targetId || targetId === '#') return;
+
+        const targetSection = document.querySelector(targetId);
+        if (!targetSection) {
+            console.warn('⚠️ Section not found:', targetId);
+            return;
+        }
+
+        const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
+        const top = targetSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+
+        window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    // ── Nav link clicks ───────────────────────────────────
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
+
+            // Close mobile menu
+            hamburger?.classList.remove('active');
+            navMenu?.classList.remove('active');
+
             const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
+            scrollToSection(targetId);
+
+            // Immediately highlight clicked link
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
         });
     });
-}
 
+    // ── Logo click → scroll to top ────────────────────────
+    const logo = document.querySelector('.logo a');
+    if (logo) {
+        logo.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            navLinks.forEach(l => l.classList.remove('active'));
+            document.querySelector('.nav-link[href="#home"]')?.classList.add('active');
+        });
+    }
+
+    // ── Hero "Get In Touch" button ────────────────────────
+    document.querySelectorAll('.hero-buttons a[href^="#"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollToSection(btn.getAttribute('href'));
+        });
+    });
+
+    // ── Active link highlight on scroll ───────────────────
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset;
+        const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - navbarHeight - 100;
+            const sectionBottom = sectionTop + section.offsetHeight;
+
+            if (scrollY >= sectionTop && scrollY < sectionBottom) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentSection) {
+                link.classList.add('active');
+            }
+        });
+
+    }, { passive: true });
+}
 // ========================================
 // MULTI-THEME TOGGLE
 // ========================================
