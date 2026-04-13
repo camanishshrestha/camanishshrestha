@@ -1840,46 +1840,67 @@ function initTypingEffect() {
 // COUNTER ANIMATION - OPTIMIZED
 // ========================================
 function initCounters() {
-    const counters = document.querySelectorAll('.counter');
-    
-    const animateCounter = (counter) => {
-        const target = +counter.getAttribute('data-target');
+    // Animate a single counter element
+    const animateCounter = (el) => {
+        const text = el.textContent.trim();
+        const suffix = text.replace(/[0-9]/g, ''); // extracts '+' or 'x' etc
+        const target = parseInt(text.replace(/\D/g, ''), 10); // extracts number
+
+        if (isNaN(target)) return;
+
         const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
-        
-        const updateCounter = () => {
-            current += increment;
-            
-            if (current < target) {
-                DOMScheduler.write(() => {
-                    counter.textContent = Math.ceil(current);
-                });
-                requestAnimationFrame(updateCounter);
+        const startTime = performance.now();
+
+        const update = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Ease-out cubic — same smooth feel as projects section
+            const easedProgress = 1 - Math.pow(1 - progress, 3);
+            const currentValue = Math.floor(easedProgress * target);
+
+            DOMScheduler.write(() => {
+                el.textContent = currentValue + suffix;
+            });
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
             } else {
                 DOMScheduler.write(() => {
-                    counter.textContent = target;
+                    el.textContent = target + suffix;
                 });
             }
         };
-        
-        updateCounter();
+
+        requestAnimationFrame(update);
     };
-    
+
+    // Select BOTH hero stats and projects stats
+    const heroStats = document.querySelectorAll('.hero-stats .stat-number');
+    const projectStats = document.querySelectorAll('.projects-stats-summary .stat-number');
+
+    const allCounters = [...heroStats, ...projectStats];
+
+    if (allCounters.length === 0) return;
+
+    // Re-triggers every time user scrolls past — NO unobserve()
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 animateCounter(entry.target);
-                counterObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
-    
-    counters.forEach(counter => {
+    }, {
+        threshold: 0.4,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    allCounters.forEach(counter => {
         counterObserver.observe(counter);
     });
-    
+
     globalObservers.push(counterObserver);
+    console.log(`✅ ${allCounters.length} counters initialized (re-triggering on scroll)`);
 }
 
 // ========================================
