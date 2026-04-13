@@ -1,120 +1,112 @@
 /**
- * MODERN PROFESSIONAL PORTFOLIO - FULLY OPTIMIZED JAVASCRIPT
+ * MODERN PROFESSIONAL PORTFOLIO - JAVASCRIPT
  * Author: Manish Shrestha
- * Performance Engineer: Enhanced for 60fps on all devices
- * Features: AI Chatbot, Email Notifications, Particle Background, Credly Badges
- * Status: Production-ready, fully optimized, zero layout thrashing
+ * Description: Interactive functionality for portfolio website
+ * Features: AI Chatbot, Email Notifications, Particle Background, Credly Badges, and more
  */
 
-'use strict';
-
 // ========================================
-// PERFORMANCE CORE - DOM SCHEDULER
+// INITIALIZATION & DOM CONTENT LOADED
 // ========================================
-const DOMScheduler = (() => {
-    const readQueue = [];
-    const writeQueue = [];
-    let scheduled = false;
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+});
 
-    function flush() {
-        let task;
-        while (task = readQueue.shift()) task();
-        while (task = writeQueue.shift()) task();
-        scheduled = false;
-    }
-
-    function schedule() {
-        if (!scheduled) {
-            scheduled = true;
-            requestAnimationFrame(flush);
-        }
-    }
-
-    return {
-        read(fn) { readQueue.push(fn); schedule(); },
-        write(fn) { writeQueue.push(fn); schedule(); },
-        measure(readFn, writeFn) {
-            let result;
-            this.read(() => result = readFn());
-            this.write(() => writeFn(result));
-        }
-    };
-})();
-
-// ========================================
-// DEVICE ADAPTIVE PERFORMANCE
-// ========================================
-class PerformanceAdaptor {
-    constructor() {
-        this.tier = this.detectTier();
-        this.applyOptimizations();
-    }
-
-    detectTier() {
-        const cores = navigator.hardwareConcurrency || 2;
-        const memory = navigator.deviceMemory || 2;
-        const connection = navigator.connection?.effectiveType || '4g';
-
-        if (memory <= 2 || cores <= 2 || connection === '2g' || connection === 'slow-2g') {
-            return 'low';
-        }
-        if (memory <= 4 || cores <= 4 || connection === '3g') {
-            return 'medium';
-        }
-        return 'high';
-    }
-
-    applyOptimizations() {
-        document.documentElement.dataset.perfTier = this.tier;
-        console.log(`📊 Performance Tier: ${this.tier}`);
-
-        if (this.tier === 'low') {
-            window.PARTICLE_COUNT = 40;
-            window.ANIMATION_DURATION = 0.5;
-            window.ENABLE_CUSTOM_CURSOR = false;
-            window.TYPING_SPEED = 80;
-        } else if (this.tier === 'medium') {
-            window.PARTICLE_COUNT = 70;
-            window.ANIMATION_DURATION = 0.7;
-            window.ENABLE_CUSTOM_CURSOR = true;
-            window.TYPING_SPEED = 100;
-        } else {
-            window.PARTICLE_COUNT = 90;
-            window.ANIMATION_DURATION = 1;
-            window.ENABLE_CUSTOM_CURSOR = true;
-            window.TYPING_SPEED = 100;
-        }
-    }
+function initializeApp() {
+    // Initialize all components
+    initNavigation();
+    initThemeToggle();
+    initTypingEffect();
+    initCounters();
+    initScrollAnimations();
+    initProjectFilters();
+    initContactForm();
+    initScrollToTop();
+    initCustomCursor();
+    initSkillBars();
+    initParticleBackground();
+    initGeometricPhotoEffect();
+    initAIChatbot();
+    initBadgesSection(); // NEW: Initialize Badges section
+    
+    // Load saved theme (without notification)
+    loadTheme();
+    
+    console.log('✅ Portfolio initialized successfully!');
 }
 
-// Initialize performance adaptor immediately
-const perfAdaptor = new PerformanceAdaptor();
+// ========================================
+// NEW: CREDLY BADGES SECTION
+// ========================================
+function initBadgesSection() {
+    console.log('🎖️ Initializing Badges section...');
+    
+    const badgeCards = document.querySelectorAll('.badge-card');
+    
+    if (badgeCards.length === 0) {
+        console.warn('⚠️ No badge cards found');
+        return;
+    }
+    
+    // Animate badges on scroll
+    const badgeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100); // Stagger animation
+                
+                badgeObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    badgeCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        badgeObserver.observe(card);
+    });
+    
+    // Track badge clicks
+    const verifyButtons = document.querySelectorAll('.badge-verify-btn');
+    verifyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const badgeName = e.target.closest('.badge-card').querySelector('h4').textContent;
+            trackEvent('Badges', 'Verify Click', badgeName);
+            console.log('🔗 Verifying badge:', badgeName);
+        });
+    });
+    
+    // Badge card hover effects
+    badgeCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const glow = card.querySelector('.badge-glow');
+            if (glow) {
+                glow.style.opacity = '1';
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            const glow = card.querySelector('.badge-glow');
+            if (glow) {
+                glow.style.opacity = '0';
+            }
+        });
+    });
+    
+    console.log(`✅ ${badgeCards.length} badges initialized!`);
+}
 
 // ========================================
-// UTILITY FUNCTIONS
+// AI CHATBOT - COMPLETE IMPLEMENTATION
 // ========================================
-const debounce = (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), wait);
-    };
-};
 
-const throttle = (func, limit) => {
-    let inThrottle = false;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-};
-
-// ========================================
-// GLOBAL STATE
-// ========================================
+// Chatbot Configuration
 const CHATBOT_CONFIG = {
     botName: 'Manish AI',
     ownerName: 'Manish Shrestha',
@@ -124,23 +116,9 @@ const CHATBOT_CONFIG = {
     welcomeShown: false
 };
 
-let chatState = {
-    isOpen: false,
-    messageCount: 0,
-    conversationHistory: [],
-    visitorInfo: {
-        startTime: new Date(),
-        questionsAsked: []
-    },
-    welcomeShown: false
-};
-
-let globalObservers = [];
-
-// ========================================
-// KNOWLEDGE BASE - COMPLETE
-// ========================================
+// Knowledge Base - All information about you
 const knowledgeBase = {
+    // Greetings
     greeting: {
         keywords: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'greetings', 'namaste', 'namaskar'],
         response: `👋 Hello! Welcome to Manish Shrestha's portfolio!
@@ -157,18 +135,17 @@ I'm his AI assistant and I can help you learn about:
 What would you like to know?`
     },
 
+    // NEW: Credly Badges
     badges: {
         keywords: ['badge', 'credly', 'verified', 'digital credential', 'blockchain', 'verify'],
         response: `🎖️ **Credly Verified Badges (9 Total)**
 
-**Featured Badges:**
+**Featured Badge:**
 🏆 **Chartered Accountant (CA)**
    ICAN - Qualified December 2024
 
-🛡️ **CISA - Certified Information Systems Auditor**
-   ISACA - Score 625/800
-
 **Professional Certifications:**
+✅ CISA - Score 625/800 (ISACA)
 ✅ ISO/IEC 27001:2022 Lead Auditor (95%)
 ✅ ISO/IEC 42001:2023 Lead Auditor (84%)
 
@@ -187,6 +164,7 @@ All badges are cryptographically verified through Credly's blockchain-backed pla
 Would you like to see specific badge details?`
     },
 
+    // Certifications (Updated to mention Credly)
     certifications: {
         keywords: ['certification', 'certified', 'cisa', 'iso', 'qualified', 'credentials', 'certificate', 'ca', 'chartered accountant', 'qualifications'],
         response: `📜 **Professional Certifications (75+)**
@@ -245,6 +223,7 @@ Check the "Badges" section to see 9 verified digital credentials with blockchain
 Want details on any specific certification?`
     },
 
+    // Experience
     experience: {
         keywords: ['experience', 'work', 'job', 'career', 'worked', 'position', 'role', 'employment', 'company', 'sanima', 'bank'],
         response: `💼 **Professional Experience (8+ Years)**
@@ -262,14 +241,13 @@ Want details on any specific certification?`
    🏆 2x Bronze Award Winner - Best Presented Annual Report
 🔹 **Internal Audit Team Leader** | MR Associates (2021-2022)
    • Audited 60+ branches of Citizens Bank
-🔹 **Audit Professional** | SAR Associates (2016-2020)
+🔹 **Audit Associate** | S.A.R Associates (2019-2020)
    ⭐ Top 4 Employee Star 2019
-🔹 **IFRS Implementor** | SAR Associates (Part-time, 2017-2019)
-   🏆 First-time IFRS Implementor in Nepal
 
 Which role would you like to know more about?`
     },
 
+    // Projects
     projects: {
         keywords: ['project', 'portfolio', 'achievement', 'completed', 'work done', 'accomplishment'],
         response: `🚀 **Major Projects & Achievements**
@@ -285,17 +263,6 @@ Which role would you like to know more about?`
 **IT/IS Audit:**
 ✅ IT GAP Assessment - Sanima Group (9 companies)
 ✅ ISO 27001 Annex A Controls evaluation
-✅ IS Audit - Citizens International Bank
-
-**Financial Projects:**
-✅ Annual Book Preparation - Garima Bikas Bank FY 2023/24
-✅ Annual Budget Finalization - Garima FY 2024/25
-✅ IFRS 9 ECL Model - Garima Bikas Bank
-✅ 10-Year Financial Projection - Lumbini Bikas Bank
-
-**Policy & Strategic:**
-✅ Zero-Based Budgeting - Lumbini Bikas Bank
-✅ 5-Year Strategic Plan implementation
 
 **Awards:**
 🏆 Best Presented Annual Report FY 2021/22 (Bronze)
@@ -303,11 +270,13 @@ Which role would you like to know more about?`
 
 **Other:**
 ✅ Debenture Issuance (LBBLD89) - 10-year projections
-✅ Internal Audit Manual 2025
+✅ 5-Year Strategic Plan implementation
+✅ Zero-Based Budgeting rollout
 
 Want details on any specific project?`
     },
 
+    // Skills
     skills: {
         keywords: ['skill', 'expertise', 'good at', 'specialization', 'proficient', 'capable', 'ability'],
         response: `🎯 **Professional Skills**
@@ -339,6 +308,7 @@ Want details on any specific project?`
 Any specific skill you'd like to discuss?`
     },
 
+    // Contact
     contact: {
         keywords: ['contact', 'email', 'phone', 'reach', 'hire', 'available', 'connect', 'talk', 'call', 'message'],
         response: `📧 **Contact Information**
@@ -365,6 +335,7 @@ Any specific skill you'd like to discuss?`
 Would you like me to help you send a message to Manish?`
     },
 
+    // Education
     education: {
         keywords: ['education', 'study', 'degree', 'university', 'college', 'academic', 'school'],
         response: `🎓 **Educational Background**
@@ -387,6 +358,7 @@ Would you like me to help you send a message to Manish?`
 Manish believes in lifelong learning and continuously updates his skills!`
     },
 
+    // Awards
     awards: {
         keywords: ['award', 'achievement', 'recognition', 'prize', 'win', 'honor', 'accolade'],
         response: `🏆 **Awards & Recognition**
@@ -408,6 +380,7 @@ Manish believes in lifelong learning and continuously updates his skills!`
 These awards reflect dedication to excellence in financial reporting and professional conduct!`
     },
 
+    // ISO Certifications
     iso: {
         keywords: ['iso 27001', 'iso 42001', 'iso 9001', 'information security', 'isms', 'ai management', 'lead auditor', 'quality management'],
         response: `🔒 **ISO Certifications**
@@ -433,6 +406,7 @@ These awards reflect dedication to excellence in financial reporting and profess
 These certifications enable Manish to lead audits for organizations seeking ISO compliance.`
     },
 
+    // Current Role
     currentRole: {
         keywords: ['current', 'now', 'present', 'today', 'doing', 'working on'],
         response: `💼 **Current Position**
@@ -453,6 +427,7 @@ Sanima Jum Hydropower and 8 other entities
 This role combines financial expertise with IT audit skills!`
     },
 
+    // Services
     services: {
         keywords: ['service', 'offer', 'provide', 'help', 'consulting', 'consultancy'],
         response: `🛠️ **Professional Services**
@@ -486,6 +461,7 @@ Manish can help with:
 Interested in any of these services?`
     },
 
+    // About
     about: {
         keywords: ['about', 'who', 'tell me about', 'introduce', 'background', 'profile'],
         response: `👤 **About Manish Shrestha**
@@ -513,6 +489,7 @@ Elite Finance & IT Audit Professional with 8+ years of experience spanning Finan
 Passionate about bridging finance and technology!`
     },
 
+    // Google Certifications
     google: {
         keywords: ['google', 'gemini', 'educator', 'analytics', 'ads'],
         response: `🔷 **Google Certifications**
@@ -536,6 +513,7 @@ Passionate about bridging finance and technology!`
 All certifications demonstrate proficiency in Google's ecosystem!`
     },
 
+    // Microsoft Certifications
     microsoft: {
         keywords: ['microsoft', 'power bi', 'azure', 'ai concepts'],
         response: `🔷 **Microsoft Certifications**
@@ -553,6 +531,7 @@ All certifications demonstrate proficiency in Google's ecosystem!`
 These certifications validate expertise in Microsoft's data and AI platforms!`
     },
 
+    // Cybersecurity
     cybersecurity: {
         keywords: ['cybersecurity', 'security', 'hacking', 'pentesting', 'ethical hacker', 'tryhackme'],
         response: `🔐 **Cybersecurity Expertise**
@@ -582,6 +561,7 @@ These certifications validate expertise in Microsoft's data and AI platforms!`
 Manish combines offensive knowledge with defensive strategy for comprehensive security!`
     },
 
+    // TiDB/Database
     database: {
         keywords: ['tidb', 'database', 'neo4j', 'graph', 'sql', 'distributed'],
         response: `💾 **Database Certifications**
@@ -604,6 +584,7 @@ Manish combines offensive knowledge with defensive strategy for comprehensive se
 These skills enable work with modern, scalable database systems!`
     },
 
+    // Accounting Software
     accounting: {
         keywords: ['quickbooks', 'xero', 'tally', 'accounting software', 'bookkeeping'],
         response: `💼 **Accounting Software Expertise**
@@ -631,6 +612,7 @@ These skills enable work with modern, scalable database systems!`
 Proficient in leading accounting platforms for SMEs!`
     },
 
+    // AI & Generative AI
     ai: {
         keywords: ['artificial intelligence', 'generative ai', 'llm', 'prompt engineering', 'dubai ai'],
         response: `🤖 **AI & Generative AI Expertise**
@@ -662,6 +644,7 @@ Proficient in leading accounting platforms for SMEs!`
 Passionate about ethical and practical AI adoption!`
     },
 
+    // Professional Development
     development: {
         keywords: ['training', 'course', 'professional development', 'skill development', 'learning'],
         response: `📚 **Professional Development**
@@ -689,6 +672,7 @@ Passionate about ethical and practical AI adoption!`
 Committed to continuous learning and professional growth!`
     },
 
+    // Location
     location: {
         keywords: ['location', 'where', 'based', 'live', 'address', 'nepal', 'kathmandu', 'lalitpur'],
         response: `📍 **Location**
@@ -707,6 +691,7 @@ Sanima Group Corporate Office
 Would you like to schedule a meeting?`
     },
 
+    // Thanks
     thanks: {
         keywords: ['thank', 'thanks', 'appreciate', 'grateful', 'helpful'],
         response: `😊 You're welcome!
@@ -722,6 +707,7 @@ Is there anything else you'd like to know about Manish's:
 Feel free to ask anything!`
     },
 
+    // Goodbye
     goodbye: {
         keywords: ['bye', 'goodbye', 'see you', 'later', 'exit', 'quit', 'close'],
         response: `👋 Thank you for visiting Manish Shrestha's portfolio!
@@ -733,6 +719,7 @@ Feel free to ask anything!`
 Feel free to return anytime. Have a great day! 🌟`
     },
 
+    // Hire
     hire: {
         keywords: ['hire', 'recruit', 'job offer', 'opportunity', 'vacancy', 'position open'],
         response: `💼 **Interested in Hiring Manish?**
@@ -757,6 +744,7 @@ Great! Here's how to proceed:
 Would you like me to help you send a message directly to Manish?`
     },
 
+    // Pricing
     pricing: {
         keywords: ['price', 'cost', 'fee', 'rate', 'charge', 'budget', 'payment'],
         response: `💰 **Consulting Rates**
@@ -777,6 +765,7 @@ Please include:
 Manish provides competitive rates for quality professional services!`
     },
 
+    // Default response
     default: {
         keywords: [],
         response: `🤔 I'm not sure I understand that question.
@@ -797,148 +786,25 @@ Try asking about any of these topics!`
     }
 };
 
-// ========================================
-// INITIALIZATION
-// ========================================
-document.addEventListener('DOMContentLoaded', function() {
-    requestAnimationFrame(() => {
-        initializeApp();
-    });
-});
-
-function initializeApp() {
-    // Phase 1: Critical UI
-    requestAnimationFrame(() => {
-        initNavigation();
-        initThemeToggle();
-        loadTheme();
-    });
-    
-    // Phase 2: Interactive features
-    setTimeout(() => {
-        initTypingEffect();
-        initCounters();
-        initScrollAnimations();
-    }, 100);
-    
-    // Phase 3: Forms and filters
-    setTimeout(() => {
-        initProjectFilters();
-        initContactForm();
-        initScrollToTop();
-    }, 200);
-    
-    // Phase 4: Visual enhancements
-    setTimeout(() => {
-        initCustomCursor();
-        initSkillBars();
-        initGeometricPhotoEffect();
-    }, 300);
-    
-    // Phase 5: Heavy components
-    setTimeout(() => {
-        initParticleBackground();
-        initBadgesSection();
-        initAIChatbot();
-    }, 400);
-    
-    console.log('✅ Portfolio initialized - Performance optimized!');
-}
-
-// ========================================
-// BADGES SECTION - OPTIMIZED
-// ========================================
-function initBadgesSection() {
-    console.log('🎖️ Initializing Badges section...');
-    
-    const badgeCards = document.querySelectorAll('.badge-card');
-    
-    if (badgeCards.length === 0) {
-        console.warn('⚠️ No badge cards found');
-        return;
+// Chat State
+let chatState = {
+    isOpen: false,
+    messageCount: 0,
+    conversationHistory: [],
+    visitorInfo: {
+        startTime: new Date(),
+        questionsAsked: []
     }
-    
-    const badgeObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    DOMScheduler.write(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0) scale(1)';
-                    });
-                }, index * 80);
-                
-                badgeObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.05,
-        rootMargin: '0px 0px -30px 0px'
-    });
-    
-    badgeCards.forEach(card => {
-        DOMScheduler.write(() => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px) scale(0.95)';
-            card.style.transition = `all ${window.ANIMATION_DURATION || 1}s cubic-bezier(0.4, 0, 0.2, 1)`;
-            card.style.willChange = 'transform, opacity';
-        });
-        badgeObserver.observe(card);
-    });
-    
-    globalObservers.push(badgeObserver);
-    
-    // Verify button tracking
-    const verifyButtons = document.querySelectorAll('.badge-verify-btn');
-    verifyButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const badgeName = e.target.closest('.badge-card')?.querySelector('h4')?.textContent;
-            trackEvent('Badges', 'Verify Click', badgeName);
-            
-            DOMScheduler.write(() => {
-                btn.style.transform = 'scale(0.95)';
-            });
-            setTimeout(() => {
-                DOMScheduler.write(() => {
-                    btn.style.transform = 'scale(1)';
-                });
-            }, 150);
-        });
-    });
-    
-    // Hover effects (GPU only)
-    badgeCards.forEach(card => {
-        const glow = card.querySelector('.badge-glow');
-        
-        card.addEventListener('mouseenter', () => {
-            if (glow) {
-                DOMScheduler.write(() => {
-                    glow.style.transition = 'opacity 0.4s ease';
-                    glow.style.opacity = '1';
-                });
-            }
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            if (glow) {
-                DOMScheduler.write(() => {
-                    glow.style.opacity = '0';
-                });
-            }
-        });
-    });
-    
-    console.log(`✅ ${badgeCards.length} badges initialized!`);
-}
+};
 
-// ========================================
-// AI CHATBOT - COMPLETE
-// ========================================
+// Initialize AI Chatbot
 function initAIChatbot() {
     console.log('🤖 Initializing AI Chatbot...');
     
+    // Load chat state from session storage
     loadChatState();
     
+    // Add event listener for Enter key in chat input
     const chatInput = document.getElementById('chatInput');
     if (chatInput) {
         chatInput.addEventListener('keypress', function(e) {
@@ -948,15 +814,17 @@ function initAIChatbot() {
         });
     }
     
+    // Show welcome message after a delay if first visit
     if (!chatState.welcomeShown) {
         setTimeout(() => {
             showChatNotification();
         }, 5000);
     }
     
-    console.log('✅ AI Chatbot initialized!');
+    console.log('✅ AI Chatbot initialized successfully!');
 }
 
+// Toggle Chat Window
 function toggleChat() {
     const chatContainer = document.getElementById('ai-chat-container');
     const toggleBtn = document.getElementById('chatToggleBtn');
@@ -966,29 +834,19 @@ function toggleChat() {
     chatState.isOpen = !chatState.isOpen;
     
     if (chatState.isOpen) {
-        DOMScheduler.write(() => {
-            chatContainer.classList.remove('hidden');
-            chatContainer.style.animation = 'slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
+        chatContainer.classList.remove('hidden');
         
+        // Focus on input
         setTimeout(() => {
             const input = document.getElementById('chatInput');
             if (input) input.focus();
         }, 300);
         
-        const badge = toggleBtn?.querySelector('.chat-badge');
-        if (badge) {
-            DOMScheduler.write(() => {
-                badge.style.transition = 'opacity 0.3s ease';
-                badge.style.opacity = '0';
-            });
-            setTimeout(() => {
-                DOMScheduler.write(() => {
-                    badge.style.display = 'none';
-                });
-            }, 300);
-        }
+        // Hide badge
+        const badge = toggleBtn.querySelector('.chat-badge');
+        if (badge) badge.style.display = 'none';
         
+        // Track event
         if (chatState.messageCount === 0) {
             trackEvent('AI Chat', 'Opened', 'First Time');
         }
@@ -997,53 +855,32 @@ function toggleChat() {
         saveChatState();
         
     } else {
-        DOMScheduler.write(() => {
-            chatContainer.style.animation = 'slideOutDown 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
-        setTimeout(() => {
-            DOMScheduler.write(() => {
-                chatContainer.classList.add('hidden');
-            });
-        }, 350);
+        chatContainer.classList.add('hidden');
     }
 }
 
+// Close Chat
 function closeChat() {
     const chatContainer = document.getElementById('ai-chat-container');
     if (chatContainer) {
-        DOMScheduler.write(() => {
-            chatContainer.style.animation = 'slideOutDown 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
-        setTimeout(() => {
-            DOMScheduler.write(() => {
-                chatContainer.classList.add('hidden');
-            });
-            chatState.isOpen = false;
-        }, 350);
+        chatContainer.classList.add('hidden');
+        chatState.isOpen = false;
     }
 }
 
+// Show Chat Notification
 function showChatNotification() {
     const toggleBtn = document.getElementById('chatToggleBtn');
     if (!toggleBtn) return;
     
     const badge = toggleBtn.querySelector('.chat-badge');
     if (badge) {
-        DOMScheduler.write(() => {
-            badge.style.display = 'block';
-            badge.style.opacity = '0';
-            badge.textContent = '👋 Ask me!';
-            badge.style.transition = 'opacity 0.5s ease';
-        });
-        
-        requestAnimationFrame(() => {
-            DOMScheduler.write(() => {
-                badge.style.opacity = '1';
-            });
-        });
+        badge.style.display = 'block';
+        badge.textContent = '👋 Ask me!';
     }
 }
 
+// Send Message
 function sendMessage() {
     const input = document.getElementById('chatInput');
     if (!input) return;
@@ -1051,13 +888,11 @@ function sendMessage() {
     const message = input.value.trim();
     if (!message) return;
     
+    // Add user message to chat
     addMessage(message, 'user');
     input.value = '';
     
-    DOMScheduler.write(() => {
-        input.style.height = 'auto';
-    });
-    
+    // Store in conversation history
     chatState.conversationHistory.push({
         role: 'user',
         content: message,
@@ -1066,13 +901,16 @@ function sendMessage() {
     
     chatState.visitorInfo.questionsAsked.push(message);
     
+    // Show typing indicator
     showTypingIndicator();
     
+    // Get bot response after delay
     setTimeout(() => {
         hideTypingIndicator();
         const response = getBotResponse(message);
         addMessage(response, 'bot');
         
+        // Store bot response
         chatState.conversationHistory.push({
             role: 'bot',
             content: response,
@@ -1082,15 +920,18 @@ function sendMessage() {
         chatState.messageCount++;
         saveChatState();
         
+        // Send email notification if enabled and first few messages
         if (CHATBOT_CONFIG.emailNotifications && chatState.messageCount <= 3) {
             sendEmailNotification(message, response);
         }
         
+        // Track event
         trackEvent('AI Chat', 'Message Sent', chatState.messageCount.toString());
         
     }, CHATBOT_CONFIG.typingDelay);
 }
 
+// Quick Question Handler
 function askQuestion(question) {
     const input = document.getElementById('chatInput');
     if (input) {
@@ -1099,6 +940,7 @@ function askQuestion(question) {
     }
 }
 
+// Add Message to Chat
 function addMessage(text, sender) {
     const messagesContainer = document.getElementById('chatMessages');
     if (!messagesContainer) return;
@@ -1116,6 +958,7 @@ function addMessage(text, sender) {
     contentDiv.className = 'message-content';
     
     const textP = document.createElement('p');
+    // Convert markdown-style bold to HTML
     const formattedText = text
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n/g, '<br>');
@@ -1125,35 +968,18 @@ function addMessage(text, sender) {
     messageDiv.appendChild(avatarDiv);
     messageDiv.appendChild(contentDiv);
     
-    DOMScheduler.write(() => {
-        messageDiv.style.opacity = '0';
-        messageDiv.style.transform = 'translateY(15px)';
-        messageDiv.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-        messagesContainer.appendChild(messageDiv);
-    });
+    messagesContainer.appendChild(messageDiv);
     
-    requestAnimationFrame(() => {
-        DOMScheduler.write(() => {
-            messageDiv.style.opacity = '1';
-            messageDiv.style.transform = 'translateY(0)';
-        });
-    });
-    
-    DOMScheduler.read(() => {
-        const scrollHeight = messagesContainer.scrollHeight;
-        DOMScheduler.write(() => {
-            messagesContainer.scrollTo({
-                top: scrollHeight,
-                behavior: 'smooth'
-            });
-        });
-    });
+    // Auto-scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+// Show Typing Indicator
 function showTypingIndicator() {
     const messagesContainer = document.getElementById('chatMessages');
     if (!messagesContainer) return;
     
+    // Remove existing indicator if any
     hideTypingIndicator();
     
     const typingDiv = document.createElement('div');
@@ -1173,49 +999,23 @@ function showTypingIndicator() {
         </div>
     `;
     
-    DOMScheduler.write(() => {
-        typingDiv.style.opacity = '0';
-        typingDiv.style.transform = 'translateY(10px)';
-        typingDiv.style.transition = 'all 0.3s ease';
-        messagesContainer.appendChild(typingDiv);
-    });
-    
-    requestAnimationFrame(() => {
-        DOMScheduler.write(() => {
-            typingDiv.style.opacity = '1';
-            typingDiv.style.transform = 'translateY(0)';
-        });
-    });
-    
-    DOMScheduler.read(() => {
-        const scrollHeight = messagesContainer.scrollHeight;
-        DOMScheduler.write(() => {
-            messagesContainer.scrollTo({
-                top: scrollHeight,
-                behavior: 'smooth'
-            });
-        });
-    });
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+// Hide Typing Indicator
 function hideTypingIndicator() {
     const indicator = document.getElementById('typing-indicator');
     if (indicator) {
-        DOMScheduler.write(() => {
-            indicator.style.opacity = '0';
-            indicator.style.transform = 'translateY(-10px)';
-        });
-        setTimeout(() => {
-            DOMScheduler.write(() => {
-                indicator.remove();
-            });
-        }, 300);
+        indicator.remove();
     }
 }
 
+// Get Bot Response (AI Logic)
 function getBotResponse(userMessage) {
     const message = userMessage.toLowerCase().trim();
     
+    // Check each category in knowledge base
     for (const [category, data] of Object.entries(knowledgeBase)) {
         if (category === 'default') continue;
         
@@ -1226,7 +1026,9 @@ function getBotResponse(userMessage) {
         }
     }
     
+    // Check for specific patterns
     if (message.match(/^(what|who|how|where|when|why|tell|show|can|do|does|is|are)/)) {
+        // Try to find partial matches
         for (const [category, data] of Object.entries(knowledgeBase)) {
             if (category === 'default') continue;
             
@@ -1238,12 +1040,14 @@ function getBotResponse(userMessage) {
         }
     }
     
+    // Return default response
     return knowledgeBase.default.response;
 }
 
 // ========================================
-// EMAIL NOTIFICATION (WEB3FORMS)
+// EMAIL NOTIFICATION SYSTEM (WEB3FORMS)
 // ========================================
+
 function sendEmailNotification(userQuestion, botResponse) {
     const formData = new FormData();
     formData.append('access_key', '36e8d043-01c0-41d2-99b4-0fda13264c67');
@@ -1290,6 +1094,7 @@ Sent from: ${window.location.href}
     });
 }
 
+// Fallback: Store notifications locally
 function storeNotificationLocally(question, response) {
     const notifications = JSON.parse(localStorage.getItem('chatNotifications') || '[]');
     notifications.push({
@@ -1299,6 +1104,7 @@ function storeNotificationLocally(question, response) {
         messageCount: chatState.messageCount
     });
     
+    // Keep only last 50 notifications
     if (notifications.length > 50) {
         notifications.shift();
     }
@@ -1307,6 +1113,7 @@ function storeNotificationLocally(question, response) {
     console.log('💾 Notification stored locally');
 }
 
+// Get Session Duration
 function getSessionDuration() {
     const now = new Date();
     const start = new Date(chatState.visitorInfo.startTime);
@@ -1318,6 +1125,7 @@ function getSessionDuration() {
     return `${minutes}m ${seconds}s`;
 }
 
+// Save Chat State
 function saveChatState() {
     try {
         sessionStorage.setItem('chatState', JSON.stringify({
@@ -1330,6 +1138,7 @@ function saveChatState() {
     }
 }
 
+// Load Chat State
 function loadChatState() {
     try {
         const saved = sessionStorage.getItem('chatState');
@@ -1337,10 +1146,7 @@ function loadChatState() {
             const parsed = JSON.parse(saved);
             chatState.messageCount = parsed.messageCount || 0;
             chatState.welcomeShown = parsed.welcomeShown || false;
-            chatState.visitorInfo = parsed.visitorInfo || { 
-                startTime: new Date(), 
-                questionsAsked: [] 
-            };
+            chatState.visitorInfo = parsed.visitorInfo || { startTime: new Date(), questionsAsked: [] };
         }
     } catch (e) {
         console.warn('Could not load chat state');
@@ -1348,7 +1154,7 @@ function loadChatState() {
 }
 
 // ========================================
-// GEOMETRIC PHOTO EFFECT - OPTIMIZED
+// GEOMETRIC PHOTO POP-OUT EFFECT
 // ========================================
 function initGeometricPhotoEffect() {
     const photoContainer = document.querySelector('.geometric-photo-container');
@@ -1356,99 +1162,54 @@ function initGeometricPhotoEffect() {
     const frame = document.querySelector('.geometric-frame');
     
     if (!photoContainer || !photo || !frame) {
+        console.warn('⚠️ Geometric photo elements not found');
         return;
     }
     
-    let mouseX = 0, mouseY = 0;
-    let currentX = 0, currentY = 0;
-    let animationFrameId = null;
-    
+    // Add subtle parallax effect on mouse move
     photoContainer.addEventListener('mousemove', (e) => {
-        DOMScheduler.read(() => {
-            const rect = photoContainer.getBoundingClientRect();
-            mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-            mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-        });
-    }, { passive: true });
-    
-    function animatePhoto() {
-        currentX += (mouseX - currentX) * 0.08;
-        currentY += (mouseY - currentY) * 0.08;
+        const rect = photoContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         
-        DOMScheduler.write(() => {
-            photo.style.transform = `
-                translateY(-8px) 
-                scale(1.03) 
-                rotateY(${currentX * 5}deg) 
-                rotateX(${-currentY * 5}deg)
-            `;
-            
-            frame.style.transform = `
-                translate(-50%, -50%) 
-                rotateY(${currentX * 3}deg) 
-                rotateX(${-currentY * 3}deg)
-            `;
-        });
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
         
-        if (Math.abs(currentX - mouseX) > 0.001 || Math.abs(currentY - mouseY) > 0.001) {
-            animationFrameId = requestAnimationFrame(animatePhoto);
-        }
-    }
-    
-    photoContainer.addEventListener('mouseenter', () => {
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        animationFrameId = requestAnimationFrame(animatePhoto);
+        const deltaX = (x - centerX) / centerX;
+        const deltaY = (y - centerY) / centerY;
+        
+        // Apply subtle tilt effect
+        photo.style.transform = `
+            translateY(-8px) 
+            scale(1.03) 
+            rotateY(${deltaX * 5}deg) 
+            rotateX(${-deltaY * 5}deg)
+        `;
+        
+        frame.style.transform = `
+            translate(-50%, -50%) 
+            rotateY(${deltaX * 3}deg) 
+            rotateX(${-deltaY * 3}deg)
+        `;
     });
     
+    // Reset on mouse leave
     photoContainer.addEventListener('mouseleave', () => {
-        mouseX = 0;
-        mouseY = 0;
-        
-        function resetPhoto() {
-            currentX += (0 - currentX) * 0.1;
-            currentY += (0 - currentY) * 0.1;
-            
-            DOMScheduler.write(() => {
-                photo.style.transform = `
-                    translateY(-8px) 
-                    scale(1.03) 
-                    rotateY(${currentX * 5}deg) 
-                    rotateX(${-currentY * 5}deg)
-                `;
-                
-                frame.style.transform = `
-                    translate(-50%, -50%) 
-                    rotateY(${currentX * 3}deg) 
-                    rotateX(${-currentY * 3}deg)
-                `;
-            });
-            
-            if (Math.abs(currentX) > 0.001 || Math.abs(currentY) > 0.001) {
-                animationFrameId = requestAnimationFrame(resetPhoto);
-            } else {
-                DOMScheduler.write(() => {
-                    photo.style.transform = '';
-                    frame.style.transform = 'translate(-50%, -50%)';
-                });
-            }
-        }
-        
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        animationFrameId = requestAnimationFrame(resetPhoto);
+        photo.style.transform = '';
+        frame.style.transform = 'translate(-50%, -50%)';
     });
     
+    // Photo load handler
     photo.addEventListener('load', () => {
-        DOMScheduler.write(() => {
-            photo.style.transition = 'opacity 0.8s ease';
-            photo.style.opacity = '1';
-        });
+        photo.style.opacity = '1';
+        console.log('✨ Geometric photo loaded');
     });
     
     console.log('✨ Geometric photo effect initialized');
 }
 
 // ========================================
-// PARTICLE BACKGROUND - OPTIMIZED
+// PARTICLE NETWORK BACKGROUND
 // ========================================
 function initParticleBackground() {
     if (window.innerWidth <= 768) {
@@ -1456,16 +1217,13 @@ function initParticleBackground() {
         return;
     }
 
-    const canvas = document.getElementById('particle-canvas');
-    if (!canvas) {
-        console.warn('⚠️ Particle canvas not found');
-        return;
-    }
-    
-    const ctx = canvas.getContext('2d', { alpha: true });
+    const canvas = document.createElement('canvas');
+    canvas.id = 'particle-canvas';
+    document.body.prepend(canvas);
+    const ctx = canvas.getContext('2d');
 
     const CONFIG = {
-        particleCount: window.PARTICLE_COUNT || 70,
+        particleCount: 90,
         minRadius: 1.5,
         maxRadius: 3,
         speed: 0.4,
@@ -1491,25 +1249,25 @@ function initParticleBackground() {
 
     const mouse = { x: -9999, y: -9999 };
 
-    window.addEventListener('mousemove', throttle((e) => {
+    window.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
-    }, 16), { passive: true });
+    });
 
     window.addEventListener('mouseleave', () => {
         mouse.x = -9999;
         mouse.y = -9999;
-    }, { passive: true });
+    });
 
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
 
-    window.addEventListener('resize', debounce(() => {
+    window.addEventListener('resize', () => {
         resize();
         initParticles();
-    }, 250), { passive: true });
+    });
 
     class Particle {
         constructor() {
@@ -1610,7 +1368,6 @@ function initParticleBackground() {
         }
     }
 
-    let animationId;
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const colour = getThemeColour();
@@ -1621,26 +1378,18 @@ function initParticleBackground() {
             p.draw(colour);
         }
 
-        animationId = requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
     }
-
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            cancelAnimationFrame(animationId);
-        } else {
-            animate();
-        }
-    });
 
     resize();
     initParticles();
     animate();
 
-    console.log('✨ Particle background initialized (60fps optimized)');
+    console.log('✨ Particle background initialized');
 }
 
 // ========================================
-// NAVIGATION - OPTIMIZED
+// NAVIGATION
 // ========================================
 function initNavigation() {
     const navbar = document.getElementById('navbar');
@@ -1648,22 +1397,13 @@ function initNavigation() {
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     
-    let lastScroll = 0;
-    window.addEventListener('scroll', throttle(() => {
-        DOMScheduler.read(() => {
-            const currentScroll = window.pageYOffset;
-            
-            DOMScheduler.write(() => {
-                if (currentScroll > 100) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-            
-            lastScroll = currentScroll;
-        });
-    }, 16), { passive: true });
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
     
     if (hamburger) {
         hamburger.addEventListener('click', () => {
@@ -1681,25 +1421,21 @@ function initNavigation() {
     
     const sections = document.querySelectorAll('section[id]');
     
-    window.addEventListener('scroll', throttle(() => {
-        DOMScheduler.read(() => {
-            const scrollY = window.pageYOffset;
+    window.addEventListener('scroll', () => {
+        const scrollY = window.pageYOffset;
+        
+        sections.forEach(section => {
+            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 100;
+            const sectionId = section.getAttribute('id');
+            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
             
-            sections.forEach(section => {
-                const sectionHeight = section.offsetHeight;
-                const sectionTop = section.offsetTop - 100;
-                const sectionId = section.getAttribute('id');
-                const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-                
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    DOMScheduler.write(() => {
-                        navLinks.forEach(link => link.classList.remove('active'));
-                        navLink?.classList.add('active');
-                    });
-                }
-            });
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                navLink?.classList.add('active');
+            }
         });
-    }, 100), { passive: true });
+    });
     
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -1708,13 +1444,10 @@ function initNavigation() {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                DOMScheduler.read(() => {
-                    const offsetTop = targetSection.offsetTop - 80;
-                    
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+                const offsetTop = targetSection.offsetTop - 80;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
                 });
             }
         });
@@ -1722,7 +1455,7 @@ function initNavigation() {
 }
 
 // ========================================
-// THEME TOGGLE - OPTIMIZED
+// MULTI-THEME TOGGLE
 // ========================================
 function initThemeToggle() {
     const themeButtons = document.querySelectorAll('.theme-btn');
@@ -1731,39 +1464,26 @@ function initThemeToggle() {
         button.addEventListener('click', () => {
             const theme = button.getAttribute('data-theme');
             setTheme(theme, true);
-            
-            DOMScheduler.write(() => {
-                button.style.transform = 'scale(0.9)';
-            });
-            setTimeout(() => {
-                DOMScheduler.write(() => {
-                    button.style.transform = 'scale(1)';
-                });
-            }, 150);
         });
     });
 }
 
 function setTheme(theme, showNotificationFlag = false) {
-    DOMScheduler.write(() => {
-        document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-        
-        document.body.classList.remove('light-mode', 'blackwhite-mode');
-        
-        document.querySelectorAll('.theme-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        
-        if (theme === 'light') {
-            document.body.classList.add('light-mode');
-            document.getElementById('theme-light')?.classList.add('active');
-        } else if (theme === 'blackwhite') {
-            document.body.classList.add('blackwhite-mode');
-            document.getElementById('theme-bw')?.classList.add('active');
-        } else {
-            document.getElementById('theme-dark')?.classList.add('active');
-        }
+    document.body.classList.remove('light-mode', 'blackwhite-mode');
+    
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
     });
+    
+    if (theme === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('theme-light')?.classList.add('active');
+    } else if (theme === 'blackwhite') {
+        document.body.classList.add('blackwhite-mode');
+        document.getElementById('theme-bw')?.classList.add('active');
+    } else {
+        document.getElementById('theme-dark')?.classList.add('active');
+    }
     
     localStorage.setItem('theme', theme);
     
@@ -1773,7 +1493,7 @@ function setTheme(theme, showNotificationFlag = false) {
             'light': 'Light Mode',
             'blackwhite': 'Black & White Mode'
         };
-        showNotification(`Switched to ${themeNames[theme]} ✨`, 'success');
+        showNotification(`Switched to ${themeNames[theme]}`, 'success');
     }
 }
 
@@ -1783,7 +1503,7 @@ function loadTheme() {
 }
 
 // ========================================
-// TYPING EFFECT - OPTIMIZED
+// TYPING EFFECT
 // ========================================
 function initTypingEffect() {
     const typingText = document.querySelector('.typing-text');
@@ -1802,23 +1522,19 @@ function initTypingEffect() {
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingSpeed = window.TYPING_SPEED || 100;
+    let typingSpeed = 100;
     
     function type() {
         const currentText = texts[textIndex];
         
         if (isDeleting) {
-            DOMScheduler.write(() => {
-                typingText.textContent = currentText.substring(0, charIndex - 1);
-            });
+            typingText.textContent = currentText.substring(0, charIndex - 1);
             charIndex--;
             typingSpeed = 50;
         } else {
-            DOMScheduler.write(() => {
-                typingText.textContent = currentText.substring(0, charIndex + 1);
-            });
+            typingText.textContent = currentText.substring(0, charIndex + 1);
             charIndex++;
-            typingSpeed = window.TYPING_SPEED || 100;
+            typingSpeed = 100;
         }
         
         if (!isDeleting && charIndex === currentText.length) {
@@ -1837,74 +1553,47 @@ function initTypingEffect() {
 }
 
 // ========================================
-// COUNTER ANIMATION - OPTIMIZED
+// COUNTER ANIMATION
 // ========================================
 function initCounters() {
-    // Animate a single counter element
-    const animateCounter = (el) => {
-        const text = el.textContent.trim();
-        const suffix = text.replace(/[0-9]/g, ''); // extracts '+' or 'x' etc
-        const target = parseInt(text.replace(/\D/g, ''), 10); // extracts number
-
-        if (isNaN(target)) return;
-
+    const counters = document.querySelectorAll('.counter');
+    
+    const animateCounter = (counter) => {
+        const target = +counter.getAttribute('data-target');
         const duration = 2000;
-        const startTime = performance.now();
-
-        const update = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-
-            // Ease-out cubic — same smooth feel as projects section
-            const easedProgress = 1 - Math.pow(1 - progress, 3);
-            const currentValue = Math.floor(easedProgress * target);
-
-            DOMScheduler.write(() => {
-                el.textContent = currentValue + suffix;
-            });
-
-            if (progress < 1) {
-                requestAnimationFrame(update);
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += increment;
+            
+            if (current < target) {
+                counter.textContent = Math.ceil(current);
+                requestAnimationFrame(updateCounter);
             } else {
-                DOMScheduler.write(() => {
-                    el.textContent = target + suffix;
-                });
+                counter.textContent = target;
             }
         };
-
-        requestAnimationFrame(update);
+        
+        updateCounter();
     };
-
-    // Select BOTH hero stats and projects stats
-    const heroStats = document.querySelectorAll('.hero-stats .stat-number');
-    const projectStats = document.querySelectorAll('.projects-stats-summary .stat-number');
-
-    const allCounters = [...heroStats, ...projectStats];
-
-    if (allCounters.length === 0) return;
-
-    // Re-triggers every time user scrolls past — NO unobserve()
+    
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.4,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    allCounters.forEach(counter => {
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => {
         counterObserver.observe(counter);
     });
-
-    globalObservers.push(counterObserver);
-    console.log(`✅ ${allCounters.length} counters initialized (re-triggering on scroll)`);
 }
 
 // ========================================
-// SCROLL ANIMATIONS - OPTIMIZED
+// SCROLL ANIMATIONS
 // ========================================
 function initScrollAnimations() {
     const animateElements = document.querySelectorAll(
@@ -1913,38 +1602,27 @@ function initScrollAnimations() {
     );
     
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach(entry => {
             if (entry.isIntersecting) {
-                setTimeout(() => {
-                    DOMScheduler.write(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0) scale(1)';
-                    });
-                }, index * 50);
-                
-                observer.unobserve(entry.target);
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     }, {
-        threshold: 0.05,
-        rootMargin: '0px 0px -40px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
     
     animateElements.forEach(element => {
-        DOMScheduler.write(() => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(20px) scale(0.98)';
-            element.style.transition = `all ${window.ANIMATION_DURATION || 1}s cubic-bezier(0.4, 0, 0.2, 1)`;
-            element.style.willChange = 'transform, opacity';
-        });
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(element);
     });
-    
-    globalObservers.push(observer);
 }
 
 // ========================================
-// PROJECT FILTERS - OPTIMIZED
+// PROJECT FILTERS
 // ========================================
 function initProjectFilters() {
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -1959,33 +1637,29 @@ function initProjectFilters() {
             
             const filterValue = btn.getAttribute('data-filter');
             
-            projectCards.forEach((card, index) => {
-                DOMScheduler.read(() => {
-                    const category = card.getAttribute('data-category');
-                    
-                    DOMScheduler.write(() => {
-                        if (filterValue === 'all' || category === filterValue) {
-                            card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0) scale(1)';
-                            }, index * 50);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(10px) scale(0.95)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
-                });
+            projectCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                
+                if (filterValue === 'all' || category === filterValue) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
             });
         });
     });
 }
 
 // ========================================
-// SKILL BARS - OPTIMIZED
+// SKILL BARS ANIMATION
 // ========================================
 function initSkillBars() {
     const skillBars = document.querySelectorAll('.skill-progress');
@@ -1993,21 +1667,11 @@ function initSkillBars() {
     const skillObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                DOMScheduler.read(() => {
-                    const width = entry.target.style.width;
-                    
-                    DOMScheduler.write(() => {
-                        entry.target.style.width = '0';
-                        entry.target.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                    });
-                    
-                    setTimeout(() => {
-                        DOMScheduler.write(() => {
-                            entry.target.style.width = width;
-                        });
-                    }, 100);
-                });
-                
+                const width = entry.target.style.width;
+                entry.target.style.width = '0';
+                setTimeout(() => {
+                    entry.target.style.width = width;
+                }, 100);
                 skillObserver.unobserve(entry.target);
             }
         });
@@ -2016,12 +1680,10 @@ function initSkillBars() {
     skillBars.forEach(bar => {
         skillObserver.observe(bar);
     });
-    
-    globalObservers.push(skillObserver);
 }
 
 // ========================================
-// CONTACT FORM - OPTIMIZED
+// CONTACT FORM
 // ========================================
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
@@ -2040,38 +1702,23 @@ function initContactForm() {
         
         const submitBtn = contactForm.querySelector('.btn-primary');
         const originalText = submitBtn.innerHTML;
-        
-        DOMScheduler.write(() => {
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            submitBtn.style.transform = 'scale(0.98)';
-        });
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
         
         try {
             await sendContactEmail(formData);
-            showNotification('✅ Message sent successfully! I\'ll get back to you soon.', 'success');
+            showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
             contactForm.reset();
-            
-            DOMScheduler.write(() => {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-            });
-            setTimeout(() => {
-                DOMScheduler.write(() => {
-                    submitBtn.innerHTML = originalText;
-                });
-            }, 2000);
-            
         } catch (error) {
-            showNotification('❌ Failed to send message. Please try again.', 'error');
+            showNotification('Failed to send message. Please try again.', 'error');
         } finally {
-            DOMScheduler.write(() => {
-                submitBtn.disabled = false;
-                submitBtn.style.transform = 'scale(1)';
-            });
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
         }
     });
 }
 
+// Send Contact Form via Web3Forms
 function sendContactEmail(data) {
     return new Promise((resolve, reject) => {
         const formData = new FormData();
@@ -2110,6 +1757,7 @@ Time: ${new Date().toLocaleString()}
         })
         .catch(error => {
             console.error('❌ Contact form error:', error);
+            // Fallback to mailto
             const mailtoLink = `mailto:ca.manish.shrestha@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(data.message)}%0D%0A%0D%0AFrom: ${encodeURIComponent(data.name)} (${encodeURIComponent(data.email)})`;
             window.location.href = mailtoLink;
             resolve();
@@ -2118,19 +1766,12 @@ Time: ${new Date().toLocaleString()}
 }
 
 // ========================================
-// NOTIFICATION SYSTEM - OPTIMIZED
+// NOTIFICATION SYSTEM
 // ========================================
 function showNotification(message, type = 'success') {
     const existingNotification = document.querySelector('.notification');
     if (existingNotification) {
-        DOMScheduler.write(() => {
-            existingNotification.style.animation = 'slideOut 0.3s ease';
-        });
-        setTimeout(() => {
-            DOMScheduler.write(() => {
-                existingNotification.remove();
-            });
-        }, 300);
+        existingNotification.remove();
     }
     
     const notification = document.createElement('div');
@@ -2138,7 +1779,7 @@ function showNotification(message, type = 'success') {
     notification.innerHTML = `
         <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
         <span>${message}</span>
-        <button class="notification-close" onclick="this.parentElement.style.animation='slideOut 0.3s ease'; setTimeout(() => this.parentElement.remove(), 300)" aria-label="Close">
+        <button class="notification-close" onclick="this.parentElement.remove()" aria-label="Close">
             <i class="fas fa-times"></i>
         </button>
     `;
@@ -2150,34 +1791,27 @@ function showNotification(message, type = 'success') {
         background: ${type === 'success' ? '#10b981' : '#ef4444'};
         color: white;
         padding: 1rem 1.5rem;
-        border-radius: 12px;
+        border-radius: 8px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         display: flex;
         align-items: center;
         gap: 1rem;
         z-index: 10000;
-        animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: slideIn 0.3s ease;
         max-width: 350px;
     `;
     
-    DOMScheduler.write(() => {
-        document.body.appendChild(notification);
-    });
+    document.body.appendChild(notification);
     
     setTimeout(() => {
         if (notification.parentElement) {
-            DOMScheduler.write(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-            });
-            setTimeout(() => {
-                DOMScheduler.write(() => {
-                    notification.remove();
-                });
-            }, 300);
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
         }
     }, 4000);
 }
 
+// Add notification animations
 const notificationStyle = document.createElement('style');
 notificationStyle.textContent = `
     @keyframes slideIn {
@@ -2196,59 +1830,41 @@ notificationStyle.textContent = `
         padding: 0.25rem;
         margin-left: auto;
         opacity: 0.8;
-        transition: all 0.2s;
+        transition: opacity 0.2s;
     }
-    .notification-close:hover { 
-        opacity: 1;
-        transform: scale(1.1);
-    }
+    .notification-close:hover { opacity: 1; }
 `;
 document.head.appendChild(notificationStyle);
 
 // ========================================
-// SCROLL TO TOP - OPTIMIZED
+// SCROLL TO TOP BUTTON
 // ========================================
 function initScrollToTop() {
     const scrollTopBtn = document.getElementById('scroll-top');
     
     if (!scrollTopBtn) return;
     
-    window.addEventListener('scroll', throttle(() => {
-        DOMScheduler.read(() => {
-            const scrollY = window.scrollY;
-            
-            DOMScheduler.write(() => {
-                if (scrollY > 300) {
-                    scrollTopBtn.classList.add('active');
-                } else {
-                    scrollTopBtn.classList.remove('active');
-                }
-            });
-        });
-    }, 100), { passive: true });
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('active');
+        } else {
+            scrollTopBtn.classList.remove('active');
+        }
+    });
     
     scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        
-        DOMScheduler.write(() => {
-            scrollTopBtn.style.transform = 'scale(0.9)';
-        });
-        setTimeout(() => {
-            DOMScheduler.write(() => {
-                scrollTopBtn.style.transform = 'scale(1)';
-            });
-        }, 150);
     });
 }
 
 // ========================================
-// CUSTOM CURSOR - OPTIMIZED
+// CUSTOM CURSOR
 // ========================================
 function initCustomCursor() {
-    if (window.innerWidth < 1024 || !window.ENABLE_CUSTOM_CURSOR) return;
+    if (window.innerWidth < 1024) return;
     
     let cursor = document.querySelector('.cursor');
     let cursorFollower = document.querySelector('.cursor-follower');
@@ -2256,14 +1872,12 @@ function initCustomCursor() {
     if (!cursor) {
         cursor = document.createElement('div');
         cursor.className = 'cursor';
-        cursor.style.willChange = 'transform';
         document.body.appendChild(cursor);
     }
     
     if (!cursorFollower) {
         cursorFollower = document.createElement('div');
         cursorFollower.className = 'cursor-follower';
-        cursorFollower.style.willChange = 'transform';
         document.body.appendChild(cursorFollower);
     }
     
@@ -2273,28 +1887,22 @@ function initCustomCursor() {
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        
-        DOMScheduler.write(() => {
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-        });
-    }, { passive: true });
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+    });
     
     function animateFollower() {
-        const speed = 0.12;
+        const speed = 0.15;
         followerX += (mouseX - followerX) * speed;
         followerY += (mouseY - followerY) * speed;
-        
-        DOMScheduler.write(() => {
-            cursorFollower.style.left = followerX + 'px';
-            cursorFollower.style.top = followerY + 'px';
-        });
-        
+        cursorFollower.style.left = followerX + 'px';
+        cursorFollower.style.top = followerY + 'px';
         requestAnimationFrame(animateFollower);
     }
     
     animateFollower();
     
+    // Interactive elements including badges
     const interactiveElements = document.querySelectorAll(
         'a, button, .btn, .project-card, .cert-card, .qual-card, .badge-card, ' +
         '.info-card, .tech-item, .filter-btn, .social-links a, ' +
@@ -2305,22 +1913,15 @@ function initCustomCursor() {
     
     interactiveElements.forEach(element => {
         element.addEventListener('mouseenter', () => {
-            DOMScheduler.write(() => {
-                cursor.style.transition = 'transform 0.2s ease, background 0.2s ease';
-                cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                cursor.style.background = 'rgba(0, 245, 255, 0.5)';
-                
-                cursorFollower.style.transition = 'transform 0.2s ease';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.8)';
-            });
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+            cursor.style.background = 'rgba(0, 245, 255, 0.5)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.8)';
         });
         
         element.addEventListener('mouseleave', () => {
-            DOMScheduler.write(() => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursor.style.background = 'var(--accent-purple)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-            });
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.background = 'var(--primary)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
         });
     });
     
@@ -2328,23 +1929,20 @@ function initCustomCursor() {
     interactiveElements.forEach(el => el.style.cursor = 'none');
     
     document.addEventListener('mouseleave', () => {
-        DOMScheduler.write(() => {
-            cursor.style.opacity = '0';
-            cursorFollower.style.opacity = '0';
-        });
-    }, { passive: true });
+        cursor.style.opacity = '0';
+        cursorFollower.style.opacity = '0';
+    });
     
     document.addEventListener('mouseenter', () => {
-        DOMScheduler.write(() => {
-            cursor.style.opacity = '1';
-            cursorFollower.style.opacity = '1';
-        });
-    }, { passive: true });
+        cursor.style.opacity = '1';
+        cursorFollower.style.opacity = '1';
+    });
 }
 
 // ========================================
 // UTILITY FUNCTIONS
 // ========================================
+
 function initLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
     
@@ -2360,7 +1958,6 @@ function initLazyLoading() {
     });
     
     images.forEach(img => imageObserver.observe(img));
-    globalObservers.push(imageObserver);
 }
 
 function initParallax() {
@@ -2368,15 +1965,10 @@ function initParallax() {
     
     if (!heroBackground) return;
     
-    window.addEventListener('scroll', throttle(() => {
-        DOMScheduler.read(() => {
-            const scrolled = window.pageYOffset;
-            
-            DOMScheduler.write(() => {
-                heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
-            });
-        });
-    }, 16), { passive: true });
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+    });
 }
 
 function initCopyEmail() {
@@ -2389,7 +1981,7 @@ function initCopyEmail() {
                 const email = link.textContent;
                 
                 navigator.clipboard.writeText(email).then(() => {
-                    showNotification(`📧 Email "${email}" copied!`, 'success');
+                    showNotification(`Email "${email}" copied!`, 'success');
                 });
             }
         });
@@ -2399,42 +1991,30 @@ function initCopyEmail() {
 function initPageVisibility() {
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
-            DOMScheduler.write(() => {
-                document.body.style.animationPlayState = 'paused';
-            });
+            document.body.style.animationPlayState = 'paused';
         } else {
-            DOMScheduler.write(() => {
-                document.body.style.animationPlayState = 'running';
-            });
+            document.body.style.animationPlayState = 'running';
         }
     });
 }
 
 function initKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K: Focus contact form
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
             e.preventDefault();
             document.getElementById('name')?.focus();
         }
         
+        // Escape: Close chat/menu
         if (e.key === 'Escape') {
             closeChat();
             document.getElementById('hamburger')?.classList.remove('active');
             document.getElementById('nav-menu')?.classList.remove('active');
-            
-            const notification = document.querySelector('.notification');
-            if (notification) {
-                DOMScheduler.write(() => {
-                    notification.style.animation = 'slideOut 0.3s ease';
-                });
-                setTimeout(() => {
-                    DOMScheduler.write(() => {
-                        notification.remove();
-                    });
-                }, 300);
-            }
+            document.querySelector('.notification')?.remove();
         }
         
+        // Ctrl + /: Toggle chat
         if ((e.ctrlKey || e.metaKey) && e.key === '/') {
             e.preventDefault();
             toggleChat();
@@ -2472,17 +2052,6 @@ window.addEventListener('unhandledrejection', (e) => {
 });
 
 // ========================================
-// CLEANUP
-// ========================================
-function cleanup() {
-    globalObservers.forEach(obs => obs.disconnect());
-    globalObservers = [];
-    console.log('🧹 Performance cleanup completed');
-}
-
-window.addEventListener('beforeunload', cleanup);
-
-// ========================================
 // ADDITIONAL INITIALIZATIONS
 // ========================================
 window.addEventListener('load', () => {
@@ -2493,20 +2062,14 @@ window.addEventListener('load', () => {
     initKeyboardShortcuts();
     trackPageView();
     
+    // Hide loader if exists
     const loader = document.querySelector('.loader');
     if (loader) {
-        DOMScheduler.write(() => {
-            loader.style.transition = 'opacity 0.5s ease';
-            loader.style.opacity = '0';
-        });
-        setTimeout(() => {
-            DOMScheduler.write(() => {
-                loader.remove();
-            });
-        }, 500);
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 500);
     }
     
-    console.log('✅ All features loaded - ULTRA-SMOOTH mode activated!');
+    console.log('✅ All features loaded!');
 });
 
 // ========================================
@@ -2531,12 +2094,4 @@ console.log(
 console.log(
     '%c📜 75+ Professional Certifications!',
     'color: #ff006e; font-size: 12px;'
-);
-console.log(
-    '%c🚀 60fps animations | Hardware accelerated | Butter-smooth experience!',
-    'color: #10b981; font-size: 11px; font-weight: bold;'
-);
-console.log(
-    '%c✨ Performance Optimized | Layout-thrash free | Device adaptive',
-    'color: #00f5ff; font-size: 11px;'
 );
