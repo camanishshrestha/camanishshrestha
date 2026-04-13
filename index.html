@@ -1439,20 +1439,20 @@
                 </p>
                 <div class="hero-stats">
                     <div class="stat-item">
-                        <div class="stat-number">8+</div>
-                        <div class="stat-label">Years Experience</div>
+                        <h3 class="counter" data-target="8">0</h3>
+                        <p>Years Experience</p>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">75+</div>
-                        <div class="stat-label">Certifications</div>
+                        <h3 class="counter" data-target="75">0</h3>
+                        <p>Certifications</p>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">52+</div>
-                        <div class="stat-label">Projects Completed</div>
+                        <h3 class="counter" data-target="52">0</h3>
+                        <p>Projects Completed</p>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">107+</div>
-                        <div class="stat-label">Companies Audited</div>
+                        <h3 class="counter" data-target="107">0</h3>
+                        <p>Companies Audited</p>
                     </div>
                 </div>
                 <div class="hero-buttons">
@@ -4781,7 +4781,43 @@
             });
         });
 
+        // Animate counters on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
 
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-number, .tech-stat-number');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.innerText.replace('+', ''));
+                        if (!isNaN(target)) {
+                            animateCounter(counter, target);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.innerText = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.innerText = Math.floor(current) + '+';
+                }
+            }, 30);
+        }
+
+        // Observe stats sections
+        document.querySelectorAll('.projects-stats-summary, .tech-stats-bar').forEach(section => {
+            counterObserver.observe(section);
+        });
     </script>
 </body>
 </html>
