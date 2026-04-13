@@ -3183,3 +3183,39 @@ body.blackwhite-mode .footer {
 /* ========================================
    END OF OPTIMIZED STYLESHEET
    ======================================== */
+/* ========================================
+   HERO STATS — MATCH PROJECTS STATS STYLE
+   ======================================== */
+.hero-stats .stat-item {
+    text-align: center;
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(0, 245, 255, 0.1);
+    transition: var(--transition-smooth);
+    will-change: transform;
+}
+
+.hero-stats .stat-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.hero-stats .stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+    line-height: 1;
+}
+
+.hero-stats .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
