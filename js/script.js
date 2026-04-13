@@ -1643,13 +1643,6 @@ function initScrollAnimations() {
         '.project-card, .info-card, .about-text, .geometric-photo-container'
     );
 
-    // Protect hero elements from being hidden
-    const protectedElements = document.querySelectorAll(
-        '.hero-badge, .hero-title, .hero-subtitle, .hero-description, ' +
-        '.hero-stats, .hero-buttons, .social-links, .hero-quote, ' +
-        '.typing-text, .badge-dot, .scroll-indicator'
-    );
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1663,29 +1656,13 @@ function initScrollAnimations() {
     });
 
     animateElements.forEach(element => {
-        // Skip if element is inside hero section
-        if (element.closest('.hero')) return;
-
-        // Skip if element is a protected hero element
-        let isProtected = false;
-        protectedElements.forEach(protected => {
-            if (element === protected || element.contains(protected)) {
-                isProtected = true;
-            }
-        });
-        if (isProtected) return;
+        // ✅ Skip ANY element inside the hero section
+        if (element.closest('#home')) return;
 
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
         element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(element);
-    });
-
-    // Make sure all protected hero elements are always visible
-    protectedElements.forEach(element => {
-        element.style.opacity = '1';
-        element.style.transform = 'none';
-        element.style.visibility = 'visible';
     });
 }
 
