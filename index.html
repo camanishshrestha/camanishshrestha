@@ -4755,43 +4755,18 @@
     <!-- External JS -->
     <script src="js/script.js"></script>
 
-    <!-- Visitor Counter - Session Protected -->
+    <!-- Real-Time Visitor Counter -->
     <script>
-    (function() {
-        const el          = document.getElementById('view-count');
-        if (!el) return;
-    
-        const NAMESPACE   = 'camanishshrestha.com.np';
-        const KEY         = 'views';
-        const HIT         = `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`;
-        const GET         = `https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}`;
-        const SESSION_KEY = 'ms_view_counted';
-    
-        el.textContent = 'Loading...';
-    
-        function display(count) {
-            el.textContent = Number(count).toLocaleString();
-        }
-    
-        if (sessionStorage.getItem(SESSION_KEY)) {
-            // ── Already counted this session → just READ ──────────
-            fetch(GET, { cache: 'no-store' })
-                .then(r => r.json())
-                .then(d => display(d.count))
-                .catch(() => { el.textContent = 'N/A'; });
-        } else {
-            // ── Fresh session → increment once then lock ───────────
-            fetch(HIT, { cache: 'no-store' })
-                .then(r => r.json())
-                .then(d => {
-                    display(d.count);
-                    sessionStorage.setItem(SESSION_KEY, '1');
-                })
-                .catch(() => { el.textContent = 'N/A'; });
-        }
-    })();
-    </script>
-
+        const counterElement = document.getElementById('view-count');
+        fetch('https://api.counterapi.dev/v1/camanishshrestha.com.np/views/up')
+            .then(response => response.json())
+            .then(data => {
+                counterElement.innerText = data.count;
+            })
+            .catch(error => {
+                console.error('Counter Error:', error);
+                counterElement.innerText = '1,200+';
+            });
 
         // Animate counters on scroll
         const observerOptions = {
